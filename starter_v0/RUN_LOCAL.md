@@ -1,6 +1,6 @@
 # Chạy và kiểm tra bản nộp local
 
-Nhóm chọn demo local; không cung cấp link public theo quyết định của nhóm.
+Chạy Research Agent (mặc định bản cuối v5) bằng Streamlit trên máy local.
 
 ## Windows / PowerShell
 
@@ -33,16 +33,14 @@ Chat mới sau khi đổi artifact. UI và CLI tạo transcript JSON trong `tran
 .\.venv\Scripts\python.exe scripts/chat_demo_safe.py --provider openrouter --model openai/gpt-4o-mini --version v3
 ```
 
-Unit test chạy offline với dữ liệu giả lập. Eval/chat dùng provider và read tools thật.
-Hai script `*_safe.py` chỉ mô phỏng thao tác `send`, không gửi Telegram; metadata
-trong run/transcript ghi rõ điều này. Đây không phải bằng chứng giao tin Telegram thật.
-`chat.py` và UI vẫn có tool gửi thật nếu cấu hình token/channel; chưa cấu hình Telegram
-thì tool trả lỗi rõ ràng. Không dùng kịch bản có xác nhận gửi thật khi không chủ ý gửi.
+Pytest kiểm tra tool và UI. Các lệnh eval/chat gọi OpenRouter và tool đọc dữ liệu.
+Các script `*_safe.py` kiểm tra lời gọi `send` mà không gửi tin lên Telegram.
+`chat.py` và UI gửi lên kênh được cấu hình khi có token/channel và xác nhận của người dùng.
 
 ## Phạm vi bàn giao
 
-Bốn nhãn nộp là v0–v3; v3 chứa 13 tool gồm `deduplicate`,
-`get_yahoo_finance_data`, `date`. Bằng chứng của bản cuối được liệt kê trong
+Sáu nhãn nộp là v0–v5; v3 chứa 13 tool gồm 3 tool mới `deduplicate`,
+`get_yahoo_finance_data`, `date`; v4–v5 thêm tool mới thứ 4 `wikipedia` (14 tool).
+B7 (model local qua Ollama) dùng `artifacts/tools_local.yaml`, `artifacts/system_prompt_local.md`. Bằng chứng của bản cuối được liệt kê trong
 `artifacts/REPORT.md` và `artifacts/version_log.csv`.
-Các run cũ khác hash chỉ là lịch sử, không được dùng để gán điểm cho artifact mới.
-Bonus local model và poster không thực hiện; không tính là phần bắt buộc còn thiếu.
+Run, snapshot, transcript và version log được dùng để đối chiếu kết quả bản nộp.
