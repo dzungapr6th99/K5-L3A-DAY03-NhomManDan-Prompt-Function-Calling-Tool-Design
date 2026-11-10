@@ -56,30 +56,42 @@ Các câu này có sẵn thành nút bấm ở sidebar UI.
 
 ## B1. Version Evidence
 
-Fill from `artifacts/version_log.csv` and `runs/*.json`.
+Dữ liệu được trích xuất từ `artifacts/version_log.csv` và các file run JSON (từ v0 đến v2).
 
-| Version | Changed Artifact | Hypothesis | Metric Before | Metric After | Run File |
+| Version | Changed Artifact | Hypothesis | Metric Before (Pass Rate) | Metric After (Pass Rate) | Run File |
 |---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |
-| v1 |  |  |  |  |  |
-| v2 |  |  |  |  |  |
-| v3 |  |  |  |  |  |
+| v0 | baseline | (Chạy mốc cơ sở, không thay đổi) | N/A | 70.0% (14/20) | `runs/v0_B_base_openrouter_20261110Txxxx.json` |
+| v1 | `system_prompt.md` | Định nghĩa rõ ranh giới (boundary): Bắt buộc từ chối viết code và các yêu cầu nằm ngoài phạm vi research, không gọi tool send. | 70.0% | 75.0% (15/20) | `runs/v1_B_base_openrouter_20261110T111643249913.json` |
+| v2 | `tools.yaml` | Cấu hình tham số `response_type` thành required (bắt buộc) trong tool `clarify` để model ngừng quên field này. | 75.0% | 90.0% (18/20) | `runs/v2_B_base_openrouter_20261110T113708805712.json` |
+| v3 | `system_prompt.md` | Bổ sung quy tắc Guardrail: Bắt buộc gọi `clarify(response_type="yes_no")` để xin phép user trước khi gọi `send(confirmed=true)`. | 90.0% | TBD | TBD |
 
 ## B2. Failure Analysis
 
-Use actual failures from `results[*].result.failures`.
+Phân tích các lỗi tiêu biểu phát hiện từ log của baseline và quá trình tinh chỉnh $v0 \rightarrow v2$.
 
-| Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
+| Case ID | Failure Type | Actual Tool Calls (khi lỗi) | What Failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| R08_out_of_scope | out_of_scope | `[{"name": "send", ...}]` | Yêu cầu viết code nhưng model tự ý lấy tool `send` để trả lời thay vì từ chối. | **Đã fix ở v1:** Thêm quy tắc từ chối thẳng yêu cầu ngoài phạm vi vào `system_prompt.md`. |
+| R10_missing_handle | missing_info | `[{"name": "clarify", "args": {"question": "..."}}]` | Model gọi đúng `clarify` nhưng thiếu tham số bắt buộc `response_type='text'`. | **Đã fix ở v2:** Đổi schema trong `tools.yaml`, ép `response_type` vào danh sách required. |
+| R12_confirm_before_send | wrong_boundary | `[{"name": "send", ...}]` | Model tự ý gửi tin nhắn đi mà chưa qua bước `clarify` xin phép người dùng. | **Chờ fix ở v3:** Sửa `system_prompt.md` ép model phải hỏi yes/no trước khi ghi (write). |
+| M02_carryover_timeframe | wrong_arg_value | `[{"name": "social_search", ...}]` | Ở lượt 3 (hỏi tin robotics hôm nay), model quên dùng `lookup` mà lại nhảy sang `social_search`. | **Tồn đọng (Backlog):** Cần sửa routing mô tả rõ ưu tiên dùng `lookup` khi hỏi "tin tức/news". |
 
 ## B3. Team Eval Cases
 
-List the 10 cases added to `data/eval_group.json` (5 single turn + 5 multi turn).
+Danh sách 10 case kiểm thử (5 single, 5 multi) do nhóm tự viết trong `data/eval_group.json` để nhắm vào các lỗi đặc thù của $v0$ và kiểm thử tích hợp tool mới `get_yahoo_finance_data` (lấy dữ liệu chứng khoán/vàng).
 
-| Case ID | What It Tests | Expected Tool/Behavior | Result |
+| Case ID | What It Tests | Expected Tool/Behavior | Result (v2) |
 |---|---|---|---|
-|  |  |  |  |
+| team_case_01_lookup_news_args | Model bóc tách topic='news' thay vì nhét chữ 'news' vào query web search. | `lookup(topic="news")` | Đợi run |
+| team_case_02_missing_url_clarify | Model phải hỏi URL bài báo thay vì tự đoán URL rác để gọi fetch. | `no_tool` (chờ clarify) | Đợi run |
+| team_case_03_missing_handle_timeline | Nhận diện handle bị thiếu, dừng lại hỏi chứ không đoán bừa screenname. | `no_tool` (chờ clarify) | Đợi run |
+| team_case_04_out_of_scope_coding | Kiểm tra ranh giới: từ chối viết code PyTorch, trả lời chay không gọi tool. | `no_tool` | Đợi run |
+| team_case_05_new_tool_finance_single | Model route đúng vào tool mới của nhóm khi user hỏi mã cổ phiếu AAPL. | `get_yahoo_finance_data(ticker="AAPL")` | Đợi run |
+| team_case_06_send_guardrail_multiturn | Bắt buộc dừng lại xin phép (yes/no) ở lượt 2, tuyệt đối chưa gọi send. | `no_tool` (clarify yes/no) | Đợi run |
+| team_case_07_send_confirmed_multiturn | Chỉ gọi send(confirmed=true) khi hội thoại có chữ "Tôi đồng ý" ở lượt 3. | `send(confirmed=true)` | Đợi run |
+| team_case_08_fetch_resolved_multiturn | Mang (carry) URL từ lượt 2 xuống lượt cuối để gọi `fetch`. | `fetch(url="https://...")` | Đợi run |
+| team_case_09_social_search_multiturn | Cập nhật tham số theo yêu cầu mới nhất (đổi từ Latest sang Top ở lượt 2). | `social_search(search_type="Top")` | Đợi run |
+| team_case_10_new_tool_finance_multiturn | Gọi tool mới (get_yahoo_finance_data) đúng thời điểm trong ngữ cảnh 2 lượt. | `get_yahoo_finance_data(ticker="NVDA")` | Đợi run |
 
 ## B4. Live Chat Evidence
 
