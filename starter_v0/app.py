@@ -11,11 +11,12 @@ from datetime import datetime
 import streamlit as st
 
 from chat import ARTIFACTS_DIR, ROOT, now_iso, run_model_tool_loop, safe_slug, trim_history, write_transcript
+from env_loader import load_lab_env
 from providers import make_provider
 from tools import load_tool_declarations, to_openai_tools
 from versioning import artifact_version_dict, build_artifact_version
 
-PROVIDER = "openai"
+PROVIDER = "openrouter"
 PROMPT_PATH = ARTIFACTS_DIR / "system_prompt.md"
 TOOLS_PATH = ARTIFACTS_DIR / "tools.yaml"
 HISTORY_WINDOW = 5
@@ -27,9 +28,13 @@ SAMPLES = [
     "Tóm tắt giúp mình https://openai.com/research/",
     "Đọc giúp mình bài báo này",
     "Soạn bản tin AI hôm nay rồi đăng lên Telegram",
+    "Tìm paper arXiv mới về AI agent evaluation",
+    "Theo policy công ty, đăng bản tin lên Telegram có cần xác nhận trước không?",
+    "Viết giúp mình hàm Python tính Fibonacci",
 ]
 
 st.set_page_config(page_title="Research Agent", page_icon="🔎")
+load_lab_env(ROOT)  # re-read .env every rerun: chat.py only loads it once per process
 provider = make_provider(PROVIDER)
 model = getattr(provider, "default_model", None)
 
