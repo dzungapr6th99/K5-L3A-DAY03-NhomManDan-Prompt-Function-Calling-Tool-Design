@@ -107,11 +107,17 @@ Chi tiết: `analysis/v0_vs_v1.csv`, `analysis/v1_vs_v2.csv`, `analysis/v2_vs_v3
 
 ## B4. Live Chat Evidence
 
-Use `transcripts/*.transcript.json`.
+Phiên `chat.py` live 5 lượt: `transcripts/working_openrouter_20261110T134157024055.transcript.json`, artifact `working+pfc5e3ce3c518+tbd580062834d` (prompt/tools hiện hành = v3 + tool `date` + rule trả lời theo ngôn ngữ user; chưa có run eval riêng cho hash này). Không lượt nào có tool error.
 
 | Turn | User Request | Tool Calls | Version Evidence | Outcome |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| 1 | Tin tức AI nổi bật hôm nay là gì? | `lookup(query="AI", topic="news", timeframe="day")` | working+pfc5e3ce3c518+tbd580062834d | Đúng route + args, tóm tắt tin có nguồn |
+| 2 | Đọc giúp mình bài báo này | — (hỏi URL bằng text) | như trên | Không bịa URL, nhưng **hỏi bằng text thay vì gọi `clarify`** → eval sẽ chấm FAIL kiểu R11 |
+| 3 | https://openai.com/research/ | `fetch(url="https://openai.com/research/")` | như trên | Ghép URL lượt sau vào đúng yêu cầu lượt trước |
+| 4 | Đăng lên Telegram câu này: 'Bản tin AI hôm nay đã sẵn sàng' | `clarify(response_type="yes_no")`, câu hỏi trích nguyên văn nội dung | như trên | Dừng chờ xác nhận, chưa gọi `send` |
+| 5 | Thôi không gửi nữa, cảm ơn | — | như trên | Huỷ đúng, không gọi `send` |
+
+Transcript UI từng version (v0–v3, working) cũng nằm trong `transcripts/*_ui_*.transcript.json`.
 
 ## B5. Bonus Evidence
 
@@ -119,10 +125,10 @@ Only fill if your team did bonus.
 
 | Bonus | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
-| send (Telegram) |  |  |  |
-| arXiv/company policy |  |  |  |
-| UI |  |  |  |
-| Tool unit tests (`tests/`) | `pytest` output |  |  |
+| send (Telegram) | B4 lượt 4–5; group `team_case_06/07` | Hỏi `clarify(yes_no)` trước khi gửi; huỷ thì không gửi; có duyệt thì `send(confirmed=true)` đúng text | Chưa có bot token nên chưa giao tin thật; send trong eval là mô phỏng. **Rủi ro đã biết:** stress test nhiều lượt cho thấy user nói "Đúng nội dung đó" rồi "Có, xác nhận" thì agent gửi 2 lần, và nội dung chứa chữ "đã xác nhận" có thể lọt qua bước hỏi — cần chặn ở vòng tiếp theo (prompt + idempotency trong tool) |
+| arXiv/company policy | `runs/v3_B_extension_openrouter_20261110T124926507199.json` | Extension v3: 8/10, routing 100% (`papers`, `paper_text`, `policy`, 2 link song song đều đúng) | 2 FAIL đều là `policy_area`: E01 dùng `all` thay vì `source_citation`, E08 thiếu `ai_research` |
+| UI | `app.py`, `transcripts/*_ui_*.transcript.json` | Streamlit: đổi version theo snapshot, bảng điểm eval, thẻ đỏ cho câu mẫu version đó làm sai, xem args/kết quả từng tool call | Demo chạy local (`streamlit run app.py`), chưa có link public cố định |
+| Tool unit tests (`tests/`) | `pytest` output | 132 passed, 0 failed, 0 skipped (chạy lại sau khi thêm tool `date`; 116 là số lúc chốt v3) | Test offline, HTTP thật bị chặn; không đo chất lượng routing của model |
 
 Tool unit tests: số test đã viết, số bug tìm được trong tool có sẵn (nếu có), và một ví dụ lỗi mà unit test bắt được nhưng eval không bắt được.
 
