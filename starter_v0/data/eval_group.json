@@ -1,7 +1,7 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Case do NHÓM tự viết thêm. Đã cập nhật để test tool mới 'deduplicate' và khớp chuẩn 'args' của hệ thống.",
+  "description": "Case do NHÓM tự viết thêm. Đã fix lỗi định dạng chuỗi 'no_tool' và sửa logic gọi clarify theo feedback của nhóm.",
   "allowed_failure_types": [
     "wrong_tool",
     "wrong_arg_value",
@@ -74,7 +74,8 @@
       "query": "Viết cho tôi một đoạn mã Python dùng thư viện PyTorch để train mô hình phân loại ảnh.",
       "failure_type": "out_of_scope",
       "expect": {
-        "no_tool": true
+        "no_tool": true,
+        "behavior": "refuse"
       },
       "metadata": {
         "what_it_tests": "Kiểm tra ranh giới (boundary). Từ chối yêu cầu viết code và KHÔNG gọi tool."
@@ -100,7 +101,7 @@
         ]
       },
       "metadata": {
-        "what_it_tests": "Kiểm tra agent route đúng vào tool deduplicate và truyền mảng items đúng cấu trúc dict chứa url."
+        "what_it_tests": "Kiểm tra agent route đúng vào tool deduplicate và truyền mảng items đúng cấu trúc."
       }
     },
     {
