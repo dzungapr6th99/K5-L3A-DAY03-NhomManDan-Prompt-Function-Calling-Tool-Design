@@ -6,9 +6,9 @@
 
 ## Team
 
-- Team:
-- Members:
-- Provider/model:
+- Team: Nhóm Mân Đàn
+- Members: Bình (prompt/tools, version), Huy (eval, phân tích log), Dũng (tool mới, unit test), Thông (UI, demo, report)
+- Provider/model: OpenRouter / `openai/gpt-4o-mini`
 
 ---
 
@@ -16,33 +16,39 @@
 
 ## A1. Agent này làm được gì
 
-> 1–2 câu mô tả agent dùng để làm gì (cho team khác hiểu nhanh).
+Research agent tiếng Việt: tìm tin trên web và X/Twitter (theo từ khóa hoặc theo tài khoản), đọc nội dung URL và paper arXiv, tra chính sách nội bộ, gom kết quả thành bản tin markdown, và chỉ gửi lên Telegram sau khi người dùng xác nhận. Thiếu thông tin (tài khoản nào, URL nào) thì agent hỏi lại thay vì tự đoán.
 
-Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL, tổng hợp thành digest, và gửi lên Telegram khi được xác nhận."
-
-**Link dùng thử (deploy):**
-
-> Dán link public để team khác mở thử ngay. Cách deploy nhanh bằng Cloudflare Tunnel xem README. Nếu deploy Vercel/Streamlit Cloud thì dán link đó.
->
-> URL: 
+**Dùng thử:** demo trực tiếp trên máy nhóm bằng Streamlit (`streamlit run app.py`). Sidebar có sẵn câu hỏi mẫu; mỗi tool call hiện kèm args và kết quả trong ô mở rộng; mỗi phiên lưu transcript vào `transcripts/`.
 
 ## A2. Tool agent có
 
-> Liệt kê các tool agent đang dùng (gồm tool mới nhóm tự thêm). Mỗi tool 1 dòng: tên + làm được gì.
-
 | Tên tool | Làm được gì | Tool mới nhóm thêm? |
 |---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| clarify | Hỏi lại người dùng khi thiếu thông tin (text / yes-no / lựa chọn), dừng chờ lượt sau | không |
+| timeline | Lấy bài đăng gần đây của một tài khoản X (handle không có `@`) | không |
+| social_search | Tìm bài đăng X theo từ khóa, sắp xếp `Latest` hoặc `Top` | không |
+| lookup | Tìm trên web (Tavily), `topic=news` cho tin tức, lọc theo `timeframe` | không |
+| fetch | Đọc nội dung một URL cụ thể (Firecrawl) | không |
+| format | Trình bày các item đã có thành bản tin markdown (brief / sections / bullets / thread) | không |
+| send | Gửi text lên Telegram channel, chỉ gửi khi `confirmed=true` | không |
+| policy | Tìm trong company policy markdown nội bộ | không |
+| papers | Tìm paper trên arXiv | không |
+| paper_text | Tải PDF arXiv và trích text | không |
+| deduplicate_sources | Loại nguồn trùng URL trước khi làm bản tin _(đang làm — Dũng chốt tên/contract)_ | **có** |
 
 ## A3. Câu hỏi mẫu để thử
 
-> 3–5 câu hỏi/yêu cầu mẫu để team khác tự thử agent ngay.
+Các câu này có sẵn thành nút bấm ở sidebar UI.
 
-1.
-2.
-3.
+1. `Tin tức AI nổi bật hôm nay là gì?` → `lookup` (news, day)
+2. `Sam Altman vừa đăng gì trên X?` → `timeline(screenname="sama")`
+3. `Mọi người đang nói gì về GPT-5 trên Twitter?` → `social_search`
+4. `Tóm tắt giúp mình https://openai.com/research/` → `fetch`
+5. `Đọc giúp mình bài báo này` → agent hỏi lại URL, trả lời URL ở lượt sau → `fetch`
+6. `Soạn bản tin AI hôm nay rồi đăng lên Telegram` → tìm tin, `format`, hỏi xác nhận trước khi `send`
+7. `Tìm paper arXiv mới về AI agent evaluation` → `papers`
+8. `Theo policy công ty, đăng bản tin lên Telegram có cần xác nhận trước không?` → `policy`
+9. `Viết giúp mình hàm Python tính Fibonacci` → ngoài phạm vi, agent từ chối, không gọi tool
 
 ---
 

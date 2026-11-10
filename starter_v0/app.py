@@ -28,6 +28,9 @@ SAMPLES = [
     "Tóm tắt giúp mình https://openai.com/research/",
     "Đọc giúp mình bài báo này",
     "Soạn bản tin AI hôm nay rồi đăng lên Telegram",
+    "Tìm paper arXiv mới về AI agent evaluation",
+    "Theo policy công ty, đăng bản tin lên Telegram có cần xác nhận trước không?",
+    "Viết giúp mình hàm Python tính Fibonacci",
 ]
 
 st.set_page_config(page_title="Research Agent", page_icon="🔎")
