@@ -1,6 +1,6 @@
 ﻿case_id,passed,actual_tool_calls,failures
-team_case_01_lookup_news_args,True,"[{""name"": ""lookup"", ""args"": {""query"": ""OpenAI"", ""topic"": ""news"", ""timeframe"": ""day"", ""max_results"": 5}}]",
-team_case_02_missing_url_clarify,True,"[{""name"": ""clarify"", ""args"": {""question"": ""Bạn vui lòng cung cấp URL của bài báo mà bạn muốn tóm tắt không?"", ""response_type"": ""text""}}]",
+team_case_01_lookup_news_args,True,"[{""name"": ""lookup"", ""args"": {""query"": ""OpenAI"", ""topic"": ""news"", ""timeframe"": ""day""}}]",
+team_case_02_missing_url_clarify,True,"[{""name"": ""clarify"", ""args"": {""question"": ""Bạn có thể cung cấp URL hoặc ID của bài báo mà bạn muốn tóm tắt không?"", ""response_type"": ""text""}}]",
 team_case_03_missing_handle_timeline,True,"[{""name"": ""clarify"", ""args"": {""question"": ""Bạn muốn xem bài đăng gần đây của tài khoản nào trên X?"", ""response_type"": ""text""}}]",
 team_case_04_deduplicate_sources,True,"[{""name"": ""deduplicate"", ""args"": {""items"": [{""title"": ""A"", ""url"": ""https://example.com/a""}, {""title"": ""A copy"", ""url"": ""https://example.com/a""}, {""title"": ""B"", ""url"": ""https://example.com/b""}]}}]",
 team_case_05_new_tool_finance_single,True,"[{""name"": ""get_yahoo_finance_data"", ""args"": {""ticker"": ""GC=F""}}]",

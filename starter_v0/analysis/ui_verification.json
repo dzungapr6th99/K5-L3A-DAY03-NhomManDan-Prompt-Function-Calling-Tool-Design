@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8501",
+  "health_http_status": 200,
+  "health_body": "ok",
+  "root_http_status": 200,
+  "ui_tests": [
+    "load final v3 snapshot",
+    "switch to v1 snapshot",
+    "chat input renders response",
+    "transcript saved",
+    "new chat clears session"
+  ],
+  "network_mode": "local only; no public hosting",
+  "live_provider_request": "passed after restarting server outside network-restricted sandbox",
+  "windows_console_cp1252_regression": "passed",
+  "live_tool_call": "date: answered without encoding error",
+  "submission_transcript": "transcripts/v3_openrouter_20261110T143528494225.transcript.json",
+  "ad_hoc_ui_logs": "Ad hoc UI test logs removed; UI behavior remains covered by tests/test_ui.py and tests/test_console_encoding.py."
+}

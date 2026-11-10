@@ -51,7 +51,7 @@ def test_yesterday_accepts_numeric_string_from_model(date) -> None:
     assert date(offset_days="-1")["date"] == "2026-11-09"
 
 
-@pytest.mark.parametrize("bad", ["abc", "", None, 2.5, True, 10**6, [7]])
+@pytest.mark.parametrize("bad", ["abc", "", None, 2.5, True, 10**6, [7], float("inf"), float("-inf")])
 def test_bad_offset_returns_error_dict(date, bad) -> None:
     result = date(offset_days=bad)
     assert result["error"] == "invalid_input"

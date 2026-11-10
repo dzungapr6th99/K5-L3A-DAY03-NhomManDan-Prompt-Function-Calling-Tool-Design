@@ -6,12 +6,13 @@ Reuses the multi-round tool loop + transcript format from chat.py.
 Version picker: one entry per snapshot in artifacts/versions/<v>/ (its own prompt + tools),
 plus live artifacts/ when it matches no snapshot yet: labelled with the version of a run measured on
 exactly those bytes (e.g. v3 evaluated before anyone snapshotted it), else "working".
-Scoreboard + red-card tags: newest run in runs/ with the same version label that measured
-at least one case. Matched by label, not hash: hashes differ across OSes (CRLF vs LF).
+Scoreboard + red-card tags: newest run matching both version and artifact hashes.
+LF-normalized hashes are also accepted for snapshots transferred across OSes.
 """
 from __future__ import annotations
 
 import html
+import hashlib
 import json
 from datetime import datetime
 from pathlib import Path
@@ -121,6 +122,13 @@ def latest_runs() -> dict[tuple[str, str], dict]:
         except (OSError, ValueError):
             continue
         if not d.get("summary", {}).get("measured_cases"):
+            continue
+        snapshot = ARTIFACTS_DIR / "versions" / str(d.get("version", ""))
+        pair = (snapshot / "system_prompt.md", snapshot / "tools.yaml")
+        if not all(p.is_file() for p in pair):
+            pair = LIVE
+        candidates = [{file_hash(p), hashlib.sha256(p.read_bytes().replace(b"\r\n", b"\n")).hexdigest()} for p in pair]
+        if d.get("prompt_hash") not in candidates[0] or d.get("tools_hash") not in candidates[1]:
             continue
         key = (d.get("version"), d.get("suite"))
         if key not in best or d.get("generated_at", "") > best[key].get("generated_at", ""):

@@ -1,35 +1,31 @@
 {
-  "run_id": "v3_B_extension_openrouter_20261110T124926507199",
+  "run_id": "v3_B_extension_openrouter_20261110T143526294257",
   "version": "v3",
-  "artifact_version": "v3+pd9e25221247f+tbda234a630a8",
-  "prompt_hash": "d9e25221247fa079f9e1d6967d5b9c8fc5d4b36940f5469521eea5e592b35535",
-  "tools_hash": "bda234a630a8666dddc366a7b286c5f827328bc62ab0b7eff8d79dceea484dfb",
+  "artifact_version": "v3+p840cbe5577ea+t82c24d53675e",
+  "prompt_hash": "840cbe5577ea892139828e9501fe492bfd149291c28e88b5efb660afd6b8fcd7",
+  "tools_hash": "82c24d53675e9f9acfc9aff61ba7df709c012561d77cd62dfd5f89446cc2e80a",
   "phase": "B",
   "suite": "extension",
   "provider": "openrouter",
   "model": "openai/gpt-4o-mini",
-  "system_prompt": "artifacts/versions/v3/system_prompt.md",
-  "tools": "artifacts/versions/v3/tools.yaml",
-  "eval_cases": "data/eval_research_extension.json",
+  "system_prompt": "D:\\VINAI20K\\K5-L3A-DAY03-NhomManDan-Prompt-Function-Calling-Tool-Design\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\VINAI20K\\K5-L3A-DAY03-NhomManDan-Prompt-Function-Calling-Tool-Design\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_research_extension.json",
   "dataset_id": "day04_v2_research_extension",
   "dataset_role": "extension",
   "description": "Optional extension eval for Research Agent: company policy search + arXiv tools. Base eval remains data/eval_base.json.",
-  "generated_at": "2026-11-10T12:49:26",
+  "generated_at": "2026-11-10T14:35:26",
   "summary": {
     "total_cases": 10,
     "measured_cases": 10,
     "provider_error_cases": 0,
-    "passed_cases": 8,
-    "case_accuracy": 0.8,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
     "tool_routing_accuracy": 1.0,
-    "argument_accuracy": 0.8,
+    "argument_accuracy": 1.0,
     "multiturn_accuracy": null,
-    "failure_counts": {
-      "wrong_tool": 2
-    },
-    "observed_mismatch_counts": {
-      "wrong_arg_value": 2
-    }
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
   },
   "results": [
     {
@@ -55,37 +51,35 @@
         ]
       },
       "result": {
-        "passed": false,
+        "passed": true,
         "routing_correct": true,
-        "args_correct": false,
+        "args_correct": true,
         "actual_tool_calls": [
           {
             "name": "policy",
             "args": {
               "query": "tweet viral",
-              "policy_area": "all"
+              "policy_area": "source_citation"
             }
           }
         ],
         "actual_text": null,
         "case_failure_type": "wrong_tool",
-        "observed_mismatch": "wrong_arg_value",
-        "failure_type": "wrong_tool",
-        "failures": [
-          "policy_area: expected 'source_citation', got 'all'"
-        ]
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
       },
       "tool_results": [
         {
           "tool": "policy",
           "args": {
             "query": "tweet viral",
-            "policy_area": "all"
+            "policy_area": "source_citation"
           },
           "result": {
             "tool": "search_company_policy",
             "query": "tweet viral",
-            "policy_area": "all",
+            "policy_area": "source_citation",
             "results": [
               {
                 "doc_id": "source-citation-policy",
@@ -256,7 +250,7 @@
           {
             "name": "policy",
             "args": {
-              "query": "Telegram channel",
+              "query": "đăng bản tin lên Telegram channel",
               "policy_area": "external_publishing"
             }
           }
@@ -271,12 +265,12 @@
         {
           "tool": "policy",
           "args": {
-            "query": "Telegram channel",
+            "query": "đăng bản tin lên Telegram channel",
             "policy_area": "external_publishing"
           },
           "result": {
             "tool": "search_company_policy",
-            "query": "Telegram channel",
+            "query": "đăng bản tin lên Telegram channel",
             "policy_area": "external_publishing",
             "results": [
               {
@@ -294,7 +288,7 @@
                   "approval",
                   "social"
                 ],
-                "score": 8,
+                "score": 9,
                 "untrusted_text": []
               },
               {
@@ -369,7 +363,8 @@
             "name": "papers",
             "args": {
               "query": "retrieval augmented generation evaluation",
-              "max_results": 5
+              "max_results": 5,
+              "sort_by": "relevance"
             }
           }
         ],
@@ -384,12 +379,125 @@
           "tool": "papers",
           "args": {
             "query": "retrieval augmented generation evaluation",
-            "max_results": 5
+            "max_results": 5,
+            "sort_by": "relevance"
           },
           "result": {
             "tool": "arxiv_search",
-            "error": "HTTPError",
-            "message": "429 Client Error: Unknown Error for url: https://export.arxiv.org/api/query?search_query=all%3Aretrieval+AND+all%3Aaugmented+AND+all%3Ageneration+AND+all%3Aevaluation&max_results=5&sortBy=relevance&sortOrder=descending"
+            "query": "retrieval augmented generation evaluation",
+            "api_query": "all:retrieval AND all:augmented AND all:generation AND all:evaluation",
+            "total_results": 4169,
+            "items": [
+              {
+                "arxiv_id": "2309.15217v2",
+                "title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+                "summary": "We introduce Ragas (Retrieval Augmented Generation Assessment), a framework for reference-free evaluation of Retrieval Augmented Generation (RAG) pipelines. RAG systems are composed of a retrieval and an LLM based generation module, and provide LLMs with knowledge from a reference textual database, which enables them to act as a natural language layer between a user and textual databases, reducing the risk of hallucinations. Evaluating RAG architectures is, however, challenging because there are several dimensions to consider: the ability of the retrieval system to identify relevant and focused context passages, the ability of the LLM to exploit such passages in a faithful way, or the quality of the generation itself. With Ragas, we put forward a suite of metrics which can be used to evaluate these different dimensions \\textit{without having to rely on ground truth human annotations}. We posit that such a framework can crucially contribute to faster evaluation cycles of RAG architectures, which is especially important given the fast adoption of LLMs.",
+                "authors": [
+                  "Shahul Es",
+                  "Jithin James",
+                  "Luis Espinosa-Anke",
+                  "Steven Schockaert"
+                ],
+                "published": "2023-09-26T19:23:54Z",
+                "updated": "2025-04-28T05:09:12Z",
+                "url": "http://arxiv.org/abs/2309.15217v2",
+                "pdf_url": "https://arxiv.org/pdf/2309.15217v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2411.18583v1",
+                "title": "Automated Literature Review Using NLP Techniques and LLM-Based Retrieval-Augmented Generation",
+                "summary": "This research presents and compares multiple approaches to automate the generation of literature reviews using several Natural Language Processing (NLP) techniques and retrieval-augmented generation (RAG) with a Large Language Model (LLM). The ever-increasing number of research articles provides a huge challenge for manual literature review. It has resulted in an increased demand for automation. Developing a system capable of automatically generating the literature reviews from only the PDF files as input is the primary objective of this research work. The effectiveness of several Natural Language Processing (NLP) strategies, such as the frequency-based method (spaCy), the transformer model (Simple T5), and retrieval-augmented generation (RAG) with Large Language Model (GPT-3.5-turbo), is evaluated to meet the primary objective. The SciTLDR dataset is chosen for this research experiment and three distinct techniques are utilized to implement three different systems for auto-generating the literature reviews. The ROUGE scores are used for the evaluation of all three systems. Based on the evaluation, the Large Language Model GPT-3.5-turbo achieved the highest ROUGE-1 score, 0.364. The transformer model comes in second place and spaCy is at the last position. Finally, a graphical user interface is created for the best system based on the large language model.",
+                "authors": [
+                  "Nurshat Fateh Ali",
+                  "Md. Mahdi Mohtasim",
+                  "Shakil Mosharrof",
+                  "T. Gopi Krishna"
+                ],
+                "published": "2024-11-27T18:27:07Z",
+                "updated": "2024-11-27T18:27:07Z",
+                "url": "http://arxiv.org/abs/2411.18583v1",
+                "pdf_url": "https://arxiv.org/pdf/2411.18583v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL",
+                  "cs.AI",
+                  "cs.IR",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2601.05264v1",
+                "title": "Engineering the RAG Stack: A Comprehensive Review of the Architecture and Trust Frameworks for Retrieval-Augmented Generation Systems",
+                "summary": "This article provides a comprehensive systematic literature review of academic studies, industrial applications, and real-world deployments from 2018 to 2025, providing a practical guide and detailed overview of modern Retrieval-Augmented Generation (RAG) architectures. RAG offers a modular approach for integrating external knowledge without increasing the capacity of the model as LLM systems expand. Research and engineering practices have been fragmented as a result of the increasing diversity of RAG methodologies, which encompasses a variety of fusion mechanisms, retrieval strategies, and orchestration approaches. We provide quantitative assessment frameworks, analyze the implications for trust and alignment, and systematically consolidate existing RAG techniques into a unified taxonomy. This document is a practical framework for the deployment of resilient, secure, and domain-adaptable RAG systems, synthesizing insights from academic literature, industry reports, and technical implementation guides. It also functions as a technical reference.",
+                "authors": [
+                  "Dean Wampler",
+                  "Dave Nielson",
+                  "Alireza Seddighi"
+                ],
+                "published": "2025-11-07T16:26:29Z",
+                "updated": "2025-11-07T16:26:29Z",
+                "url": "http://arxiv.org/abs/2601.05264v1",
+                "pdf_url": "https://arxiv.org/pdf/2601.05264v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.IR",
+                "categories": [
+                  "cs.IR",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2504.19754v1",
+                "title": "Reconstructing Context: Evaluating Advanced Chunking Strategies for Retrieval-Augmented Generation",
+                "summary": "Retrieval-augmented generation (RAG) has become a transformative approach for enhancing large language models (LLMs) by grounding their outputs in external knowledge sources. Yet, a critical question persists: how can vast volumes of external knowledge be managed effectively within the input constraints of LLMs? Traditional methods address this by chunking external documents into smaller, fixed-size segments. While this approach alleviates input limitations, it often fragments context, resulting in incomplete retrieval and diminished coherence in generation. To overcome these shortcomings, two advanced techniques, late chunking and contextual retrieval, have been introduced, both aiming to preserve global context. Despite their potential, their comparative strengths and limitations remain unclear. This study presents a rigorous analysis of late chunking and contextual retrieval, evaluating their effectiveness and efficiency in optimizing RAG systems. Our results indicate that contextual retrieval preserves semantic coherence more effectively but requires greater computational resources. In contrast, late chunking offers higher efficiency but tends to sacrifice relevance and completeness.",
+                "authors": [
+                  "Carlo Merola",
+                  "Jaspinder Singh"
+                ],
+                "published": "2025-04-28T12:52:05Z",
+                "updated": "2025-04-28T12:52:05Z",
+                "url": "http://arxiv.org/abs/2504.19754v1",
+                "pdf_url": "https://arxiv.org/pdf/2504.19754v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.IR",
+                "categories": [
+                  "cs.IR",
+                  "cs.AI",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2601.11863v1",
+                "title": "Utilizing Metadata for Better Retrieval-Augmented Generation",
+                "summary": "Retrieval-Augmented Generation systems depend on retrieving semantically relevant document chunks to support accurate, grounded outputs from large language models. In structured and repetitive corpora such as regulatory filings, chunk similarity alone often fails to distinguish between documents with overlapping language. Practitioners often flatten metadata into input text as a heuristic, but the impact and trade-offs of this practice remain poorly understood. We present a systematic study of metadata-aware retrieval strategies, comparing plain-text baselines with approaches that embed metadata directly. Our evaluation spans metadata-as-text (prefix and suffix), a dual-encoder unified embedding that fuses metadata and content in a single index, dual-encoder late-fusion retrieval, and metadata-aware query reformulation. Across multiple retrieval metrics and question types, we find that prefixing and unified embeddings consistently outperform plain-text baselines, with the unified at times exceeding prefixing while being easier to maintain. Beyond empirical comparisons, we analyze embedding space, showing that metadata integration improves effectiveness by increasing intra-document cohesion, reducing inter-document confusion, and widening the separation between relevant and irrelevant chunks. Field-level ablations show that structural cues provide strong disambiguating signals. Our code, evaluation framework, and the RAGMATE-10K dataset are publicly hosted.",
+                "authors": [
+                  "Raquib Bin Yousuf",
+                  "Shengzhe Xu",
+                  "Mandar Sharma",
+                  "Andrew Neeser",
+                  "Chris Latimer",
+                  "Naren Ramakrishnan"
+                ],
+                "published": "2026-01-17T01:11:03Z",
+                "updated": "2026-01-17T01:11:03Z",
+                "url": "http://arxiv.org/abs/2601.11863v1",
+                "pdf_url": "https://arxiv.org/pdf/2601.11863v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.IR",
+                "categories": [
+                  "cs.IR",
+                  "cs.AI",
+                  "cs.CE",
+                  "cs.CL"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
           }
         }
       ]
@@ -448,8 +556,8 @@
             "arxiv_id": "1706.03762",
             "url": "https://arxiv.org/abs/1706.03762",
             "pdf_url": "https://arxiv.org/pdf/1706.03762.pdf",
-            "pdf_path": "/Users/tom/Documents/AI Vin/lab/lab 3/DAY03-NhomManDan-Prompt-Engineering-Tool-Calling-Labs-student/starter_v0/arxiv_papers/1706.03762.pdf",
-            "txt_path": "/Users/tom/Documents/AI Vin/lab/lab 3/DAY03-NhomManDan-Prompt-Engineering-Tool-Calling-Labs-student/starter_v0/arxiv_papers/1706.03762.txt",
+            "pdf_path": "D:\\VINAI20K\\K5-L3A-DAY03-NhomManDan-Prompt-Function-Calling-Tool-Design\\starter_v0\\arxiv_papers\\1706.03762.pdf",
+            "txt_path": "D:\\VINAI20K\\K5-L3A-DAY03-NhomManDan-Prompt-Function-Calling-Tool-Design\\starter_v0\\arxiv_papers\\1706.03762.txt",
             "page_count": 15,
             "pages_read": 2,
             "chars_returned": 7118,
@@ -612,35 +720,35 @@
                 "url": "https://www.fox10tv.com/2026/11/10/ai-your-job-threat-or-opportunity",
                 "source": "fox10tv.com",
                 "summary": "MOBILE, Ala. (WALA) - Artificial intelligence is becoming a bigger part of everyday life, raising questions about what the technology could mean for workers and their jobs.\n\nSome economists believe AI poses a particular threat to entry-level and repetitive work, including call center, data entry and junior copywriting jobs, according to The Wall Street Journal. Those tasks may be easier to automate. [...] But AI could also create opportunities. A Bloomberg article points to potential job growth in construction and manufacturing as companies build data centers and produce the chips that power the technology. Some higher-skilled office workers could also benefit if AI helps them become more productive. [...] The long-term impact on jobs remains unclear, but workers can take steps to prepare. Exploring AI chatbots, writing assistants and other tools may help people find ways to work more efficiently and develop skills that complement the technology.",
-                "score": 0.42348245
+                "score": 0.57969785
               },
               {
                 "title": "Opinion: AI cannot replace being human – The Battalion",
                 "url": "https://thebatt.com/opinion/opinion-ai-cannot-replace-being-human",
                 "source": "thebatt.com",
-                "summary": "I understand the appeal. College is busy. Between classes, jobs, extracurriculars, leadership positions and trying to maintain some semblance of a social life, there are never enough hours in the day. AI makes things easier. It can generate an outline, rewrite a paragraph, summarize a reading or produce an entire essay before you have even finished your Celsius. But convenience does not necessarily facilitate education. [...] There is also something to be said about individuality. AI can generate an argument, imitate a writing style or suggest a creative direction, but our perspectives are developed through our own experiences, disagreements, mistakes and interpretations. The things that make our voices interesting are often the very things that cannot be neatly generated from a prompt. If we constantly rely on the same tools to tell us what to think and how to express it, we risk losing the differences that make [...] I am not asking anyone to abandon AI. I use it, and I recognize the benefits it provides. But I do think we need to become more conscientious about when we use it and what we are asking it to do for us. Let it help with the tedious tasks. Let it serve as a resource. But do not let it become a substitute for your own intellectual development.",
-                "score": 0.4031679
+                "summary": "I understand the appeal. College is busy. Between classes, jobs, extracurriculars, leadership positions and trying to maintain some semblance of a social life, there are never enough hours in the day. AI makes things easier. It can generate an outline, rewrite a paragraph, summarize a reading or produce an entire essay before you have even finished your Celsius. But convenience does not necessarily facilitate education. [...] I am not asking anyone to abandon AI. I use it, and I recognize the benefits it provides. But I do think we need to become more conscientious about when we use it and what we are asking it to do for us. Let it help with the tedious tasks. Let it serve as a resource. But do not let it become a substitute for your own intellectual development. [...] There is also something to be said about individuality. AI can generate an argument, imitate a writing style or suggest a creative direction, but our perspectives are developed through our own experiences, disagreements, mistakes and interpretations. The things that make our voices interesting are often the very things that cannot be neatly generated from a prompt. If we constantly rely on the same tools to tell us what to think and how to express it, we risk losing the differences that make",
+                "score": 0.5616957
               },
               {
-                "title": "‘AI rebounding’: Nearly 20% of U.S. workers replaced by AI are being asked back | Fortune",
-                "url": "https://fortune.com/2026/11/09/ai-rebounding-20-us-workers-replaced-higher-pay-job-security",
-                "source": "fortune.com",
-                "summary": "Ford also hired and promoted 350 experienced engineers in June after AI-powered quality control tools failed to perform as expected. The automaker said AI had contributed to quality improvements but emphasized the importance of combining the tech with experienced engineering teams. [...] “Organizations are making fast, sometimes myopic, decisions about their people based on an incomplete picture of what their employees can do with or without AI,” Lucy Beaumont, global senior vice president of product and design at SHL, said in a press release. “AI rebounding is what happens when a company automates a role before it has genuinely assessed the human capability inside it. The AI doesn’t deliver, the gap becomes obvious, and the business ends up rehiring the same experts they just [...] Fortune Daily breaks the traditional barrier between audience and newsroom. The show transforms Fortune’s trusted reporting into actionable, conversational, and entertaining insights for an emerging class of business leaders. Watch here.\n\nAbout the Author\n\nBy Joshua HongNews Fellow\n\nJoshua Hong is a News Fellow at Fortune covering data, AI, cybersecurity, energy, and retail.\n\nSee full bio\n\nAdd Fortune on Google for similar content.\n\nLatest in AI\n\n---\n\nMost Popular\n\n---\n\nRecommended For You",
-                "score": 0.2654493
+                "title": "Australia to mandate AI breach reporting, create regulator after OpenAI breach | Reuters",
+                "url": "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10",
+                "source": "reuters.com",
+                "summary": "However, both companies told Australian parliament last ​month that they would welcome ​laws requiring them to ⁠report data breaches carried out by their AI agents, acknowledging the decision to notify was currently at their discretion.\n\nAlbanese said his centre-left ​Labor government would set up an AI regulator to oversee security ​controls throughout ⁠the development and deployment of AI systems, identify serious risks and conduct independent evaluations of AI models. [...] \"The AI safety regulator will be able to enforce significant penalties for AI companies ⁠doing the ​wrong thing,\" he said.\n\nThe mandatory AI safety and ​security protections will form part of the government's proposed AI legislation, Albanese said, which it plans to introduce in ​Parliament next year.\n\nReporting by Renju Jose in Sydney; Editing by Christian Schmollinger and Saad Sayeed\n\nOur Standards: The Thomson Reuters Trust Principles. [...] Albanese said his government had accepted all recommendations of the ​review.\n\n\"(The recommendations) include mandatory AI company reporting when it comes to misaligned behaviour or cyber ​incidents, and consideration of reforming criminal law in cases of serious misconduct,\" Albanese told reporters.\n\n\"The law needs to get ahead of, and in some cases, make sure that it catches up with what is ​a very fast-changing world.\"",
+                "score": 0.509772
               },
               {
                 "title": "Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn",
                 "url": "https://time.com/article/2026/11/10/permitting-bill-data-centers",
                 "source": "time.com",
-                "summary": "Personalized Content\n\n## Business\n\nFollow this section to personalize your feed and get instant alerts.\n\nWHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\nPersonalized Content\n\n## AI\n\nFollow this tag to personalize your feed and get instant alerts.\n\nWHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\n# Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn\n\nAndrew R. Chow\n\nPersonalized Content\n\nAndrew R. Chow\n\n## Andrew R. Chow [...] The bill’s advocates argue that its passage would serve as a rare bipartisan win and a victory for affordability. But critics, especially those on the left, are calling for Democrats to wait until the next Congress. “You just heard Americans demand much more of a say in a way that AI is shaping their lives,” says Michele Jawando, the CEO of Omidyar Network. “Whenever you try to ram something through in a lame duck Congress before you have a hundred new House members, that’s never a good look [...] WHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\nCorrespondent\n\nNarrated by TIME AI.",
-                "score": 0.19392508
+                "summary": "The bill’s advocates argue that its passage would serve as a rare bipartisan win and a victory for affordability. But critics, especially those on the left, are calling for Democrats to wait until the next Congress. “You just heard Americans demand much more of a say in a way that AI is shaping their lives,” says Michele Jawando, the CEO of Omidyar Network. “Whenever you try to ram something through in a lame duck Congress before you have a hundred new House members, that’s never a good look [...] Another major concern from critics is that the bill will lead to many more data centers getting built on federally-owned land. The Trump administration has embraced this idea, and signed an executive order in July 2025 directing the Interior and Energy departments to make federal sites available for data centers and to streamline their environmental reviews. “We’re going to ‘mine, baby, mine’ so we can ‘build, baby, build’ because we’ve got to build AI data centers,” Interior Secretary Doug [...] America’s data center boom has also been a gas boom. In the scramble to bring AI data centers online as fast as possible, many developers have built their own gas power plants instead of waiting to connect to the grid. Global Energy Monitor data reported by Wired show that U.S. gas projects powering data centers increased from roughly 4 gigawatts in early 2024 to 189 gigawatts in development by mid-2026. In some cases, these gas plants have worsened local pollution and exacerbated health issues",
+                "score": 0.44646454
               },
               {
-                "title": "Military-made AI tool helped thwart World Cup bomb threat - Federal News Network",
-                "url": "https://federalnewsnetwork.com/artificial-intelligence/2026/11/military-made-ai-tool-helped-thwart-world-cup-bomb-threat",
-                "source": "federalnewsnetwork.com",
-                "summary": "The 2026 World Cup brought more than six million spectators from around the world to more than 100 matches in 16 host cities in the U.S., Canada and Mexico over the course of two months, prompting a massive interagency effort to secure those sites using technologies like AI and drones. Two people were charged in connection with another bomb threat against FIFA during a World Cup match at MetLife Stadium in New Jersey. [...] A military-made artificial intelligence tool helped law enforcement thwart a bomb threat at the FIFA World Cup in California this summer.\n\nThe previously undisclosed incident occurred June 18, when Switzerland faced Bosnia and Herzegovina at SoFi Stadium outside Los Angeles, Army Capt. Ryan Hetrick, who leads the Pentagon’s Generative AI Task Force, said Nov. 6 at an AI event in Washington. [...] Hetrick has become one of the military’s biggest — and busiest — evangelists for AI. The GenAI Task Force travels around the globe to sit down with troops on operations floors and in the field and find AI fixes for their most pressing problems.",
-                "score": 0.19305643
+                "title": "Wisdom in the Age of AI - First Things",
+                "url": "https://firstthings.com/wisdom-in-the-age-of-ai",
+                "source": "firstthings.com",
+                "summary": "Also conspicuously absent was any serious attention to the possible spiritual warfare dimension of AI. Some prominent Christian thinkers, including Rod Dreher and Paul Kingsnorth, are genuinely concerned that AI could serve as a conduit for demonic forces. The Christian who is serious about the reality of spiritual warfare should at least consider this possibility. Not to do so is a failure of wisdom. After all, “our struggle is not against flesh and blood, but against the rulers, against the [...] The Calvin University Wisdom in the Age of AI conference was exactly what we need at this cultural moment, even if some of the revelations it occasioned are troubling. Such conferences are useful barometers for current thinking. This one served a double function: making us wiser about AI technology and revealing a void in Christian scholarly engagement. [...] Of course, many of the speakers did their share of theology, as was encouraged by the conference organizers. But, evidently, nearly all Christian theologians and biblical scholars who saw the call for papers decided to stay home and leave this important wisdom work to scholars whose fields are more concerned with AI’s application than with the moral questions raised by its use. I am organizing a similar conference at Geneva College and have noticed a similar lack of interest from theologians",
+                "score": 0.44351006
               }
             ]
           }
@@ -683,13 +791,13 @@
             "args": {
               "query": "AI agents",
               "max_results": 5,
-              "sort_by": "lastUpdatedDate"
+              "sort_by": "submittedDate"
             }
           },
           {
             "name": "policy",
             "args": {
-              "query": "arXiv",
+              "query": "arXiv citation",
               "policy_area": "source_citation"
             }
           }
@@ -706,113 +814,115 @@
           "args": {
             "query": "AI agents",
             "max_results": 5,
-            "sort_by": "lastUpdatedDate"
+            "sort_by": "submittedDate"
           },
           "result": {
             "tool": "arxiv_search",
             "query": "AI agents",
             "api_query": "all:AI AND all:agents",
-            "total_results": 13700,
+            "total_results": 13724,
             "items": [
               {
-                "arxiv_id": "2611.00627v2",
-                "title": "Autonomous Analysis of Thermoelectric Materials Big Data by Multi-Agentic AI and Construction of a Knowledge Base and Specialized AI",
-                "summary": "Large databases of paper-derived experimental materials data hide essential information on materials. Their analysis is demanding, large-scale and complex, making manual knowledge extraction very difficult. To address this challenge, we developed Multi-Agentic AI (MAA) for automated, autonomous analysis of materials experimental big data and a specialized AI built on the obtained knowledge. MAA's nine role-specific AI agents, under predefined instructions and quality checks, autonomously perform data extraction, compositional feature generation, machine-learning modeling, feature-importance analysis and knowledge-base recording, iterating while inheriting previous knowledge. Delegating numerical processing to code makes large-scale data tractable; recording every choice and result enables later tracing to sources. In four thermoelectric-data experiments varying theme and cycle counts, the knowledge graph grew: knowledge clustered by theme and vocabulary was shared across themes. The specialized AI, searching and reading these records, answered materials questions citing sources. Retrospective verification also revealed errors, traced through the records to their sources.",
+                "arxiv_id": "2611.12885v1",
+                "title": "World In-Context Learning for Agentic Robot Manipulation",
+                "summary": "Trained action policies write manipulation skill into network weights, tying what is learned to the distribution it is learned from. In-context learning (ICL) avoids this coupling but has not matched trained policies, because a demonstration recorded in another scene carries no feedback from the world the robot currently faces. We observe that what an agent learns in context is semantic, recording task steps and object roles rather than visual appearance, so experience gathered in one world transfers to another. Based on this insight, we propose World In-Context Learning (WICL), a paradigm in which a frozen model starts from a demonstration, rehearses the task in a world such as a simulator, and writes the feedback into its context rather than its weights. We build RoboScript, a modular infrastructure that implements WICL for agentic manipulation. From a single demonstration, RoboScript learns each task through rehearsal in simulation, freezes the learned knowledge as a Task Memory, and deploys the frozen memory on new scenes with data isolation that ensures every deployment input is available on a real robot. On all 50 tasks of RoboTwin 2.0, RoboScript reaches 83.4% mean success across clean and randomized settings with one demonstration per task and no gradient updates, exceeding the strongest trained action policy by over 20 points. The method generalizes across visual distributions, improves through reflection, scales with the foundation model, and transfers to a physical dual-arm robot through cross-embodiment memory adaptation. With a world in the loop, a robot can learn a manipulation task in its context as well as it learns one in its weights. All code is available at https://github.com/ArcheOne-AI/RoboScript",
                 "authors": [
-                  "Yusuke Hashimoto",
-                  "Takaaki Tomai"
+                  "Heng Fang",
+                  "Zehui Guo",
+                  "Yuehan Zhang",
+                  "Mingyang Du",
+                  "Dingkang Liang",
+                  "Xiang Bai"
                 ],
-                "published": "2026-10-31T04:51:41Z",
-                "updated": "2026-11-08T13:13:17Z",
-                "url": "http://arxiv.org/abs/2611.00627v2",
-                "pdf_url": "https://arxiv.org/pdf/2611.00627v2",
+                "published": "2026-11-09T18:59:45Z",
+                "updated": "2026-11-09T18:59:45Z",
+                "url": "http://arxiv.org/abs/2611.12885v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12885v1",
                 "source": "arxiv.org",
-                "primary_category": "cs.AI",
+                "primary_category": "cs.CV",
                 "categories": [
+                  "cs.CV",
+                  "cs.RO"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12705v1",
+                "title": "Multi-Agent Screening: What Agreement and Acceptance Cannot Tell You",
+                "summary": "When AI agents screen items for a costly human assessor, as in agentic search, e-discovery and AI reviewing of papers, only what they pass gets judged. We show what each kind of evidence can establish about their errors, even with unlimited data. Agreement shows that agents concur, not that they are right, however many there are. Acceptance by the assessor gives precision but only a lower bound on recall. Knowing which agents found which relevant items gives an upper bound on recall if agents' finds are not negatively correlated, and caps what one more agent can add if agents are interchangeable. Without assumptions about the agents, recall can be pinned down only by judging items they did not pass: a random sample of these estimates how many relevant items were missed, to any chosen accuracy, and the sample needed does not grow with the number of agents.",
+                "authors": [
+                  "Benjamin Chang",
+                  "Dell Zhang"
+                ],
+                "published": "2026-11-09T17:00:16Z",
+                "updated": "2026-11-09T17:00:16Z",
+                "url": "http://arxiv.org/abs/2611.12705v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12705v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.MA",
+                "categories": [
+                  "cs.MA",
                   "cs.AI",
-                  "cond-mat.mtrl-sci",
+                  "cs.IR"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12557v1",
+                "title": "WanderBench: Can World Models Explore Dynamic Worlds from Video?",
+                "summary": "Video world models conditioned on an input video make it possible to explore real, recorded dynamic scenes, enabling re-shooting of footage, free-viewpoint replay, and real-to-sim environments for embodied agents. Such uses require the generated rollout to stay faithful to the recorded world, yet existing benchmarks start from a single image or a text prompt, and video-conditioned generation is evaluated mainly on perceptual quality and camera following. These evaluations do not directly assess whether exploration preserves subject identity, event progression, and scene consistency upon revisiting a location. We introduce WanderBench, a benchmark for exploring dynamic worlds from video. It comprises 745 single-shot source videos of real and AI-generated content in three difficulty tiers (3-25 s), paired with camera routes given as keyboard actions, and evaluates six dimensions with 24 human-validated sub-metrics. Benchmarking eight models, we find that as clips grow longer, models keep the static scene and visual quality but lose camera control and the source dynamics, and that none keeps revisited places consistent. We further propose WanderLand, a training-free framework that conditions each frame of a frozen model on the same-instant source and, on revisits, on its own earlier static content. WanderLand improves five models on every dimension, by up to 8.3 points in source-dynamics fidelity.",
+                "authors": [
+                  "Yuhang Chen",
+                  "Jiheng Li",
+                  "Jiale Wang",
+                  "Zai Wang",
+                  "Guangyue Liu"
+                ],
+                "published": "2026-11-09T15:23:53Z",
+                "updated": "2026-11-09T15:23:53Z",
+                "url": "http://arxiv.org/abs/2611.12557v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12557v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12545v1",
+                "title": "Teamknitt: Configuring, Observing and Intervening in LLM-Agent Teams through the Lens of Dynamical-Systems and Human-Team Theory",
+                "summary": "Most frameworks for teams of large language model (LLM) agents fix the team's shape inside the software: who talks to whom, how much is passed along, and what a human can do once a run has started. Human-team research has long asked those questions: where team phenomena live (in members or in their interaction), how team-level properties arise, and what separates what a team does from how a team is. I propose using that theory as the organizing lens for configuring, observing and intervening in LLM-agent teams, without assuming its findings transfer. I introduce teamknitt, a framework and open reference implementation in which a user configures a team of 1-16 AI agents for task completion, solution generation, achieving a goal or a research mission; selects one of fourteen deterministic routing topologies or a custom directed graph; chooses a sharing profile that limits what may travel along permitted routes; and binds sources, representations, work dependencies, handoffs and an expertise directory. The recorded process can be observed through non-system views (member reports and behavior) and system views (distributed problem-solving, differentiated transactive memory, interactive coordination, team dynamics). Interventions are explicit and human-led: reviewed reconfiguration between runs, planned disturbances, and private feedback, pause, resume or stop applied at dependency-wave boundaries, with \"queued\", \"applied\", \"assembled\", \"understood\" and \"improved\" kept as separate claims. Emergent states such as trust and shared understanding are declared unmeasured. This is an idea and system-description paper with falsifiable hypotheses on topology, information flow and intervention timing, including whether the fractal scaling of communication output between members, and between members on different models, relates to task and team performance. No comparative result is reported.",
+                "authors": [
+                  "Goran Mitevski"
+                ],
+                "published": "2026-11-09T15:15:39Z",
+                "updated": "2026-11-09T15:15:39Z",
+                "url": "http://arxiv.org/abs/2611.12545v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12545v1",
+                "source": "arxiv.org",
+                "primary_category": "physics.soc-ph",
+                "categories": [
+                  "physics.soc-ph",
                   "cs.MA"
                 ]
               },
               {
-                "arxiv_id": "2611.11342v1",
-                "title": "Agent Self-Improvement with Frozen Weights: The Added Value and Limits of Failure Traces",
-                "summary": "We evaluate whether an AI agent's harness, the notes around its model, can learn from the agent's failure traces beyond a matched search that never sees them. It can, but less than it looks. We tested an open 9-billion-parameter model with fixed weights; a larger teacher model wrote its notes. On generated customer-service decisions, where both note writers were told the target rules, notes based on the agent's mistakes improved accuracy by 4.0 percentage points over notes from the same process with the mistakes withheld. That process alone, trying and keeping better-scoring notes, reached about 60% of the total improvement. In full customer-service conversations the same notes showed no demonstrated improvement. Separately, a strict screen of single lessons admitted two customer-service lessons, still awaiting tests on new data, and one tool-use lesson, written without seeing the agent's mistakes, which showed no demonstrated gain on new tool-use tasks. A neutral note with no procedure scored higher than the learned lessons (exploratory). A blind audit judged 146 of 240 tool-use test items defective.",
+                "arxiv_id": "2611.12429v1",
+                "title": "Can Frontier Auto Researchers Reconstruct Human Research Decisions in AI?",
+                "summary": "Scientific research has long been driven by substantial human effort, from reviewing prior work and identifying research gaps to designing specific solutions. Recent advances in harness-based agent systems have given rise to increasingly capable Auto Researchers, which can autonomously carry out these tasks and, increasingly, entire end-to-end research workflows. Yet despite their rapidly growing capabilities, how closely the research decisions and outputs produced by auto researchers align with those of human experts remains underexplored. We investigate this gap through the lens of research reconstruction and study: Given comparable research context, how similar are the research decisions and outputs produced by Auto Researchers to those of human researchers in AI research? To answer this question, we introduce AutoResearcher-Human Research Similarity (AutoHRS), a stage-wise evaluation framework for assessing how faithfully auto researchers reconstruct human research artifacts across different stages of the scientific workflow. Using 152 ICLR oral papers as our corpus, we generate 456 research trajectories spanning different stages of the research process. Applying AutoHRS to these trajectories, we find that current Auto Researchers frequently fail to recover key research decisions and their resulting artifacts across multiple stages of the research process.",
                 "authors": [
-                  "Arkid Mitra"
+                  "Shengyun Si",
+                  "Junjie Chu",
+                  "Ye Leng",
+                  "Yang Zhang"
                 ],
-                "published": "2026-11-08T12:39:45Z",
-                "updated": "2026-11-08T12:39:45Z",
-                "url": "http://arxiv.org/abs/2611.11342v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11342v1",
-                "source": "arxiv.org",
-                "primary_category": "cs.LG",
-                "categories": [
-                  "cs.LG",
-                  "cs.AI",
-                  "cs.CL"
-                ]
-              },
-              {
-                "arxiv_id": "2611.11340v1",
-                "title": "Agentic Attribution of Cloud Resource Ownership",
-                "summary": "Security tools raise findings across cloud environments, and AI agents now investigate and prioritize them. A finding is still resolved by people: it has to reach the people responsible for fixing it and accountable for the resource it concerns. Ownership is the organizational context that decides who that is. Where recorded, it is declared by hand in configuration management databases or owner tags and goes stale unless kept current; accounts are shared, and automation creates much of the infrastructure. The knowledge sits in work records, code history, audit logs and identity directories, encoded in each organization's own conventions. Recovering it poses four challenges: the signal is scattered across sources, none of them authoritative; the conventions that carry it differ between organizations; reaching an owner takes multi-hop links; and those related to a resource differ in the strength of their relation. We define ownership as a set of entities, people or teams, each related to the resource by one of five patterns ordered by strength. We present a reference architecture for agentic ownership attribution that derives ownership from these records instead of declaring it: it profiles an organization offline into tested signal procedures and an ownership playbook, then attributes each resource with a coordinator agent and parallel investigators, with confidence computed by rules. On 100 resources of 50 Amazon Web Services (AWS) resource types in one organization, we pool the architecture's candidates with those of an unprimed general-purpose agent and verify every evidence piece against the records. The architecture reaches 92.1% weighted recall and 86.6% weighted precision, against 54.8% and 77.4%, at 0.55 times the agent's cost per unit of coverage. The difference lies in people who build and change resources without an explicit owner, found through work records and code history.",
-                "authors": [
-                  "Tiltan Gilat",
-                  "Gal Engelberg",
-                  "Ariel Zadok",
-                  "Leon Goldberg"
-                ],
-                "published": "2026-11-08T12:37:23Z",
-                "updated": "2026-11-08T12:37:23Z",
-                "url": "http://arxiv.org/abs/2611.11340v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11340v1",
-                "source": "arxiv.org",
-                "primary_category": "cs.CR",
-                "categories": [
-                  "cs.CR",
-                  "cs.AI"
-                ]
-              },
-              {
-                "arxiv_id": "2611.11325v1",
-                "title": "Linking Event-sequence Data Claims to Analytic Provenance in Chatbots: Technique and Evaluation",
-                "summary": "Chatbots are increasingly used to analyze temporal event sequences of which website clickstreams are among the most common. Explanations are essential for understanding claims about event-sequence data. However, existing systems often require programming expertise to interpret these explanations and fail to explain the data processes underlying the data claims. We introduce a technique for linking a data claim to its analytic provenance (i.e., the analytic steps and results that produced it). It has two components: a reference table that records analytic steps and results in addressable cells, and a citation format that binds each claim to one or more cells. To operationalize this technique for clickstream analysis, we curated a set of analytic operations for clickstream analysis, organized them through a pivot-table abstraction, and developed tools that an AI agent can invoke to create a reference table and assemble a natural language response with cited data claims. To evaluate how citations affect users' assessment of data claims, we conducted two crowdsourced experiments with 90 participants each. The experiments showed that participants perceived correct data claims to be more accurate with citations when compared with no explanations, and that they perceived incorrect data claims to be less accurate with citations when compared with code and no explanations.",
-                "authors": [
-                  "Po-Ming Law",
-                  "Jianheng Ouyang",
-                  "Nguyen-Truong Thinh",
-                  "Weizhi Li",
-                  "Arpit Narechania"
-                ],
-                "published": "2026-11-08T12:00:56Z",
-                "updated": "2026-11-08T12:00:56Z",
-                "url": "http://arxiv.org/abs/2611.11325v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11325v1",
-                "source": "arxiv.org",
-                "primary_category": "cs.HC",
-                "categories": [
-                  "cs.HC"
-                ]
-              },
-              {
-                "arxiv_id": "2611.11306v1",
-                "title": "ScrapeBench: Evaluating Legal Compliance of AI Agents in Website Scraping",
-                "summary": "AI agents deployed on the open web are becoming more capable of performing actions that may breach contractual provisions and violate computer security laws. In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and robots.txt directives. Across widely used closed-weight and open-weight AI agents, we find that most agents exhibit low compliance rates (< 5%) when instructed to scrape websites in our sample of 1,626 popular websites that explicitly prohibit scraping. In addition, we observe that even where AI agents actively check the applicable ToS and robots.txt, they continue to exhibit low compliance rates. Conversely, in our sample of 269 websites that do not prohibit scraping, we observe that agents sometimes refuse to scrape despite it being lawful, such as Claude Opus 4.6 exhibiting an over-refusal rate of 98.5%. Our human baseline experiments (n = 180 participants) suggest that humans exhibit compliance rates comparable to AI agents but over-refuse at much higher rates.",
-                "authors": [
-                  "Joseph Marvin Imperial",
-                  "Daniel Slate",
-                  "Noam Kolt"
-                ],
-                "published": "2026-11-08T11:19:18Z",
-                "updated": "2026-11-08T11:19:18Z",
-                "url": "http://arxiv.org/abs/2611.11306v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11306v1",
+                "published": "2026-11-09T13:54:46Z",
+                "updated": "2026-11-09T13:54:46Z",
+                "url": "http://arxiv.org/abs/2611.12429v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12429v1",
                 "source": "arxiv.org",
                 "primary_category": "cs.CL",
                 "categories": [
-                  "cs.CL",
-                  "cs.AI"
+                  "cs.CL"
                 ]
               }
             ],
@@ -822,12 +932,12 @@
         {
           "tool": "policy",
           "args": {
-            "query": "arXiv",
+            "query": "arXiv citation",
             "policy_area": "source_citation"
           },
           "result": {
             "tool": "search_company_policy",
-            "query": "arXiv",
+            "query": "arXiv citation",
             "policy_area": "source_citation",
             "results": [
               {
@@ -845,25 +955,7 @@
                   "arxiv",
                   "evidence"
                 ],
-                "score": 4,
-                "untrusted_text": []
-              },
-              {
-                "doc_id": "source-citation-policy",
-                "policy_area": "source_citation",
-                "title": "Source And Citation Policy",
-                "section": "Source tiers",
-                "facts": "- Tier 1: primary source, official blog, documentation, paper, dataset, regulatory filing. - Tier 2: reputable reporting that links to primary evidence. - Tier 3: social posts, forum posts, anonymous claims, screenshots, and unverified summaries. - Tier 3 can be used as signal only. Do not present it as confirmed fact without Tier 1 or Tier 2 support.",
-                "source": "Company Research Policy Handbook v1",
-                "effective_date": "2026-06-01",
-                "tags": [
-                  "source",
-                  "citation",
-                  "tweet",
-                  "arxiv",
-                  "evidence"
-                ],
-                "score": 3,
+                "score": 8,
                 "untrusted_text": []
               },
               {
@@ -881,7 +973,25 @@
                   "arxiv",
                   "evidence"
                 ],
-                "score": 3,
+                "score": 7,
+                "untrusted_text": []
+              },
+              {
+                "doc_id": "source-citation-policy",
+                "policy_area": "source_citation",
+                "title": "Source And Citation Policy",
+                "section": "Source tiers",
+                "facts": "- Tier 1: primary source, official blog, documentation, paper, dataset, regulatory filing. - Tier 2: reputable reporting that links to primary evidence. - Tier 3: social posts, forum posts, anonymous claims, screenshots, and unverified summaries. - Tier 3 can be used as signal only. Do not present it as confirmed fact without Tier 1 or Tier 2 support.",
+                "source": "Company Research Policy Handbook v1",
+                "effective_date": "2026-06-01",
+                "tags": [
+                  "source",
+                  "citation",
+                  "tweet",
+                  "arxiv",
+                  "evidence"
+                ],
+                "score": 6,
                 "untrusted_text": []
               }
             ],
@@ -920,9 +1030,9 @@
         ]
       },
       "result": {
-        "passed": false,
+        "passed": true,
         "routing_correct": true,
-        "args_correct": false,
+        "args_correct": true,
         "actual_tool_calls": [
           {
             "name": "fetch",
@@ -933,17 +1043,16 @@
           {
             "name": "policy",
             "args": {
-              "query": "research workflow"
+              "query": "research workflow",
+              "policy_area": "ai_research"
             }
           }
         ],
         "actual_text": null,
         "case_failure_type": "wrong_tool",
-        "observed_mismatch": "wrong_arg_value",
-        "failure_type": "wrong_tool",
-        "failures": [
-          "policy_area: expected 'ai_research', got None"
-        ]
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
       },
       "tool_results": [
         {
@@ -967,12 +1076,13 @@
         {
           "tool": "policy",
           "args": {
-            "query": "research workflow"
+            "query": "research workflow",
+            "policy_area": "ai_research"
           },
           "result": {
             "tool": "search_company_policy",
             "query": "research workflow",
-            "policy_area": "all",
+            "policy_area": "ai_research",
             "results": [
               {
                 "doc_id": "ai-research-policy",
@@ -1156,7 +1266,7 @@
             "args": {
               "query": "AI agent evaluation",
               "max_results": 5,
-              "sort_by": "lastUpdatedDate"
+              "sort_by": "submittedDate"
             }
           }
         ],
@@ -1172,112 +1282,112 @@
           "args": {
             "query": "AI agent evaluation",
             "max_results": 5,
-            "sort_by": "lastUpdatedDate"
+            "sort_by": "submittedDate"
           },
           "result": {
             "tool": "arxiv_search",
             "query": "AI agent evaluation",
             "api_query": "all:AI AND all:agent AND all:evaluation",
-            "total_results": 6035,
+            "total_results": 6046,
             "items": [
               {
-                "arxiv_id": "2609.28182v2",
-                "title": "Finite-Sample Probabilistic Safety Certification for AI-Based Grid-Edge Coordination",
-                "summary": "Coordinating a large population of flexible grid-edge devices can alleviate the need for time-consuming and capital-intensive network upgrades. Artificial intelligence (AI)-based control methods such as multi-agent reinforcement learning or imitation learning are promising to this coordination due to their real-time decision scalability. However, system operators still need an independent and rigorous way to decide whether a given AI system is safe enough for deployment. This paper develops a \\emph{finite-sample} probabilistic safety certification framework for AI-based grid-edge coordination. The central idea is to reduce the complete input--AI--decision--evaluation workflow to a binary unsafe outcome under an operator-defined safety specification, and then use exact binomial inference to certify the corresponding unsafe operation probability. Given a set of held-out calibration scenarios, the framework returns the tightest one-sided upper certificate and an accept/reject deployment criterion that controls the probability of false safety certification. Because the certification is for the calibration distribution that may \\emph{deviate} from the future operation, we further combine the nominal certificate with physically interpretable sample-space adversarial attacks, a concept widely used in AI models to investigate their fragility. Case studies on grid-edge flexibility coordination with 1{,}000-agent AI models (independent parameters) verify the safety guarantee and the value of integrating adversarial attacks into a rolling-window training-certification-deployment flow.",
+                "arxiv_id": "2611.12557v1",
+                "title": "WanderBench: Can World Models Explore Dynamic Worlds from Video?",
+                "summary": "Video world models conditioned on an input video make it possible to explore real, recorded dynamic scenes, enabling re-shooting of footage, free-viewpoint replay, and real-to-sim environments for embodied agents. Such uses require the generated rollout to stay faithful to the recorded world, yet existing benchmarks start from a single image or a text prompt, and video-conditioned generation is evaluated mainly on perceptual quality and camera following. These evaluations do not directly assess whether exploration preserves subject identity, event progression, and scene consistency upon revisiting a location. We introduce WanderBench, a benchmark for exploring dynamic worlds from video. It comprises 745 single-shot source videos of real and AI-generated content in three difficulty tiers (3-25 s), paired with camera routes given as keyboard actions, and evaluates six dimensions with 24 human-validated sub-metrics. Benchmarking eight models, we find that as clips grow longer, models keep the static scene and visual quality but lose camera control and the source dynamics, and that none keeps revisited places consistent. We further propose WanderLand, a training-free framework that conditions each frame of a frozen model on the same-instant source and, on revisits, on its own earlier static content. WanderLand improves five models on every dimension, by up to 8.3 points in source-dynamics fidelity.",
                 "authors": [
-                  "Yihong Zhou",
-                  "Hanbin Yang",
-                  "Thomas Morstyn"
+                  "Yuhang Chen",
+                  "Jiheng Li",
+                  "Jiale Wang",
+                  "Zai Wang",
+                  "Guangyue Liu"
                 ],
-                "published": "2026-09-23T14:24:46Z",
-                "updated": "2026-11-08T14:10:09Z",
-                "url": "http://arxiv.org/abs/2609.28182v2",
-                "pdf_url": "https://arxiv.org/pdf/2609.28182v2",
+                "published": "2026-11-09T15:23:53Z",
+                "updated": "2026-11-09T15:23:53Z",
+                "url": "http://arxiv.org/abs/2611.12557v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12557v1",
                 "source": "arxiv.org",
-                "primary_category": "cs.AI",
+                "primary_category": "cs.CV",
                 "categories": [
-                  "cs.AI",
-                  "cs.LG",
-                  "eess.SY"
-                ]
-              },
-              {
-                "arxiv_id": "2611.11342v1",
-                "title": "Agent Self-Improvement with Frozen Weights: The Added Value and Limits of Failure Traces",
-                "summary": "We evaluate whether an AI agent's harness, the notes around its model, can learn from the agent's failure traces beyond a matched search that never sees them. It can, but less than it looks. We tested an open 9-billion-parameter model with fixed weights; a larger teacher model wrote its notes. On generated customer-service decisions, where both note writers were told the target rules, notes based on the agent's mistakes improved accuracy by 4.0 percentage points over notes from the same process with the mistakes withheld. That process alone, trying and keeping better-scoring notes, reached about 60% of the total improvement. In full customer-service conversations the same notes showed no demonstrated improvement. Separately, a strict screen of single lessons admitted two customer-service lessons, still awaiting tests on new data, and one tool-use lesson, written without seeing the agent's mistakes, which showed no demonstrated gain on new tool-use tasks. A neutral note with no procedure scored higher than the learned lessons (exploratory). A blind audit judged 146 of 240 tool-use test items defective.",
-                "authors": [
-                  "Arkid Mitra"
-                ],
-                "published": "2026-11-08T12:39:45Z",
-                "updated": "2026-11-08T12:39:45Z",
-                "url": "http://arxiv.org/abs/2611.11342v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11342v1",
-                "source": "arxiv.org",
-                "primary_category": "cs.LG",
-                "categories": [
-                  "cs.LG",
-                  "cs.AI",
-                  "cs.CL"
-                ]
-              },
-              {
-                "arxiv_id": "2611.11325v1",
-                "title": "Linking Event-sequence Data Claims to Analytic Provenance in Chatbots: Technique and Evaluation",
-                "summary": "Chatbots are increasingly used to analyze temporal event sequences of which website clickstreams are among the most common. Explanations are essential for understanding claims about event-sequence data. However, existing systems often require programming expertise to interpret these explanations and fail to explain the data processes underlying the data claims. We introduce a technique for linking a data claim to its analytic provenance (i.e., the analytic steps and results that produced it). It has two components: a reference table that records analytic steps and results in addressable cells, and a citation format that binds each claim to one or more cells. To operationalize this technique for clickstream analysis, we curated a set of analytic operations for clickstream analysis, organized them through a pivot-table abstraction, and developed tools that an AI agent can invoke to create a reference table and assemble a natural language response with cited data claims. To evaluate how citations affect users' assessment of data claims, we conducted two crowdsourced experiments with 90 participants each. The experiments showed that participants perceived correct data claims to be more accurate with citations when compared with no explanations, and that they perceived incorrect data claims to be less accurate with citations when compared with code and no explanations.",
-                "authors": [
-                  "Po-Ming Law",
-                  "Jianheng Ouyang",
-                  "Nguyen-Truong Thinh",
-                  "Weizhi Li",
-                  "Arpit Narechania"
-                ],
-                "published": "2026-11-08T12:00:56Z",
-                "updated": "2026-11-08T12:00:56Z",
-                "url": "http://arxiv.org/abs/2611.11325v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11325v1",
-                "source": "arxiv.org",
-                "primary_category": "cs.HC",
-                "categories": [
-                  "cs.HC"
-                ]
-              },
-              {
-                "arxiv_id": "2611.11306v1",
-                "title": "ScrapeBench: Evaluating Legal Compliance of AI Agents in Website Scraping",
-                "summary": "AI agents deployed on the open web are becoming more capable of performing actions that may breach contractual provisions and violate computer security laws. In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and robots.txt directives. Across widely used closed-weight and open-weight AI agents, we find that most agents exhibit low compliance rates (< 5%) when instructed to scrape websites in our sample of 1,626 popular websites that explicitly prohibit scraping. In addition, we observe that even where AI agents actively check the applicable ToS and robots.txt, they continue to exhibit low compliance rates. Conversely, in our sample of 269 websites that do not prohibit scraping, we observe that agents sometimes refuse to scrape despite it being lawful, such as Claude Opus 4.6 exhibiting an over-refusal rate of 98.5%. Our human baseline experiments (n = 180 participants) suggest that humans exhibit compliance rates comparable to AI agents but over-refuse at much higher rates.",
-                "authors": [
-                  "Joseph Marvin Imperial",
-                  "Daniel Slate",
-                  "Noam Kolt"
-                ],
-                "published": "2026-11-08T11:19:18Z",
-                "updated": "2026-11-08T11:19:18Z",
-                "url": "http://arxiv.org/abs/2611.11306v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11306v1",
-                "source": "arxiv.org",
-                "primary_category": "cs.CL",
-                "categories": [
-                  "cs.CL",
+                  "cs.CV",
                   "cs.AI"
                 ]
               },
               {
-                "arxiv_id": "2611.11279v1",
-                "title": "How Efficient Is Your Agent? Online Predictive Bounds under Budget Constraints",
-                "summary": "We evaluate AI agents in an online setting where tasks arrive sequentially and, before running each task, we construct an upper predictive bound on its \\emph{time-to-success}---the number of interactions until the task is completed successfully. Under a limited budget, some runs are stopped early, so their time-to-success is unobserved (right-censored), and the correctness of the bound may be unknown. We introduce \\emph{\\textbf{PR}edictive Bounds for \\textbf{O}nline \\textbf{B}udget \\textbf{E}fficiency} (\\texttt{PROBE}), a method for constructing calibrated upper predictive bounds while adaptively allocating a limited budget across agent tasks to reduce the anticipated coverage deficit. Our method calibrates the bounds online using inverse-probability-weighted feedback together with a correction designed to minimize coverage deficit while remaining unbiased. We prove that \\texttt{PROBE} provides a coverage guarantee for any finite time horizon while satisfying the budget constraint. Experiments on software engineering, retrieval-augmented generation, and instruction following show that \\texttt{PROBE} attains a coverage rate closer to the target level with tighter predictive bounds than a calibrated baseline.",
+                "arxiv_id": "2611.12429v1",
+                "title": "Can Frontier Auto Researchers Reconstruct Human Research Decisions in AI?",
+                "summary": "Scientific research has long been driven by substantial human effort, from reviewing prior work and identifying research gaps to designing specific solutions. Recent advances in harness-based agent systems have given rise to increasingly capable Auto Researchers, which can autonomously carry out these tasks and, increasingly, entire end-to-end research workflows. Yet despite their rapidly growing capabilities, how closely the research decisions and outputs produced by auto researchers align with those of human experts remains underexplored. We investigate this gap through the lens of research reconstruction and study: Given comparable research context, how similar are the research decisions and outputs produced by Auto Researchers to those of human researchers in AI research? To answer this question, we introduce AutoResearcher-Human Research Similarity (AutoHRS), a stage-wise evaluation framework for assessing how faithfully auto researchers reconstruct human research artifacts across different stages of the scientific workflow. Using 152 ICLR oral papers as our corpus, we generate 456 research trajectories spanning different stages of the research process. Applying AutoHRS to these trajectories, we find that current Auto Researchers frequently fail to recover key research decisions and their resulting artifacts across multiple stages of the research process.",
                 "authors": [
-                  "Roy Maor Lotan",
-                  "Shai Feldman",
-                  "Yaniv Romano"
+                  "Shengyun Si",
+                  "Junjie Chu",
+                  "Ye Leng",
+                  "Yang Zhang"
                 ],
-                "published": "2026-11-08T10:05:38Z",
-                "updated": "2026-11-08T10:05:38Z",
-                "url": "http://arxiv.org/abs/2611.11279v1",
-                "pdf_url": "https://arxiv.org/pdf/2611.11279v1",
+                "published": "2026-11-09T13:54:46Z",
+                "updated": "2026-11-09T13:54:46Z",
+                "url": "http://arxiv.org/abs/2611.12429v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12429v1",
                 "source": "arxiv.org",
-                "primary_category": "cs.LG",
+                "primary_category": "cs.CL",
                 "categories": [
-                  "cs.LG"
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12377v1",
+                "title": "Detecting Shadow AI: Unsanctioned LLM Agents on Enterprise Endpoints: A Taxonomy, an Open Detector and a Controlled Evaluation",
+                "summary": "Shadow IT, the use of technology that the IT organisation has not approved, is a long-standing governance problem. We argue that autonomous AI agents can make it grow much faster: agents make building tools nearly free, act with their user's privileges, and leave behind scripts, automations and MCP servers that are themselves unsanctioned. A simple compounding model shows that, under its assumptions, shadow IT grows exponentially once agentic artifacts reproduce faster than the organisation retires them; retiring them starts with detecting them. We then ask whether unsanctioned agents can be detected on Windows endpoints. We propose a taxonomy of nine classes of agents and six layers of endpoint footprint, and argue that rules based only on the structure of processes and connections cannot separate an agent from its behavioural twin, the same program talking to a non-AI service. We present Agent Detector, an open-source Windows detector that anchors behaviour to the identity of the remote service and correlates it with configuration, installation and execution history, using a catalog of 39 tools and 184 LLM endpoint entries; it informs users through a notice they must acknowledge instead of blocking. On a controlled bench of 12 synthetic agents, 3 AI components and 9 benign workloads, repeated 5 times on one workstation, two behavioural rules flagged every behavioural twin, while Agent Detector flagged none and detected every agent in the majority of runs. Its limits are temporal: a connection to a provider behind a shared content-delivery network is attributable only while the DNS cache holds the provider's name, one to five minutes, and an intermittent agent was seen by about one scan in three. A scan costs about 154 ms. The bench is too small to rank detectors; it maps what each kind of evidence can see: unsanctioned agents can be partly detected, and not by behaviour alone.",
+                "authors": [
+                  "Jeremy Canale",
+                  "Fabien Soulis"
+                ],
+                "published": "2026-11-09T13:19:45Z",
+                "updated": "2026-11-09T13:19:45Z",
+                "url": "http://arxiv.org/abs/2611.12377v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12377v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CR"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12269v1",
+                "title": "Agent4Crypto: A Dual-Reflective and Market-Feedback-Aligned LLM-Based Multi-Agent System for Cryptocurrency Trading",
+                "summary": "Cryptocurrency markets provide a natural testbed for autonomous AI agents because they are digital-native, high-frequency, and machine-speed environments, yet existing methods often struggle with non-stationary market regimes, opaque decisions, and fixed aggregation rules. In this paper, we propose Agent4Crypto, a dual-reflective and market-feedback-aligned multi-agent system. The framework coordinates specialized agents for data collection, analysis, risk assessment, reflection, and trading, synthesizing heterogeneous signals from prices, indicators, news, and charts in an interpretable decision pipeline. Our central design is a trader-centric decision mechanism: three style-specific trader agents, Aggressive, Neutral, and Conservative, generate candidate actions and natural-language rationales from the same market context, while their influence is learned rather than manually fixed. A PPO-based gating policy dynamically allocates trader weights through a dual-reflective feedback process. One reflection stream evaluates post-trade decision quality from realized portfolio outcomes and distills reusable lessons into a Financial ReasoningBank for retrieval in subsequent trader prompts, while the other estimates trader-level counterfactual contribution, indicating which style has recently aligned better with market movements. The PPO state combines Counterfactual Contribution Memory with market features, previous trader weights, and current trader actions, so trader influence adapts across bull, sideways, and bear regimes. Experiments on BTC, ETH, and XRP show that Agent4Crypto improves total return and Sharpe ratio over traditional strategies, machine learning and reinforcement learning baselines, and existing LLM-based trading systems, demonstrating the value of interpretable trader competition and market-feedback-driven adaptation in volatile cryptocurrency markets.",
+                "authors": [
+                  "Guangyan Gan",
+                  "Jiahao Li",
+                  "Jiashun Wang",
+                  "Lin William Cong"
+                ],
+                "published": "2026-11-09T11:57:33Z",
+                "updated": "2026-11-09T11:57:33Z",
+                "url": "http://arxiv.org/abs/2611.12269v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12269v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.MA",
+                "categories": [
+                  "cs.MA",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12256v1",
+                "title": "Predictability of Collective Behavior in Networks of LLM Agents",
+                "summary": "As AI agents built on large language models (LLMs) increasingly interact at scale, anticipating their collective behavior becomes necessary. Unlike humans, individual LLM agents can be probed in {controlled scenarios}; however, the predictability of their collective outcomes hinges on what such measurements capture. We study information cascades on networks of LLM agents that decide whether to share a post given how many of their contacts have shared it. At the same fraction of sharing contacts, an agent's response depends on how many contacts it has and on the post. Responses that ignore the number of contacts mispredict the cascades, increasingly on heterogeneous networks, by an error we derive analytically and that network topology alone cannot reveal. Measured in context, the response predicts, through mean-field theory, the cascades of full LLM simulations, tipping points included. Anticipating the collective behavior of AI agents thus requires evaluating them in their local network context.",
+                "authors": [
+                  "Fabian Baumann",
+                  "Michele Starnini"
+                ],
+                "published": "2026-11-09T11:47:33Z",
+                "updated": "2026-11-09T11:47:33Z",
+                "url": "http://arxiv.org/abs/2611.12256v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12256v1",
+                "source": "arxiv.org",
+                "primary_category": "physics.soc-ph",
+                "categories": [
+                  "physics.soc-ph"
                 ]
               }
             ],
@@ -1286,5 +1396,9 @@
         }
       ]
     }
+  ],
+  "execution_mode": "live_provider_and_read_tools_with_simulated_send",
+  "simulated_tools": [
+    "send"
   ]
 }

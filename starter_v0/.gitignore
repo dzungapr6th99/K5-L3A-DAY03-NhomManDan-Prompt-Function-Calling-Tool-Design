@@ -6,3 +6,6 @@ __pycache__/
 .env.*
 !.env.example
 arxiv_papers/
+
+# Ad hoc UI sessions are local; the official CLI transcript is submitted.
+transcripts/*_ui_*.transcript.json

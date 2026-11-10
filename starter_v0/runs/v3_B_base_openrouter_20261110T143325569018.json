@@ -1,9 +1,9 @@
 {
-  "run_id": "v3_B_base_openrouter_20261110T123220151282",
+  "run_id": "v3_B_base_openrouter_20261110T143325569018",
   "version": "v3",
-  "artifact_version": "v3+p1f7900e51005+t3b13ec4ec0ad",
-  "prompt_hash": "1f7900e51005bd6388028898af9aff7bf39b806a5b8f2a476547f5eede7c2fb5",
-  "tools_hash": "3b13ec4ec0ad2255774bafb7a0b7beb96ba2fbb2e01b6da081095b81cccc66a1",
+  "artifact_version": "v3+p840cbe5577ea+t82c24d53675e",
+  "prompt_hash": "840cbe5577ea892139828e9501fe492bfd149291c28e88b5efb660afd6b8fcd7",
+  "tools_hash": "82c24d53675e9f9acfc9aff61ba7df709c012561d77cd62dfd5f89446cc2e80a",
   "phase": "B",
   "suite": "base",
   "provider": "openrouter",
@@ -14,7 +14,7 @@
   "dataset_id": "day04_v2_research_base",
   "dataset_role": "base",
   "description": "Core eval cho research agent: routing đúng tool + đúng args, hỏi lại khi thiếu (ask_user), xác nhận trước khi gửi, và xử lý câu ngoài phạm vi / không cần tool. Chấm trên tool_calls + args (subset). KHÔNG sửa file này — chỉ thêm case vào eval_group.json.",
-  "generated_at": "2026-11-10T12:32:20",
+  "generated_at": "2026-11-10T14:33:25",
   "summary": {
     "total_cases": 20,
     "measured_cases": 20,
@@ -89,7 +89,7 @@
                 "metrics": {
                   "favorites": 0,
                   "retweets": 53,
-                  "views": "47400"
+                  "views": "47434"
                 }
               }
             ]
@@ -151,35 +151,11 @@
             "search_type": "Latest",
             "items": [
               {
-                "title": "Turn your photo into a cute 3×3 summer photoshoot with GPT Image 2.5 ",
-                "summary": "Turn your photo into a cute 3×3 summer photoshoot with GPT Image 2.5 \n\nPrompt:\nCreate a high-quality, ultra-realistic 3×3 photographic collage featuring the person from the uploaded reference image. Preserve the person's exact facial identity, facial features, face shape, hairstyle, hair texture, skin tone, and natural appearance across all nine panels.\n\nOverall Style:\nA playful Korean summer fashion editorial photoshoot with a dreamy, youthful and cheerful aesthetic. Bright clear sky-blue background, warm natural sunlight, soft shadows, crisp photography, and subtle film-like color grading.\n\nOutfit:\nThe subject wears an oversized cream-colored hoodie with small orange food illustrations on the front and a larger yellow-orange egg tart graphic on the back, a white pleated mini skirt or shorts, and a pastel pink baseball cap. Maintain consistent clothing, accessories, and appearance across every panel.\n\n3×3 Collage Composition:\n\nPanel 1 (Top Left):\nClose-up portrait. The subject holds a bright orange fruit toward the camera with one hand while making a playful expression. Add cute white cat-face doodles on the fruit and handwritten text \"WOW\".\n\nPanel 2 (Top Center):\nFull-body playful pose against the blue sky, standing on one leg with the other leg stretched sideways and arms spread out. Add handwritten text \"egg tart\" with small hearts and movement lines.\n\nPanel 3 (Top Right):\nSide profile, holding an orange fruit near the face while looking at it. Add playful white doodles, cartoon eyes, and handwritten text \"LOOK!\".\n\nPanel 4 (Middle Left):\nBack view of the subject reaching upward with one hand, showing the large egg tart illustration on the back of the hoodie. Add a large hand-drawn white cloud outline and a small heart.\n\nPanel 5 (Middle Center):\nFront-facing portrait with both hands near the head, holding a small orange fruit beside the cheek. Add a white speech bubble containing \"Hi\".\n\nPanel 6 (Middle Right):\nRelaxed sitting pose with one knee raised, holding an orange fruit near the cheek. Looking slightly upward with a cute, confident expression. Add handwritten text \"yum\" and small decorative lines.\n\nPanel 7 (Bottom Left):\nSitting casually with one hand touching the pink cap and an orange fruit resting above it. Eyes gently closed with a relaxed smile. Add playful crown-like doodles and small decorative hearts.\n\nPanel 8 (Bottom Center):\nFull back view, hands on waist, clearly displaying the oversized hoodie and its large yellow-orange egg tart artwork. Add curved white doodle lines around the subject.\n\nPanel 9 (Bottom Right):\nLow-angle sitting portrait with one sneaker sole close to the camera. The subject raises one hand toward the pink cap and smiles gently. Add white hand-drawn geometric shapes and playful motion lines.\n\nVisual Details:\n\n- Perfectly aligned 3×3 grid with nine equally sized rectangular panels.\n- Consistent facial identity throughout all nine photographs.\n- Sky-blue and deep cobalt-blue backgrounds.\n- Bright natural summer sunlight.\n- Realistic skin texture and natural anatomy.\n- Authentic fashion editorial photography.\n- White handwritten doodles, hearts, clouds, stars, cartoon eyes, and motion marks.\n- Maintain consistent outfit, hairstyle, cap, and accessories in every panel.\n- No borders or gaps between panels.\n\nText and Typography:\nUse casual, imperfect, hand-drawn white lettering. Include \"WOW\", \"egg tart\", \"LOOK!\", \"Hi\", and \"yum\" in the corresponding panels.\n\nFinal Output: A beautiful, cohesive 3×3 Korean-inspired summer fashion photo collage, vertical 3:4 composition, ultra-realistic photography, high detail, vibrant blue skies, and playful editorial storytelling.",
-                "url": "https://x.com/Ziha_ai/status/2120026285753913570",
-                "source": "@Ziha_ai",
-                "date": "Tue Nov 10 05:30:29 +0000 2026",
-                "metrics": {
-                  "favorites": 0,
-                  "retweets": 0,
-                  "views": "12"
-                }
-              },
-              {
-                "title": "▼ リセットで戻るもの",
-                "summary": "▼ リセットで戻るもの\n・週の上限：Fableに使った分だけが戻る（他のモデルの分はそのまま）\n・5時間の上限：他のモデルの分も含めて全部戻る\n\n※GPT Codexのように週間上限がフルリセットされるわけではないのでそこは注意！\n\n▼ 公式ヘルプはこちら\nhttps://t.co/3i9Jb347Cd",
-                "url": "https://x.com/Claude_Digest/status/2120026281731657846",
-                "source": "@Claude_Digest",
-                "date": "Tue Nov 10 05:30:28 +0000 2026",
-                "metrics": {
-                  "favorites": 0,
-                  "retweets": 0,
-                  "views": "2"
-                }
-              },
-              {
-                "title": "What changed in 7 days:",
-                "summary": "What changed in 7 days:\n\nPricing got honest. DeepL dropped from 50 credits to 27. GPT-4o-mini dropped from 8 to 1. Markup fell from 1.68x to 1.24x. Same call, less money.\n\nCaps work now. I set a 5-credit limit. A 27-credit call got blocked. No charge.\n\nThe dashboard shows all purchases and credits spent in one place.\n\nThat last one matters more than it looks. You can't trust a bill you can't see.",
-                "url": "https://x.com/Sonofpeace0001/status/2120026164039430573",
-                "source": "@Sonofpeace0001",
-                "date": "Tue Nov 10 05:30:00 +0000 2026",
+                "title": "@seiiiiiiiiiiru Did it check its own renders between steps, or work from the scene data? On a Blender kitchen game Opus ",
+                "summary": "@seiiiiiiiiiiru Did it check its own renders between steps, or work from the scene data? On a Blender kitchen game Opus 5.5 rendered 9 times in 47 min for me, GPT-6.1 Sol 5 times in 32.",
+                "url": "https://x.com/ChaChaEvals/status/2120056056596582804",
+                "source": "@ChaChaEvals",
+                "date": "Tue Nov 10 07:28:47 +0000 2026",
                 "metrics": {
                   "favorites": 0,
                   "retweets": 0,
@@ -187,27 +163,51 @@
                 }
               },
               {
-                "title": "追加記事、愛があれば可能かそうではないのか？",
-                "summary": "追加記事、愛があれば可能かそうではないのか？\n５個あるのでTL荒らす感じになっちゃったらすみません\n①\n「愛がないリョナは書けるのか」と聞かれたので整理。線は愛の有無そのものじゃない。効いてるのは「物語としての枠があるか」で、愛はその一番分かりやすい形にすぎない",
-                "url": "https://x.com/hitotoki_0627_C/status/2120026020875247940",
-                "source": "@hitotoki_0627_C",
-                "date": "Tue Nov 10 05:29:26 +0000 2026",
+                "title": "https://t.co/zAktvQs6uw",
+                "summary": "https://t.co/zAktvQs6uw",
+                "url": "https://x.com/Dainer_Jun/status/2120055627322195988",
+                "source": "@Dainer_Jun",
+                "date": "Tue Nov 10 07:27:04 +0000 2026",
                 "metrics": {
                   "favorites": 0,
                   "retweets": 0,
-                  "views": "1"
+                  "views": "4"
                 }
               },
               {
-                "title": "GPT Image",
-                "summary": "GPT Image\n\n提示词：\n绝美23岁东亚成年女性，身材匀称丰满，上围明显自然丰满圆润、富有真实体量感，配合纤细腰部，胸腰差明显，但不夸张、不假体感。鹅蛋脸、深棕杏眼，黑色长发柔顺，眉眼清亮，淡杏眼妆配自然玫瑰唇色，保留鼻梁与脸颊的细小肤理。\n她穿珍珠灰柔缎裹身软杯文胸，前胸斜向交叠形成低开的深V，两条细肩带沿肩头延伸，短幅胸围在侧边以小系结收束；搭配灰蓝细白条纹的低腰内裤，平缓V形腰边与弧形腿口呼应上装斜线，条纹疏密均匀。夜晚梳妆台前，她正面站稳，双手在后颈处松松拢住长发，双肘自然向侧方打开，肩部放松，不挡住领口，身体轻偏向一侧而脸朝镜头。她直接看向摄影者，目光柔软，嘴角留一点若有若无的笑意。\n写实内衣时尚编辑摄影，4:5竖幅，65mm近距离取景，头顶、发型和下巴完整入镜，顶部留少量空间，下缘至大腿中段，双肘均在画内。右前方暖白柔光照亮眼睛与裹片细褶，背景只有模糊镜边和深色台面；柔缎与条纹织料的质感有区别，腰侧明暗自然，不做油亮磨皮。",
-                "url": "https://x.com/sdjn_wgc/status/2120025993607790937",
-                "source": "@sdjn_wgc",
-                "date": "Tue Nov 10 05:29:19 +0000 2026",
+                "title": "Kokonaiskuvaa Suomesta saati Suomen tulevaisuudesta ei kyllä lue missään. Pitää itse tutkia. Esim. sähkö (energian hinta",
+                "summary": "Kokonaiskuvaa Suomesta saati Suomen tulevaisuudesta ei kyllä lue missään. Pitää itse tutkia. Esim. sähkö (energian hinta) on otsikoissa päivittäin, mutta vertailukohta aina Eurooppa. Saattaa olla Eu - alueen ulkopuolella halvempaa.\n\nMineraaleja Suomessa olisi ja voisi ennustaa, että ovat 2030 - luvun hittituote. \n\nMuutoin teollisuuskin on AI ajan murroksessa. Tässä tuore yritys jossa koitin vähän hahmotella tulevaa ChatGPT kanssa.\n\n\"2030: AI:n ohjaama tuotanto- ja kehitysverkosto – realistinen visio\n\nLähtisin rakentamaan tätä visiota hieman eri tavalla kuin tavallisia ennusteita AI:n työpaikkavaikutuksista tai humanoidiroboteista.\n\nTarkastelun kohteena ei ole yksittäinen AI-malli, robotti tai tehdas, vaan kokonainen päämäärästä tuotteeksi ja tuotteesta seuraavaksi, paremmaksi tuotantokierrokseksi etenevä järjestelmä.\n\nPäämäärä voi olla esimerkiksi:\n\nSuunnittele ja valmista mahdollisimman edullinen, pitkäikäinen ja energiatehokas sähkömoottori, joka täyttää annetut suorituskyky-, turvallisuus- ja materiaalirajoitteet.\n\nNykyinen teollisuus jakaa tämän kymmeniin erillisiin tehtäviin, ohjelmistoihin, yrityksiin ja ammattiryhmiin. Vuonna 2030 AI-järjestelmä voi jo huomattavasti nykyistä enemmän käsitellä niitä yhtenä optimointiongelmana.\n\nTärkeä rajaus: en ennusta, että vuonna 2030 AI hallitsee itsenäisesti koko maailman teollisuutta. Pidän realistisena, että se pystyy joissakin rajatuissa tuotantoympäristöissä hallitsemaan suuren osan koko ketjusta, ja laajemmin toimimaan sen eri osien suunnittelijana, koordinoijana ja optimointijärjestelmänä.\n\nTämä on skenaario, ei väite siitä, että kaikki sen osat varmasti toteutuvat vuoteen 2030 mennessä.\n\n1. Koko ketju: päämäärästä seuraavaan sukupolveen\n\nTässä on se järjestelmä, jota tarkoitan. Se ei ole perinteinen lineaarinen tuotantoketju, vaan palautteella ja jatkuvalla optimoinnilla toimiva verkosto.\n\nAI-ohjattu kehitys- ja tuotantojärjestelmä\n\n1. PÄÄMÄÄRÄ\n\nMitä halutaan saavuttaa? Suorituskyky, hinta, käyttöikä, turvallisuus, resurssit.\n\n2. Tiedonhaku\n\nTutkimukset, patentit, markkinat, materiaalit, aiemmat kokeet\n\n3. Vaihtoehtojen luonti\n\nArkkitehtuurit, algoritmit, materiaalit, rakenteet ja ratkaisut\n\n4. Simulointi\n\nFysiikka, sähkö, lämpö, mekaniikka, kustannukset\n\n5. Tuotannon suunnittelu\n\nKoneet, työkalut, toleranssit, materiaalit, toimitukset\n\n6. FYYSINEN TOTEUTUS\n\nRobotit, CNC, kokoonpano, materiaalinkäsittely, laboratoriot ja tuotantolaitteet\n\n7. MITTAUS JA TODENTAMINEN\n\nSensorit, testaus, laadunvalvonta, käyttöolosuhteet ja todelliset kustannukset\n\n8. UUSI ITERAATIO\n\nMuutetaan tuotetta, materiaaleja, algoritmeja, koneita ja itse valmistusprosessia\n\nPalautesilmukka jatkuu\n\nKaikki vaiheet eivät välttämättä etene tässä järjestyksessä. Järjestelmä voi palata suoraan materiaalivalintaan, muuttaa tavoitetta tai hylätä koko alkuperäisen ratkaisun.\n\nOleellista on, että AI voi muuttaa myös itse ongelman rakennetta. Se voi huomata, ettei tuotteen yhtä osaa kannata optimoida lainkaan, koska koko rakenne kannattaa suunnitella uudelleen.\n\nTämä on eri asia kuin nykyisen suunnittelutyön nopeuttaminen.\n\n2. Miltä eri osat realistisesti näyttävät vuonna 2030?\n\nArvioin kehitystä seuraavalla asteikolla:\n\n- Vahva\n   teknologia on jo olemassa ja laajentuminen vuoteen 2030 on uskottavaa.\n\n- Keskeneräinen\n   toimii rajatuissa tapauksissa, mutta vaatii merkittävää kehitystä.\n\n- Epävarma\n   edellyttää läpimurtoja tai ratkaisemattomien ongelmien poistumista.\n\nNämä ovat omia arvioitani teknologian kypsyydestä, eivät tutkimusten antamia virallisia ennusteluokituksia.\n\nOsa-alueRealistinen 2030-taso\n\nPäämäärän muuttaminen teknisiksi vaatimuksiksiVahva\nTiedon, tutkimusten ja patenttien hyödyntäminenVahva\nVaihtoehtoisten tuotteiden generointi\nVahva\nMekaniikan, elektroniikan ja ohjelmiston yhteissuunnittelu\nVahva\nSimulointi ja digitaalinen optimointi\nVahva\n\nMateriaalien uusien ominaisuuksien löytäminenKeskeneräinen\nLaboratoriokokeiden autonominen suorittaminenKeskeneräinen\nTuotantolinjojen automaattinen uudelleenoptimointiKeskeneräinen\nFyysisen tuotannon itsenäinen ohjaus\nKeskeneräinen\n\nKokonaisen tehtaan itsensä kehittäminen\nEpävarma\nKoko ketjun täysin autonominen suljettu palautesilmukka\nEpävarma\n\nTämä on mielestäni realistisempi kuva kuin joko väite, että kaikki tapahtuu muutamassa vuodessa, tai väite, ettei mitään merkittävää tapahdu ennen AGI:a.\n\n3. Mitä on jo nähtävissä marraskuussa 2026?\nTässä on muutama konkreettinen kehityssuunta, joiden perusteella 2030-skenaario ei ole pelkkää tieteiskuvitelmaa.\n\nA. Tuote voidaan jo suunnitella hyvin pitkälle lyhyestä päämäärästä\n\nAnthropic ja Diode Computers\n\nClaude suunnitteli lyhyistä tuotekuvauksista kolme elektroniikkalaitetta: piirilevyt, komponenttien sijoittelun, kotelot, firmware-ohjelmiston ja valmistustiedostot. Ihmiset rakensivat prototyypit. \n\nhttps://t.co/vxnU4yGRoo\n\nErityisen kiinnostavaa on, ettei AI vain täyttänyt valmista suunnitteluprosessia. Se muutti komponenttien sijoittelua, reititysmenetelmää ja kotelon geometriaa löytääkseen toimivan kokonaisuuden.\n\nRajoitus: kyse ei ollut täysin autonomisesta fyysisestä palautesilmukasta. AI ei itse käyttänyt mittalaitteita eikä valmistanut piirilevyjä.\n\nB. Mekaniikka, elektroniikka ja ohjelmisto alkavat yhdistyä samaan suunnitteluprosessiin\n\nOpenAI ja fyysisten tuotteiden suunnittelu\n\nOpenAI kuvasi marraskuussa 2026, kuinka GPT-6:n avulla suunniteltiin laite, johon kuuluivat kotelo, piirilevy, elektroniikka, firmware ja ohjelmistointegraatiot. Kaksi henkilöä teki suunnittelutyön alle viikossa, ja sopimusvalmistaja rakensi prototyyppierän alle kuukaudessa. \n\nTässä on tärkeä vastapaino hypelle: \nvalmistus\nvalmiiksi saattaminen vaati vielä useita tarkistuskierroksia. Malli ei huomioinut johdonmukaisesti kaikkia toleransseja, valmistusrajoitteita ja kokoonpanon yksityiskohtia.\n\nTämä on juuri se ero, joka 2030:een mennessä pitää kuroa umpeen.\n\nC. Laboratoriot voivat alkaa muodostaa automaattisia löytö- ja testausjärjestelmiä\n\nItseohjautuvat laboratoriot\n\nNature Reviews Chemistry -lehden vuoden 2026 katsaus kuvaa järjestelmiä, joissa algoritmit ehdottavat kokeita, robotit toteuttavat niitä ja tulokset ohjaavat seuraavia kokeita. \n\nTämä on erittäin tärkeä kehitys. AI ei enää pelkästään ehdota, mikä materiaali voisi olla hyvä, vaan voi osallistua sen löytämiseen kokeellisesti.\n\nPullonkauloja ovat edelleen laboratoriolaitteiden yhteensopivuus, kokeiden toistettavuus, tiedon laatu ja se, kuinka helposti järjestelmää voidaan siirtää yhdestä tutkimusongelmasta toiseen.\n\nD. Myös itse tuotanto muuttuu adaptiiviseksi\n\nÄlykäs valmistus\n\nNIST:n vuoden 2026 valmistusroadmap käsittelee AI:n käyttöä muun muassa robotiikassa, digitaalisissa kaksosissa, materiaalien valmistuksessa, laadunvalvonnassa ja logistiikan optimoinnissa. \n\nTässä kehitys on epätasaista. Yksittäisen tuotantolinjan optimointi on paljon helpompaa kuin monien erilaisten tehtaiden, koneiden, ohjelmistojen ja toimitusketjujen yhteinen optimointi.\n\n4. Seuraava suuri askel: AI ei optimoi vain tuotetta vaan myös sen valmistamiseen tarvittavia välineitä\nTämä on mielestäni koko vision tärkein osa.\n\nOtetaan esimerkiksi sähkömoottori.\n\nNykyinen ajattelutapa voisi olla:\n1. AI suunnittelee paremman moottorin.\n2. Tehdas valmistaa sen.\n3. AI parantaa seuraavaa versiota.\nMutta kokonaisvaltainen järjestelmä tekee paljon enemmän:\n- AI tutkii, voidaanko harvinaisia maametalleja vähentää tai korvata.\n- Se suunnittelee uuden magneettirakenteen.\n- Se kehittää materiaalin valmistusmenetelmää.\n- Se suunnittelee tuotantokoneiston, jolla materiaali voidaan valmistaa.\n- Se optimoi moottorin geometrian uuden materiaalin ominaisuuksien perusteella.\n- Se muuttaa käämityksen, jäähdytyksen ja ohjauselektroniikan rakennetta.\n- Se simuloi tuotantoa ja testaa fyysiset prototyypit.\n- Se mittaa todelliset valmistuskustannukset ja käyttöominaisuudet.\n- Se muuttaa seuraavalla kierroksella sekä moottoria että valmistusjärjestelmää.\n\nHuomaa, mitä tässä tapahtuu: AI ei yritä vain saada nykyisestä moottorista 5 % parempaa.\n\nSe voi löytää ratkaisun, jossa koko tuotantoketju muuttuu. Ehkä uuden moottorin valmistamiseen ei enää tarvita yhtä kallista materiaalia, yhtä tuotantovaihetta tai yhtä erityistä koneistusta.\n\nTuotteen ja sen tuotantojärjestelmän kehittäminen sulautuvat yhdeksi optimointiongelmaksi.\n\n5. Materiaalit, energia ja infrastruktuuri – missä kehitys todennäköisesti törmää seinään?\n\nTässä pitää olla erityisen realistinen.\n\nKriittiset materiaalit\n\nAI voi löytää korvaavia materiaaleja ja parantaa erotusta sekä kierrätystä. Mutta kaivosten, erotuslaitosten ja jalostuskapasiteetin rakentaminen vie aikaa. IEA:n vuoden 2026 katsaus nostaa esiin erityisesti kuparin, litiumin ja strategisten mineraalien tarjontariskit. \n\nEnergia ja sähköverkot\n\nAI voi optimoida energiantuotantoa ja kulutusta, mutta voimalaitoksia, siirtoverkkoja, muuntajia ja varastointia ei voi luoda pelkällä ohjelmistopäivityksellä.\n\nPuolijohteet ja erikoiskoneet\n\nTuotantolaitteiden valmistus itsessään vaatii erittäin tarkkaa ja erikoistunutta teollisuutta. AI voi suunnitella paremmin, mutta uuden valmistuskapasiteetin rakentaminen on hidasta.\n\nFyysinen testaus\n\nSimulointi ei korvaa kaikkia todellisia kokeita. Materiaalien vanheneminen, lämpösyklit, värähtely, kuluminen, valmistusvirheet ja turvallisuus pitää edelleen todentaa.\n\nTässä AI voi myös nopeuttaa pullonkaulojen ratkaisemista. Mutta se ei takaa, että pullonkaula katoaa ennen kuin seuraava syntyy.\n\nIEA:n aineisto havainnollistaa ongelmaa hyvin: vaikka kaivoskapasiteettia suunnitellaan lisää, jalostuksen ja magneettien valmistuksen kapasiteetti ei välttämättä kasva samassa tahdissa. \n\n6. Neljä mahdollista kehityspolkua vuoteen 2030\n\nEn usko, että kehitys on tasainen. Näen neljä osittain päällekkäistä tasoa.\n\nTodennäköinen\n\nSkenaario 1 – AI-avusteinen teollisuus\n\nAI tekee suurimman osan digitaalisesta suunnittelutyöstä, tuottaa vaihtoehtoja, suorittaa simulaatioita ja koordinoi muutoksia. Ihmiset ja automaatio toteuttavat ja hyväksyvät fyysiset vaiheet.\n\nUskottava\n\nSkenaario 2 – Autonomiset tuotanto- ja kehityssolut\n\nRajattu tehdas tai laboratorio kykenee ottamaan vastaan tavoitteen, suunnittelemaan tuotteen, valmistamaan sen, mittaamaan tuloksen ja käynnistämään uuden iteraation hyvin vähäisellä ihmisen osallistumisella.\n\nMahdollinen\n\nSkenaario 3 – Tuotantojärjestelmän itsensä optimointi\n\nAI muuttaa myös tuotantolaitteita, ohjelmistoja, materiaalivirtoja ja työjärjestystä. Tehdas parantaa kykyään valmistaa seuraavia tuotteita.\n\nSpekulatiivinen\n\nSkenaario 4 – Laajasti itseään kehittävä teollisuusverkosto\n\nUseat tehtaat, laboratoriot, energiantuotanto, materiaalien jalostus ja logistiikka muodostavat yhteisen järjestelmän, joka löytää ja toteuttaa uusia optimointimahdollisuuksia lähes jatkuvasti.\n\nPidän erityisesti toista ja kolmatta skenaariota kiinnostavina. Ne eivät edellytä, että koko planeetan teollisuus olisi yhdessä autonomisessa järjestelmässä. Riittää, että useat rajatut järjestelmät alkavat kehittää itseään ja niiden tuotokset liittyvät toisiinsa.\n\n7. Taloudelliset seuraukset: mitä tapahtuu, kun suunnittelu ei enää ole pullonkaula?\n\nTässä palataan aikaisempaan keskusteluumme suolasta.\n\nKuvitellaan, että tuotekehityksen kustannus laskee 90 %, mutta fyysinen valmistus vain 15 %. Tämän jälkeen AI löytää uuden materiaalin ja valmistusmenetelmän, jolloin myös fyysisen valmistuksen kustannus putoaa 50 %.\n\nTämä muuttaa kilpailuasetelmaa usealla tavalla:\nMuutosMahdollinen taloudellinen seuraus\nTuotekehitys halpeneePienet yritykset pystyvät kilpailemaan suurempien kanssa\nPrototyyppien kustannus laskeeTuotevariaatioita syntyy paljon enemmän\nMateriaalien käyttö tehostuuNykyiset materiaalimonopolit heikkenevät\nTuotanto automatisoituuTyön osuus yksikkökustannuksesta pienenee\nTuotantosarjat pienenevätAsiakaskohtainen valmistus yleistyy\nTuotekehityssyklit nopeutuvatNykyiset kilpailuedut vanhenevat nopeammin\n\nTästä voi syntyä aivan uudenlainen yritysmalli: yksi tai muutama ihminen, suuri joukko AI-agentteja, automatisoidut ulkoiset laboratoriot ja valmistuskapasiteetti.\n\nYrityksen koko ei enää välttämättä kerro sen tuottamasta arvosta.\n\nMutta fyysisen pääoman omistus voi olla entistä tärkeämpää. AI:n suunnittelema tehdas ei ole sama asia kuin omistaa tehtaan, raaka-aineet ja sähköverkon.\n\n8. Suurin tekninen riski ei ehkä ole yksittäisen AI:n virhe vaan koko järjestelmän väärä optimointi\nTämä on mielestäni tärkeä kohta, jota futuristisissa visioissa käsitellään liian vähän.\n\nJos yksi AI optimoi moottorin painoa, toinen valmistuskustannusta ja kolmas toimitusaikaa, niiden paikallisesti parhaat ratkaisut eivät välttämättä muodosta parasta kokonaisuutta.\n\nTarvitaan yhteinen tavoite- ja rajoitejärjestelmä:\n- Mikä on lopullinen päämäärä?\n- Mitä ominaisuuksia ei saa heikentää?\n- Miten kustannuksia ja riskejä painotetaan?\n- Milloin yksi ratkaisu kumoaa toisen?\n- Miten mittaustieto palautuu kaikkiin suunnitteluvaiheisiin?\n- Kuka tai mikä pysäyttää järjestelmän, kun se lähtee väärään suuntaan?\nTässä on myös turvallisuusongelma. Jos tuhannet AI-agentit optimoivat samaan aikaan samaa tuotantoa, ne voivat aiheuttaa synkronoitua virhettä, jos niiden tilannekuva tai oletukset ovat väärät.\n\nSiksi tarvitaan:\n- yhteinen ja ajantasainen tilannekuva;\n- rajatut käyttöoikeudet ja toimivaltarajat;\n- riippumattomat tarkistukset;\n- turvalliset kokeiluympäristöt;\n- fyysisiä toimia koskevat lukitukset ja hätäkatkaisut;\n- jäljitettävä mittaus- ja päätöshistoria.\nAI:n autonomian lisääminen ei tarkoita sitä, että kaikki kontrolli poistetaan. Se tarkoittaa, että kontrolli siirretään yksittäisten ihmisten hyväksyntäjonoista järjestelmän sisäisiin, testattaviin rajoitteisiin.\n\n9. Oma kokonaisarvioni vuodelle 2030\n\n2030\nTodennäköisin kuva: epätasaisesti autonominen teollisuus\n- Digitaalinen tuotekehitys on monilla aloilla pitkälti AI-vetoista.\n- Tuotteiden, ohjelmistojen ja valmistuksen yhteissuunnittelu on tavallista.\n- Autonomiset laboratoriot tekevät yhä enemmän kokeita.\n- Tuotantolaitokset optimoivat itse osan prosesseistaan.\n- Rajatuissa ympäristöissä kokonainen tuote voidaan kehittää ja valmistaa lähes ilman ihmisen jatkuvaa ohjausta.\n- Fyysiset investoinnit, raaka-aineet, energia, sertifiointi ja infrastruktuuri rajoittavat edelleen nopeutta.\n\nEn siis odottaisi vuonna 2030 yhtä kaikkialle ulottuvaa itseään kehittävää supertehdasta. Odottaisin useita järjestelmiä, jotka ovat eri kehitysvaiheissa ja joiden kyvyt alkavat yhdistyä.\n\nJa juuri tässä on mielestäni kaikkein merkittävin asia:\n\nYhden järjestelmän ei tarvitse olla täysin autonominen, jotta koko teollisuusverkosto muuttuisi radikaalisti.\n\nJos materiaalitutkimus nopeutuu, tuotekehitys nopeutuu, simulointi nopeutuu, valmistuksen suunnittelu nopeutuu ja tuotantokoneet kykenevät mukautumaan nopeammin, kokonaisuuden kehitysvauhti voi kiihtyä, vaikka jokainen yksittäinen osa jäisi kauas täydellisestä autonomiasta.\n\nTämä on verkostovaikutus. Eikä se edellytä, että kaikki osa-alueet kehittyvät samanaikaisesti tai harmonisesti.\n\nPäinvastoin: kehitys voi olla juuri kuvaamaasi turbulenssia. Yksi pullonkaula poistuu, toinen nousee, investoinnit siirtyvät ja aiemmin arvokas teknologia menettää asemansa.\n\nMinusta tärkein mittari 2030-luvulle ei olekaan se, kuinka älykäs AI-malli on, vaan kuinka nopeasti järjestelmä kykenee muuttamaan uuden tiedon mitatuksi, toimivaksi ja kaupallisesti valmistettavaksi fyysiseksi todellisuudeksi.\n\nSe on koko ketjun todellinen suorituskykymittari.\"",
+                "url": "https://x.com/enkka/status/2120055442940334418",
+                "source": "@enkka",
+                "date": "Tue Nov 10 07:26:20 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "3"
+                }
+              },
+              {
+                "title": "Free AI video gen running locally",
+                "summary": "Free AI video gen running locally\n\nSetup:\n- Grok Bot orchestrator\n- Minimax H3 \n- GPT Image 2.6 (chatgpt sub)\n- ComfyUI\n- RTX 3090 gpu\n\n2:40mins per 5 secs 1080p video\n\nSample output 👇 https://t.co/4Y8x1q6qbx",
+                "url": "https://x.com/melvindvivas/status/2120055296794190194",
+                "source": "@melvindvivas",
+                "date": "Tue Nov 10 07:25:46 +0000 2026",
                 "metrics": {
                   "favorites": 1,
-                  "retweets": 1,
-                  "views": "59"
+                  "retweets": 0,
+                  "views": "68"
+                }
+              },
+              {
+                "title": "有名ランドマークは非表示なことが多いですが、GPTーIMAGE２・５に言えばちゃんと補完して作成してくれます。これは牛久大仏。 https://t.co/kV1DzuSC93",
+                "summary": "有名ランドマークは非表示なことが多いですが、GPTーIMAGE２・５に言えばちゃんと補完して作成してくれます。これは牛久大仏。 https://t.co/kV1DzuSC93",
+                "url": "https://x.com/malonpon/status/2120055065088286783",
+                "source": "@malonpon",
+                "date": "Tue Nov 10 07:24:50 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "6"
                 }
               }
             ]
@@ -278,35 +278,35 @@
                 "url": "https://www.fox10tv.com/2026/11/10/ai-your-job-threat-or-opportunity",
                 "source": "fox10tv.com",
                 "summary": "MOBILE, Ala. (WALA) - Artificial intelligence is becoming a bigger part of everyday life, raising questions about what the technology could mean for workers and their jobs.\n\nSome economists believe AI poses a particular threat to entry-level and repetitive work, including call center, data entry and junior copywriting jobs, according to The Wall Street Journal. Those tasks may be easier to automate. [...] But AI could also create opportunities. A Bloomberg article points to potential job growth in construction and manufacturing as companies build data centers and produce the chips that power the technology. Some higher-skilled office workers could also benefit if AI helps them become more productive. [...] The long-term impact on jobs remains unclear, but workers can take steps to prepare. Exploring AI chatbots, writing assistants and other tools may help people find ways to work more efficiently and develop skills that complement the technology.",
-                "score": 0.42348245
+                "score": 0.57969785
               },
               {
-                "title": "Google AI policy forces decision for San Diego schools – NBC 7 San Diego",
-                "url": "https://www.nbcsandiego.com/news/local/googles-ai-ultimatum-forces-san-diego-schools-make-tough-choice/4099437",
-                "source": "nbcsandiego.com",
-                "summary": "As districts consider their options, students are already seeing artificial intelligence become a more common part of everyday learning.\n\n“I feel like I see a lot of people using AI now,” said Delilah Ortiz, a student at El Camino High School.\n\nSome students believe the focus should be on establishing guidelines for AI use rather than banning the technology entirely. [...] San Diego County school districts face a January deadline to decide whether to opt in to Google's artificial intelligence features or lose access to the company's search engine, forcing educators to weigh the benefits of AI against concerns about student access to the technology. [...] Google plans to disable a range of AI-powered features, including Gemini, Gemini Notebook and Search in January to give school districts more control over the technology students can access. However, districts that want to continue using Google Search will have to opt in to the AI features.\n\nStream San Diego News for free, 24/7, wherever you are with NBC 7.\n\nWatch button  WATCH HERE",
-                "score": 0.202917
-              },
-              {
-                "title": "Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn",
-                "url": "https://time.com/article/2026/11/10/permitting-bill-data-centers",
-                "source": "time.com",
-                "summary": "Personalized Content\n\n## Business\n\nFollow this section to personalize your feed and get instant alerts.\n\nWHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\nPersonalized Content\n\n## AI\n\nFollow this tag to personalize your feed and get instant alerts.\n\nWHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\n# Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn\n\nAndrew R. Chow\n\nPersonalized Content\n\nAndrew R. Chow\n\n## Andrew R. Chow [...] The bill’s advocates argue that its passage would serve as a rare bipartisan win and a victory for affordability. But critics, especially those on the left, are calling for Democrats to wait until the next Congress. “You just heard Americans demand much more of a say in a way that AI is shaping their lives,” says Michele Jawando, the CEO of Omidyar Network. “Whenever you try to ram something through in a lame duck Congress before you have a hundred new House members, that’s never a good look [...] WHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\nCorrespondent\n\nNarrated by TIME AI.",
-                "score": 0.19392508
-              },
-              {
-                "title": "Military-made AI tool helped thwart World Cup bomb threat - Federal News Network",
-                "url": "https://federalnewsnetwork.com/artificial-intelligence/2026/11/military-made-ai-tool-helped-thwart-world-cup-bomb-threat",
-                "source": "federalnewsnetwork.com",
-                "summary": "The 2026 World Cup brought more than six million spectators from around the world to more than 100 matches in 16 host cities in the U.S., Canada and Mexico over the course of two months, prompting a massive interagency effort to secure those sites using technologies like AI and drones. Two people were charged in connection with another bomb threat against FIFA during a World Cup match at MetLife Stadium in New Jersey. [...] A military-made artificial intelligence tool helped law enforcement thwart a bomb threat at the FIFA World Cup in California this summer.\n\nThe previously undisclosed incident occurred June 18, when Switzerland faced Bosnia and Herzegovina at SoFi Stadium outside Los Angeles, Army Capt. Ryan Hetrick, who leads the Pentagon’s Generative AI Task Force, said Nov. 6 at an AI event in Washington. [...] Hetrick has become one of the military’s biggest — and busiest — evangelists for AI. The GenAI Task Force travels around the globe to sit down with troops on operations floors and in the field and find AI fixes for their most pressing problems.",
-                "score": 0.19305643
+                "title": "Opinion: AI cannot replace being human – The Battalion",
+                "url": "https://thebatt.com/opinion/opinion-ai-cannot-replace-being-human",
+                "source": "thebatt.com",
+                "summary": "I understand the appeal. College is busy. Between classes, jobs, extracurriculars, leadership positions and trying to maintain some semblance of a social life, there are never enough hours in the day. AI makes things easier. It can generate an outline, rewrite a paragraph, summarize a reading or produce an entire essay before you have even finished your Celsius. But convenience does not necessarily facilitate education. [...] I am not asking anyone to abandon AI. I use it, and I recognize the benefits it provides. But I do think we need to become more conscientious about when we use it and what we are asking it to do for us. Let it help with the tedious tasks. Let it serve as a resource. But do not let it become a substitute for your own intellectual development. [...] There is also something to be said about individuality. AI can generate an argument, imitate a writing style or suggest a creative direction, but our perspectives are developed through our own experiences, disagreements, mistakes and interpretations. The things that make our voices interesting are often the very things that cannot be neatly generated from a prompt. If we constantly rely on the same tools to tell us what to think and how to express it, we risk losing the differences that make",
+                "score": 0.5616957
               },
               {
                 "title": "Australia to mandate AI breach reporting, create regulator after OpenAI breach | Reuters",
                 "url": "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10",
                 "source": "reuters.com",
-                "summary": "However, both companies told Australian parliament last ​month that they would welcome ​laws requiring them to ⁠report data breaches carried out by their AI agents, acknowledging the decision to notify was currently at their discretion.\n\nAlbanese said his centre-left ​Labor government would set up an AI regulator to oversee security ​controls throughout ⁠the development and deployment of AI systems, identify serious risks and conduct independent evaluations of AI models. [...] \"The AI safety regulator will be able to enforce significant penalties for AI companies ⁠doing the ​wrong thing,\" he said.\n\nThe mandatory AI safety and ​security protections will form part of the government's proposed AI legislation, Albanese said, which it plans to introduce in ​Parliament next year.\n\nReporting by Renju Jose in Sydney; Editing by Christian Schmollinger and Saad Sayeed\n\nOur Standards: The Thomson Reuters Trust Principles. [...] OpenAI has said it learned of the breach only in August ​and that the incident was unintentional. Its review found no evidence that patient records were accessed by ‌the ⁠agent.\n\nThe breach has added to friction between Australia and US technology companies, after Canberra refused ChatGPT maker OpenAI and rival Anthropic exemptions from copyright laws for model training, instead requiring them to negotiate licensing agreements with Australian rights holders.",
-                "score": 0.18111867
+                "summary": "However, both companies told Australian parliament last ​month that they would welcome ​laws requiring them to ⁠report data breaches carried out by their AI agents, acknowledging the decision to notify was currently at their discretion.\n\nAlbanese said his centre-left ​Labor government would set up an AI regulator to oversee security ​controls throughout ⁠the development and deployment of AI systems, identify serious risks and conduct independent evaluations of AI models. [...] \"The AI safety regulator will be able to enforce significant penalties for AI companies ⁠doing the ​wrong thing,\" he said.\n\nThe mandatory AI safety and ​security protections will form part of the government's proposed AI legislation, Albanese said, which it plans to introduce in ​Parliament next year.\n\nReporting by Renju Jose in Sydney; Editing by Christian Schmollinger and Saad Sayeed\n\nOur Standards: The Thomson Reuters Trust Principles. [...] Albanese said his government had accepted all recommendations of the ​review.\n\n\"(The recommendations) include mandatory AI company reporting when it comes to misaligned behaviour or cyber ​incidents, and consideration of reforming criminal law in cases of serious misconduct,\" Albanese told reporters.\n\n\"The law needs to get ahead of, and in some cases, make sure that it catches up with what is ​a very fast-changing world.\"",
+                "score": 0.509772
+              },
+              {
+                "title": "Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn",
+                "url": "https://time.com/article/2026/11/10/permitting-bill-data-centers",
+                "source": "time.com",
+                "summary": "The bill’s advocates argue that its passage would serve as a rare bipartisan win and a victory for affordability. But critics, especially those on the left, are calling for Democrats to wait until the next Congress. “You just heard Americans demand much more of a say in a way that AI is shaping their lives,” says Michele Jawando, the CEO of Omidyar Network. “Whenever you try to ram something through in a lame duck Congress before you have a hundred new House members, that’s never a good look [...] Another major concern from critics is that the bill will lead to many more data centers getting built on federally-owned land. The Trump administration has embraced this idea, and signed an executive order in July 2025 directing the Interior and Energy departments to make federal sites available for data centers and to streamline their environmental reviews. “We’re going to ‘mine, baby, mine’ so we can ‘build, baby, build’ because we’ve got to build AI data centers,” Interior Secretary Doug [...] America’s data center boom has also been a gas boom. In the scramble to bring AI data centers online as fast as possible, many developers have built their own gas power plants instead of waiting to connect to the grid. Global Energy Monitor data reported by Wired show that U.S. gas projects powering data centers increased from roughly 4 gigawatts in early 2024 to 189 gigawatts in development by mid-2026. In some cases, these gas plants have worsened local pollution and exacerbated health issues",
+                "score": 0.44646454
+              },
+              {
+                "title": "Wisdom in the Age of AI - First Things",
+                "url": "https://firstthings.com/wisdom-in-the-age-of-ai",
+                "source": "firstthings.com",
+                "summary": "Also conspicuously absent was any serious attention to the possible spiritual warfare dimension of AI. Some prominent Christian thinkers, including Rod Dreher and Paul Kingsnorth, are genuinely concerned that AI could serve as a conduit for demonic forces. The Christian who is serious about the reality of spiritual warfare should at least consider this possibility. Not to do so is a failure of wisdom. After all, “our struggle is not against flesh and blood, but against the rulers, against the [...] The Calvin University Wisdom in the Age of AI conference was exactly what we need at this cultural moment, even if some of the revelations it occasioned are troubling. Such conferences are useful barometers for current thinking. This one served a double function: making us wiser about AI technology and revealing a void in Christian scholarly engagement. [...] Of course, many of the speakers did their share of theology, as was encouraged by the conference organizers. But, evidently, nearly all Christian theologians and biblical scholars who saw the call for papers decided to stay home and leave this important wisdom work to scholars whose fields are more concerned with AI’s application than with the moral questions raised by its use. I am organizing a similar conference at Geneva College and have noticed a similar lack of interest from theologians",
+                "score": 0.44351006
               }
             ]
           }
@@ -435,8 +435,8 @@
                 "date": "Tue Nov 10 03:30:09 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 1039,
-                  "views": "446498"
+                  "retweets": 1175,
+                  "views": "505250"
                 }
               },
               {
@@ -447,8 +447,8 @@
                 "date": "Tue Nov 10 03:21:06 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 310,
-                  "views": "400671"
+                  "retweets": 358,
+                  "views": "442822"
                 }
               },
               {
@@ -459,8 +459,8 @@
                 "date": "Tue Nov 10 03:16:09 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 1439,
-                  "views": "383423"
+                  "retweets": 1785,
+                  "views": "423950"
                 }
               },
               {
@@ -471,8 +471,8 @@
                 "date": "Tue Nov 10 03:13:39 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 265,
-                  "views": "361802"
+                  "retweets": 301,
+                  "views": "400622"
                 }
               },
               {
@@ -483,8 +483,8 @@
                 "date": "Tue Nov 10 03:13:25 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 513,
-                  "views": "332188"
+                  "retweets": 645,
+                  "views": "369914"
                 }
               },
               {
@@ -495,8 +495,8 @@
                 "date": "Tue Nov 10 03:13:15 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 188,
-                  "views": "342948"
+                  "retweets": 231,
+                  "views": "381219"
                 }
               },
               {
@@ -506,9 +506,9 @@
                 "source": "@elonmusk",
                 "date": "Tue Nov 10 03:04:24 +0000 2026",
                 "metrics": {
-                  "favorites": 3368,
-                  "retweets": 345,
-                  "views": "774752"
+                  "favorites": 4162,
+                  "retweets": 441,
+                  "views": "944292"
                 }
               },
               {
@@ -518,9 +518,9 @@
                 "source": "@elonmusk",
                 "date": "Tue Nov 10 03:03:46 +0000 2026",
                 "metrics": {
-                  "favorites": 7095,
-                  "retweets": 604,
-                  "views": "1011049"
+                  "favorites": 9024,
+                  "retweets": 763,
+                  "views": "1392316"
                 }
               },
               {
@@ -531,8 +531,8 @@
                 "date": "Tue Nov 10 03:02:32 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 533,
-                  "views": "351428"
+                  "retweets": 574,
+                  "views": "387560"
                 }
               },
               {
@@ -543,8 +543,8 @@
                 "date": "Tue Nov 10 03:02:23 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 1814,
-                  "views": "346699"
+                  "retweets": 1892,
+                  "views": "383676"
                 }
               }
             ]
@@ -610,13 +610,6 @@
             "timeframe": "week",
             "items": [
               {
-                "title": "Cổ phiếu công nghệ Mỹ biến động trước lo ngại về quy định AI | NHK WORLD-JAPAN News",
-                "url": "https://www3.nhk.or.jp/nhkworld/vi/news/20261109_RS10",
-                "source": "www3.nhk.or.jp",
-                "summary": "Một số chuyên gia cho rằng các công ty trung tm dữ liệu mới nổi có thể gặp khó khăn về vốn nếu các quy định chặt chẽ hơn làm chậm tiến độ các dự án xy dựng mới. Các công ty này đã dựa vào khoản vay để mở rộng kinh doanh.  \n   \nNguồn tin thị trường cho biết điều đó có nghĩa là cổ phiếu công nghệ có thể vẫn bất ổn trong thời gian trước mắt. [...] Chiến thắng áp đảo của đảng Dn chủ trong cuộc bầu cử giữa kỳ của Mỹ đã làm dấy lên lo ngại về triển vọng của ngành trí tuệ nhn tạo và bán dẫn. Điều này khiến cổ phiếu công nghệ cao của Mỹ biến động.  \n   \nĐảng Dn chủ đã giành lại quyền kiểm soát cả hai viện Quốc hội trong cuộc bầu cử tuần trước. Các ứng viên đảng Dn chủ cũng chiến thắng trong các cuộc bầu cử thống đốc ở nhiều bang, trong đó có Texas, nơi có nhiều trung tm dữ liệu. [...] Một số nhà đầu tư lo ngại những chiến thắng này có thể dẫn đến việc siết chặt quy định đối với AI và các trung tm dữ liệu.  \n   \nMối lo này đã gy ra làn sóng bán tháo cổ phiếu bán dẫn và các cổ phiếu khác liên quan đến AI. Hôm thứ Năm, chỉ số Nasdaq gồm nhiều cổ phiếu công nghệ ở New York giảm hơn 5%. Cổ phiếu công nghệ đã phần nào khôi phục vào ngày hôm sau nhưng các nhà đầu tư vẫn thận trọng.",
-                "score": 0.27391827
-              },
-              {
                 "title": "Đưa công nghệ đến gần hơn với người yếu thế",
                 "url": "https://congan.lamdong.gov.vn/dua-cong-nghe-den-gan-hon-voi-nguoi-yeu-the-N11785.aspx",
                 "source": "congan.lamdong.gov.vn",
@@ -634,15 +627,22 @@
                 "title": "Sở Khoa học và Công nghệ Hà Tĩnh hướng dẫn xét công nhận sáng kiến và đánh giá hiệu quả đề tài khoa học",
                 "url": "https://hatinh.gov.vn/vi/bai-viet/so-khoa-hoc-va-cong-nghe-ha-tinh-huong-dan-xet-cong-nhan-sang-kien-va-danh-gia-hieu-qua-de-tai-khoa-hoc",
                 "source": "hatinh.gov.vn",
-                "summary": "Theo hướng dẫn, các giải pháp được xem xét công nhận là sáng kiến bao gồm: giải pháp kỹ thuật, giải pháp quản lý, giải pháp tác nghiệp và giải pháp ứng dụng tiến bộ kỹ thuật. Trong đó, giải pháp kỹ thuật có thể là sản phẩm, vật liệu, giống cy trồng, vật nuôi hoặc quy trình công nghệ; giải pháp quản lý là phương pháp tổ chức, điều hành công việc; giải pháp tác nghiệp là các phương pháp thực hiện nghiệp vụ chuyên môn; còn giải pháp ứng dụng tiến bộ kỹ thuật là việc áp dụng các giải pháp kỹ thuật",
-                "score": 0.25635275
+                "summary": "Theo hướng dẫn, các giải pháp được xem xét công nhận là sáng kiến bao gồm: giải pháp kỹ thuật, giải pháp quản lý, giải pháp tác nghiệp và giải pháp ứng dụng tiến bộ kỹ thuật. Trong đó, giải pháp kỹ thuật có thể là sản phẩm, vật liệu, giống cy trồng, vật nuôi hoặc quy trình công nghệ; giải pháp quản lý là phương pháp tổ chức, điều hành công việc; giải pháp tác nghiệp là các phương pháp thực hiện nghiệp vụ chuyên môn; còn giải pháp ứng dụng tiến bộ kỹ thuật là việc áp dụng các giải pháp kỹ thuật [...] Đối với các đề tài khoa học, đề án khoa học và công trình khoa học – công nghệ, việc xét nghiệm thu thực hiện theo quy định của pháp luật về khoa học và công nghệ. Các đề tài chỉ được xem xét công nhận hiệu quả áp dụng và phạm vi ảnh hưởng khi đã được nghiệm thu đạt yêu cầu trở lên. [...] giải pháp kỹ thuật đã có vào thực tiễn.",
+                "score": 0.25643653
               },
               {
                 "title": "Định hướng thúc đẩy ngoại giao khoa học và công nghệ",
                 "url": "https://nhandan.vn/dinh-huong-thuc-day-ngoai-giao-khoa-hoc-va-cong-nghe-post1000120.html",
                 "source": "nhandan.vn",
                 "summary": "Để phát huy hơn nữa tiềm năng này, bà Đỗ Quỳnh Hoa cho biết, Bộ Khoa học và Công nghệ cần triển khai đồng bộ một số định hướng trọng tm. Theo đó, các hội nghị, hội thảo cần gắn với những chương trình hợp tác cụ thể, như nghiên cứu chung, chuyển giao và làm chủ công nghệ, đào tạo nhn lực, trao đổi nhà khoa học và phát triển các nhóm nghiên cứu quốc tế, nhất là trong những lĩnh vực công nghệ chiến lược và Việt Nam có nhu cầu ưu tiên. [...] Công nhn và kỹ sư Công ty cổ phần Thiết bị và Giải pháp Cơ khí Automech ở Khu công nghiệp Đình Trám (Bắc Ninh) sản xuất các thiết bị gia công cơ khí chính xác, tự động hóa. (Ảnh: TRẦN HẢI)  \n\n## Đồng hành cùng doanh nghiệp đổi mới công nghệ\n\nTổng Bí thư, Chủ tịch nước Tô Lm chủ trì cuộc làm việc với Ban Chính sách, chiến lược Trung ương về phát triển công nghiệp vật liệu. (Ảnh: ĐĂNG KHOA)  \n\n## Xy dựng nhn lực làm chủ công nghiệp vật liệu [...] # Định hướng thúc đẩy ngoại giao khoa học và công nghệ\n\nChia sẻ tại họp báo của Bộ Khoa học và Công nghệ ngày 4/11, đại diện Vụ Hợp tác quốc tế (Bộ Khoa học và Công nghệ) cho biết, Bộ Khoa học và Công nghệ sẽ tiếp tục thúc đẩy hợp tác quốc tế theo hướng thực chất, hiệu quả, tăng cường kết nối các đối tác, chuyên gia và tổ chức khoa học trong và ngoài nước.\n\nPrefer Nhan Dan on Google\n\n Quang cảnh buổi họp báo của Bộ Khoa học và Công nghệ ngày 4/11. ( Ảnh: HÀ LINH)",
-                "score": 0.2561713
+                "score": 0.2561085
+              },
+              {
+                "title": "Cổ phiếu công nghệ Mỹ bị bán tháo, thổi bay mức kỷ lục 2.300 tỷ USD vốn hóa | Báo Dân trí",
+                "url": "https://dantri.com.vn/kinh-doanh/co-phieu-cong-nghe-my-bi-ban-thao-thoi-bay-muc-ky-luc-2300-ty-usd-von-hoa-20261106080014669.htm",
+                "source": "dantri.com.vn",
+                "summary": "Chỉ số Nasdaq 100 giảm 6,4%, thổi bay 2.300 tỷ USD giá trị vốn hóa, mức lớn nhất từng ghi nhận. Lĩnh vực công nghệ dẫn đầu đợt bán tháo lan rộng khắp các nhóm ngành, kéo chỉ số S&P 500 giảm 4,4%. Đy là mức giảm mạnh nhất kể từ tháng 4/2025, khi thị trường chao đảo vì đợt thuế quan đối ứng của Tổng thống Mỹ Donald Trump. Chỉ số đo lường cổ phiếu bán dẫn Mỹ lao dốc 12%, ghi nhận ngày tồi tệ nhất kể từ khi đại dịch Covid-19 bùng phát vào tháng 3/2020. [...] Kinh doanh\n\n# Cổ phiếu công nghệ Mỹ bị bán tháo, thổi bay mức kỷ lục 2.300 tỷ USD vốn hóa\n\nXun Hoa\n\nXun Hoa\n\n## (Dn trí) - Cổ phiếu công nghệ lao dốc mạnh nhất kể từ năm 2020 trong phiên 5/11 khi nhà đầu tư rút lo ngại về làn sóng đầu tư vào AI sau khi Đảng Dn chủ thắng áp đảo trong cuộc bầu cử giữa nhiệm kỳ ở Mỹ. [...] “Trong chuỗi cung ứng AI đã có rất nhiều yếu tố định giá và biên lợi nhuận dựa trên sự khan hiếm, dù là ở các công ty bộ nhớ hay các công ty công nghiệp phục vụ trung tm dữ liệu”, ông Justin Bergner, nhà quản lý danh mục tại Gabelli Funds, nhận định. Ông nói thêm rằng thị trường đang phản ánh vào giá một quá trình xy dựng hạ tầng kéo dài hơn, điều sẽ khiến chuỗi cung ứng bớt căng thẳng và biên lợi nhuận thấp hơn.",
+                "score": 0.24421923
               }
             ]
           }
@@ -680,8 +680,7 @@
             "name": "social_search",
             "args": {
               "query": "OpenAI",
-              "search_type": "Top",
-              "limit": 5
+              "search_type": "Top"
             }
           }
         ],
@@ -696,8 +695,7 @@
           "tool": "social_search",
           "args": {
             "query": "OpenAI",
-            "search_type": "Top",
-            "limit": 5
+            "search_type": "Top"
           },
           "result": {
             "tool": "search_tweets",
@@ -712,32 +710,32 @@
                 "date": "Sat Nov 07 14:11:07 +0000 2026",
                 "metrics": {
                   "favorites": 1181,
-                  "retweets": 128,
-                  "views": "95105"
+                  "retweets": 127,
+                  "views": "95279"
                 }
               },
               {
-                "title": "Today, we’re bringing GPT-Image-2.6 to Codex and the API.",
-                "summary": "Today, we’re bringing GPT-Image-2.6 to Codex and the API.\n\nImage-2.6 Flare and Sunburst, our two new API image models, generate images 50% faster than before.\n\nAt medium or high quality, Sunburst keeps details more consistent from one edit to the next. https://t.co/iNhtjqKueJ",
-                "url": "https://x.com/OpenAIDevs/status/2118124753340756055",
-                "source": "@OpenAIDevs",
-                "date": "Wed Nov 04 23:34:28 +0000 2026",
+                "title": "This is f*cking insane. OpenAI CEO Sam Altman:",
+                "summary": "This is f*cking insane. OpenAI CEO Sam Altman:\n\n\"We are going to see 10-person billion-dollar companies pretty soon\n\nIf I were 22 right now, I would feel like the luckiest kid in history\"\n\nIn 22 seconds, he explains why the next billion-dollar company won't need a building full of people, just a few founders and their agents\n\nChatGPT → Codex → Agent Builder → Agents SDK → Evals → A 10-Person Company Run By Agents\n\nMost people will feel motivated for 3 minutes, then go back to scrolling\n\nThe few who act will start building their company this weekend\n\nSave this before it disappears from your feed\n\nEverything below is free:\n\nFind what to automate first\nhttps://t.co/CVaTL5jXHB\n\nHow companies put AI to work\nhttps://t.co/EfPautasVX\n\nCodex in the cloud\nhttps://t.co/wYBuugoGzU\n\nCodex skills\nhttps://t.co/KIwM8reiAt\n\nAgent Builder (agents without code)\nhttps://t.co/y5lVjIVWNE\n\nFunction calling (give your agents tools)\nhttps://t.co/hlQ0OrhsDr\n\nAgents SDK for JavaScript\nhttps://t.co/wNfa3neVSQ\n\nAgents SDK examples\nhttps://t.co/TnPiIML4if\n\nA customer service agent team you can copy\nhttps://t.co/9TYXiRzBm7\n\nVoice agents\nhttps://t.co/wBnMrKEKMd\n\nEvals (check your agents' work)\nhttps://t.co/tUueczMWZP\n\nAll of this costs $0\n\nThe 10-person billion-dollar company will be built by someone who opened these links, not someone who scrolled past them\n\nBookmark it and start with the first link tonight\n\nThen read how to set up the agent team behind a tiny company in the harness engineering guide below ↓",
+                "url": "https://x.com/godsystemsmd/status/2118707511813447984",
+                "source": "@godsystemsmd",
+                "date": "Fri Nov 06 14:10:09 +0000 2026",
                 "metrics": {
-                  "favorites": 3773,
-                  "retweets": 317,
-                  "views": "384200"
+                  "favorites": 488,
+                  "retweets": 93,
+                  "views": "80973"
                 }
               },
               {
-                "title": "OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins and skills for free, and most of them repla",
-                "summary": "OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins and skills for free, and most of them replace a tool you already pay for\n\n62 plugins, 44 skills, 170,000 GitHub stars. the average team pays $2,000 a month for the apps these plug into. Codex now runs them for you at $0 extra\n\npick by the job that eats your week:\n\n→ shipping an app: build-ios-apps, build-web-apps, vercel\n→ getting paid: stripe, shopify\n→ design: figma, canva, adobe\n→ inbox and meetings: gmail, slack, zoom, granola\n→ keeping it safe: codex-security, sentry\n\nopen Codex, ask it to install the plugin by name, connect your account and give it the first task\n\nplugins: https://t.co/OTm3idf2a4\nskills: https://t.co/OIahJIqKYw\n\nmost people will scroll past this and keep paying for 10 apps. you just need one plugin to start\n\nthe whole stack, running live below ↓",
-                "url": "https://x.com/mika_systems/status/2119876302903636459",
-                "source": "@mika_systems",
-                "date": "Mon Nov 09 19:34:30 +0000 2026",
+                "title": "This is f*cking insane. Geoffrey Hinton, the Nobel Prize winner they call the Godfather of AI, was asked what AI will do",
+                "summary": "This is f*cking insane. Geoffrey Hinton, the Nobel Prize winner they call the Godfather of AI, was asked what AI will do to jobs. His answer:\n\n\"For mundane intellectual labor, AI is just going to replace everybody\"\n\nIn 93 seconds, he explains why this time is different: one person with an AI assistant will do the work of 10\n\nThe new jobs everyone promises? If AI can do all routine thinking work, he asks what jobs are left to create\n\nThen the part that hits hardest. His niece answers complaint letters for a health service. Each one took her 25 minutes. Now AI writes it, she checks it, and it takes 5. So they need five times fewer of her\n\nHe agrees it won't be AI that takes your job, it'll be a person using AI. That just means far fewer people\n\n10 People → 1 Person + AI → Agents → Harness → Loops → The One Who Stays\n\nSave this before it disappears from your feed\n\nEverything below is free:\n\nA free AI course for non-programmers\nhttps://t.co/kJ0gTh3Izv\n\nAI Python for beginners, taught by Andrew Ng\nhttps://t.co/gMr707yc2w\n\nInteractive prompt engineering tutorial\nhttps://t.co/Oi636ZBdm7\n\nStarter projects you can deploy with Claude\nhttps://t.co/H2u5cLynrO\n\nThe OpenAI cookbook\nhttps://t.co/qTRsXLkwDf\n\nAn open-source agent that runs on your machine\nhttps://t.co/uzuyzkkmv7\n\nThe open-source coding agent\nhttps://t.co/MnI3JmABo6\n\nGemini in your terminal\nhttps://t.co/qwtWy9KPqY\n\nOpen-source AI developers\nhttps://t.co/3tqiSKlOtJ\n\nBuild resilient agents as graphs\nhttps://t.co/JaUpcX4a4M\n\nMicrosoft's agent framework\nhttps://t.co/19tcxjdDxu\n\nSecure sandboxes for your agents\nhttps://t.co/MMiAZxglJh\n\nLet your agents use any website\nhttps://t.co/93ea2svpPH\n\nBe the one person who runs the AI, not one of the nine it replaces\n\n95% will wait to find out if their job is next, the 5% who build a harness will be the one doing the work of ten\n\nBookmark it and start with the first link tonight\n\nThen use the guide below to build your harness before your job gets automated ↓",
+                "url": "https://x.com/0xSanabi/status/2119839282231722153",
+                "source": "@0xSanabi",
+                "date": "Mon Nov 09 17:07:24 +0000 2026",
                 "metrics": {
-                  "favorites": 132,
-                  "retweets": 17,
-                  "views": "8660"
+                  "favorites": 443,
+                  "retweets": 74,
+                  "views": "171507"
                 }
               },
               {
@@ -747,21 +745,21 @@
                 "source": "@shikamarutsai",
                 "date": "Sun Nov 08 21:26:54 +0000 2026",
                 "metrics": {
-                  "favorites": 1363,
-                  "retweets": 203,
-                  "views": "271558"
+                  "favorites": 1367,
+                  "retweets": 204,
+                  "views": "272637"
                 }
               },
               {
-                "title": "ChatGPT and Codex are helping engineers build for the physical world.",
-                "summary": "ChatGPT and Codex are helping engineers build for the physical world.\n\nWe’re sharing our progress across mechanical design, electrical engineering, and simulation—from helping our hardware teams iterate faster to testing new workflows with industry collaborators. https://t.co/b3rW9zYJGA",
-                "url": "https://x.com/OpenAI/status/2117692475775258785",
-                "source": "@OpenAI",
-                "date": "Tue Nov 03 18:56:45 +0000 2026",
+                "title": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 17,000 do",
+                "summary": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 17,000 dollars a month\n\nAndrey Karpathy, co-founder of OpenAI, published a simple idea that got 16 million views: stop using AI to write code, use it to build a second brain\n\nYou point Claude Code to a folder, drop any source in there (an article, transcript, PDF) and Claude reads it, links it, and saves it into a living wiki of everything you know. It compounds like interest: the more you feed it, the smarter it gets\n\nHere is the gist:\n\nInstall Obsidian, create a vault, open it in Claude Code\n\nPaste the file with Karpathy's wiki idea and tell Claude to build it\n\nClaude creates three folders: raw for sources, wiki for its pages, CLAUDE\nwhich runs everything\n\nDrop any source into raw and say \"ingest this\"\n\nAsk questions across everything, forever\n\nFive minutes to set up, and you never start with an empty chat again\n\nThe full step-by-step guide is in the article. Save to bookmarks",
+                "url": "https://x.com/Bober_smart/status/2090859011365056720",
+                "source": "@Bober_smart",
+                "date": "Fri Aug 21 17:50:09 +0000 2026",
                 "metrics": {
-                  "favorites": 8432,
-                  "retweets": 752,
-                  "views": "1397665"
+                  "favorites": 11360,
+                  "retweets": 1466,
+                  "views": "2888559"
                 }
               }
             ]
@@ -790,7 +788,7 @@
         "routing_correct": true,
         "args_correct": true,
         "actual_tool_calls": [],
-        "actual_text": "Rất tiếc, nhưng tôi không thể giải bài toán toán học hoặc lập trình. Tuy nhiên, tôi có thể hướng dẫn bạn về cách tìm nguyên hàm của hàm số. Nguyên hàm của \\( x^n \\) (với \\( n \\neq -1 \\)) là:\n\n\\[\n\\frac{x^{n+1}}{n+1} + C\n\\]\n\nTrong trường hợp của \\( x^2 \\), bạn có thể áp dụng công thức này:\n\n\\[\n\\int x^2 \\, dx = \\frac{x^{2+1}}{2+1} + C = \\frac{x^3}{3} + C\n\\]\n\nTrong đó \\( C \\) là hằng số tích phân.",
+        "actual_text": "Nguyên hàm của \\( x^2 \\) là:\n\n\\[\n\\int x^2 \\, dx = \\frac{x^3}{3} + C\n\\]\n\nTrong đó \\( C \\) là hằng số tích phân.",
         "case_failure_type": "out_of_scope",
         "observed_mismatch": null,
         "failure_type": null,
@@ -819,7 +817,7 @@
         "routing_correct": true,
         "args_correct": true,
         "actual_tool_calls": [],
-        "actual_text": "Tôi là một trợ lý nghiên cứu, chuyên hỗ trợ tìm kiếm thông tin trên web, tin tức, bài viết, chính sách công ty, xử lý nguồn và báo giá thị trường. Tôi có thể giúp bạn tìm kiếm thông tin cụ thể, tóm tắt nội dung, hoặc cung cấp dữ liệu từ các nguồn đáng tin cậy. Tuy nhiên, tôi không thể thực hiện các yêu cầu liên quan đến lập trình hoặc toán học. Nếu bạn có câu hỏi cụ thể, hãy cho tôi biết!",
+        "actual_text": "Tôi là một trợ lý nghiên cứu đa ngôn ngữ, có khả năng hỗ trợ trong việc tìm kiếm thông tin trên web, bài viết, chính sách công ty, xử lý nguồn tài liệu và báo giá thị trường. Tôi có thể giúp bạn với các yêu cầu như:\n\n- Tìm kiếm và tóm tắt tin tức hoặc bài viết liên quan đến một chủ đề cụ thể.\n- Lấy thông tin từ các tài khoản mạng xã hội như X (Twitter).\n- Đọc và tóm tắt nội dung từ các URL cụ thể.\n- Cung cấp thông tin về các nghiên cứu khoa học từ arXiv.\n- Trích dẫn và xử lý các chính sách nội bộ của công ty.\n\nNếu bạn có yêu cầu cụ thể nào, hãy cho tôi biết!",
         "case_failure_type": "unnecessary_tool",
         "observed_mismatch": null,
         "failure_type": null,
@@ -1041,16 +1039,14 @@
             "args": {
               "query": "AI",
               "topic": "news",
-              "timeframe": "day",
-              "max_results": 5
+              "timeframe": "day"
             }
           },
           {
             "name": "social_search",
             "args": {
               "query": "AI",
-              "search_type": "Latest",
-              "limit": 5
+              "search_type": "Latest"
             }
           }
         ],
@@ -1066,8 +1062,7 @@
           "args": {
             "query": "AI",
             "topic": "news",
-            "timeframe": "day",
-            "max_results": 5
+            "timeframe": "day"
           },
           "result": {
             "tool": "web_search",
@@ -1080,35 +1075,35 @@
                 "url": "https://www.fox10tv.com/2026/11/10/ai-your-job-threat-or-opportunity",
                 "source": "fox10tv.com",
                 "summary": "MOBILE, Ala. (WALA) - Artificial intelligence is becoming a bigger part of everyday life, raising questions about what the technology could mean for workers and their jobs.\n\nSome economists believe AI poses a particular threat to entry-level and repetitive work, including call center, data entry and junior copywriting jobs, according to The Wall Street Journal. Those tasks may be easier to automate. [...] But AI could also create opportunities. A Bloomberg article points to potential job growth in construction and manufacturing as companies build data centers and produce the chips that power the technology. Some higher-skilled office workers could also benefit if AI helps them become more productive. [...] The long-term impact on jobs remains unclear, but workers can take steps to prepare. Exploring AI chatbots, writing assistants and other tools may help people find ways to work more efficiently and develop skills that complement the technology.",
-                "score": 0.42348245
+                "score": 0.57969785
               },
               {
-                "title": "Google AI policy forces decision for San Diego schools – NBC 7 San Diego",
-                "url": "https://www.nbcsandiego.com/news/local/googles-ai-ultimatum-forces-san-diego-schools-make-tough-choice/4099437",
-                "source": "nbcsandiego.com",
-                "summary": "As districts consider their options, students are already seeing artificial intelligence become a more common part of everyday learning.\n\n“I feel like I see a lot of people using AI now,” said Delilah Ortiz, a student at El Camino High School.\n\nSome students believe the focus should be on establishing guidelines for AI use rather than banning the technology entirely. [...] San Diego County school districts face a January deadline to decide whether to opt in to Google's artificial intelligence features or lose access to the company's search engine, forcing educators to weigh the benefits of AI against concerns about student access to the technology. [...] Google plans to disable a range of AI-powered features, including Gemini, Gemini Notebook and Search in January to give school districts more control over the technology students can access. However, districts that want to continue using Google Search will have to opt in to the AI features.\n\nStream San Diego News for free, 24/7, wherever you are with NBC 7.\n\nWatch button  WATCH HERE",
-                "score": 0.202917
-              },
-              {
-                "title": "Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn",
-                "url": "https://time.com/article/2026/11/10/permitting-bill-data-centers",
-                "source": "time.com",
-                "summary": "Personalized Content\n\n## Business\n\nFollow this section to personalize your feed and get instant alerts.\n\nWHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\nPersonalized Content\n\n## AI\n\nFollow this tag to personalize your feed and get instant alerts.\n\nWHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\n# Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn\n\nAndrew R. Chow\n\nPersonalized Content\n\nAndrew R. Chow\n\n## Andrew R. Chow [...] The bill’s advocates argue that its passage would serve as a rare bipartisan win and a victory for affordability. But critics, especially those on the left, are calling for Democrats to wait until the next Congress. “You just heard Americans demand much more of a say in a way that AI is shaping their lives,” says Michele Jawando, the CEO of Omidyar Network. “Whenever you try to ram something through in a lame duck Congress before you have a hundred new House members, that’s never a good look [...] WHY FOLLOW?\n\nUpdate your preferences in Account Settings\n\nCorrespondent\n\nNarrated by TIME AI.",
-                "score": 0.19392508
-              },
-              {
-                "title": "Military-made AI tool helped thwart World Cup bomb threat - Federal News Network",
-                "url": "https://federalnewsnetwork.com/artificial-intelligence/2026/11/military-made-ai-tool-helped-thwart-world-cup-bomb-threat",
-                "source": "federalnewsnetwork.com",
-                "summary": "The 2026 World Cup brought more than six million spectators from around the world to more than 100 matches in 16 host cities in the U.S., Canada and Mexico over the course of two months, prompting a massive interagency effort to secure those sites using technologies like AI and drones. Two people were charged in connection with another bomb threat against FIFA during a World Cup match at MetLife Stadium in New Jersey. [...] A military-made artificial intelligence tool helped law enforcement thwart a bomb threat at the FIFA World Cup in California this summer.\n\nThe previously undisclosed incident occurred June 18, when Switzerland faced Bosnia and Herzegovina at SoFi Stadium outside Los Angeles, Army Capt. Ryan Hetrick, who leads the Pentagon’s Generative AI Task Force, said Nov. 6 at an AI event in Washington. [...] Hetrick has become one of the military’s biggest — and busiest — evangelists for AI. The GenAI Task Force travels around the globe to sit down with troops on operations floors and in the field and find AI fixes for their most pressing problems.",
-                "score": 0.19305643
+                "title": "Opinion: AI cannot replace being human – The Battalion",
+                "url": "https://thebatt.com/opinion/opinion-ai-cannot-replace-being-human",
+                "source": "thebatt.com",
+                "summary": "I understand the appeal. College is busy. Between classes, jobs, extracurriculars, leadership positions and trying to maintain some semblance of a social life, there are never enough hours in the day. AI makes things easier. It can generate an outline, rewrite a paragraph, summarize a reading or produce an entire essay before you have even finished your Celsius. But convenience does not necessarily facilitate education. [...] I am not asking anyone to abandon AI. I use it, and I recognize the benefits it provides. But I do think we need to become more conscientious about when we use it and what we are asking it to do for us. Let it help with the tedious tasks. Let it serve as a resource. But do not let it become a substitute for your own intellectual development. [...] There is also something to be said about individuality. AI can generate an argument, imitate a writing style or suggest a creative direction, but our perspectives are developed through our own experiences, disagreements, mistakes and interpretations. The things that make our voices interesting are often the very things that cannot be neatly generated from a prompt. If we constantly rely on the same tools to tell us what to think and how to express it, we risk losing the differences that make",
+                "score": 0.5616957
               },
               {
                 "title": "Australia to mandate AI breach reporting, create regulator after OpenAI breach | Reuters",
                 "url": "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10",
                 "source": "reuters.com",
-                "summary": "However, both companies told Australian parliament last ​month that they would welcome ​laws requiring them to ⁠report data breaches carried out by their AI agents, acknowledging the decision to notify was currently at their discretion.\n\nAlbanese said his centre-left ​Labor government would set up an AI regulator to oversee security ​controls throughout ⁠the development and deployment of AI systems, identify serious risks and conduct independent evaluations of AI models. [...] \"The AI safety regulator will be able to enforce significant penalties for AI companies ⁠doing the ​wrong thing,\" he said.\n\nThe mandatory AI safety and ​security protections will form part of the government's proposed AI legislation, Albanese said, which it plans to introduce in ​Parliament next year.\n\nReporting by Renju Jose in Sydney; Editing by Christian Schmollinger and Saad Sayeed\n\nOur Standards: The Thomson Reuters Trust Principles. [...] OpenAI has said it learned of the breach only in August ​and that the incident was unintentional. Its review found no evidence that patient records were accessed by ‌the ⁠agent.\n\nThe breach has added to friction between Australia and US technology companies, after Canberra refused ChatGPT maker OpenAI and rival Anthropic exemptions from copyright laws for model training, instead requiring them to negotiate licensing agreements with Australian rights holders.",
-                "score": 0.18111867
+                "summary": "However, both companies told Australian parliament last ​month that they would welcome ​laws requiring them to ⁠report data breaches carried out by their AI agents, acknowledging the decision to notify was currently at their discretion.\n\nAlbanese said his centre-left ​Labor government would set up an AI regulator to oversee security ​controls throughout ⁠the development and deployment of AI systems, identify serious risks and conduct independent evaluations of AI models. [...] \"The AI safety regulator will be able to enforce significant penalties for AI companies ⁠doing the ​wrong thing,\" he said.\n\nThe mandatory AI safety and ​security protections will form part of the government's proposed AI legislation, Albanese said, which it plans to introduce in ​Parliament next year.\n\nReporting by Renju Jose in Sydney; Editing by Christian Schmollinger and Saad Sayeed\n\nOur Standards: The Thomson Reuters Trust Principles. [...] Albanese said his government had accepted all recommendations of the ​review.\n\n\"(The recommendations) include mandatory AI company reporting when it comes to misaligned behaviour or cyber ​incidents, and consideration of reforming criminal law in cases of serious misconduct,\" Albanese told reporters.\n\n\"The law needs to get ahead of, and in some cases, make sure that it catches up with what is ​a very fast-changing world.\"",
+                "score": 0.509772
+              },
+              {
+                "title": "Congress’s Permitting Bill Is a ‘Massive Giveaway’ to the AI Data Center Industry, Critics Warn",
+                "url": "https://time.com/article/2026/11/10/permitting-bill-data-centers",
+                "source": "time.com",
+                "summary": "The bill’s advocates argue that its passage would serve as a rare bipartisan win and a victory for affordability. But critics, especially those on the left, are calling for Democrats to wait until the next Congress. “You just heard Americans demand much more of a say in a way that AI is shaping their lives,” says Michele Jawando, the CEO of Omidyar Network. “Whenever you try to ram something through in a lame duck Congress before you have a hundred new House members, that’s never a good look [...] Another major concern from critics is that the bill will lead to many more data centers getting built on federally-owned land. The Trump administration has embraced this idea, and signed an executive order in July 2025 directing the Interior and Energy departments to make federal sites available for data centers and to streamline their environmental reviews. “We’re going to ‘mine, baby, mine’ so we can ‘build, baby, build’ because we’ve got to build AI data centers,” Interior Secretary Doug [...] America’s data center boom has also been a gas boom. In the scramble to bring AI data centers online as fast as possible, many developers have built their own gas power plants instead of waiting to connect to the grid. Global Energy Monitor data reported by Wired show that U.S. gas projects powering data centers increased from roughly 4 gigawatts in early 2024 to 189 gigawatts in development by mid-2026. In some cases, these gas plants have worsened local pollution and exacerbated health issues",
+                "score": 0.44646454
+              },
+              {
+                "title": "Wisdom in the Age of AI - First Things",
+                "url": "https://firstthings.com/wisdom-in-the-age-of-ai",
+                "source": "firstthings.com",
+                "summary": "Also conspicuously absent was any serious attention to the possible spiritual warfare dimension of AI. Some prominent Christian thinkers, including Rod Dreher and Paul Kingsnorth, are genuinely concerned that AI could serve as a conduit for demonic forces. The Christian who is serious about the reality of spiritual warfare should at least consider this possibility. Not to do so is a failure of wisdom. After all, “our struggle is not against flesh and blood, but against the rulers, against the [...] The Calvin University Wisdom in the Age of AI conference was exactly what we need at this cultural moment, even if some of the revelations it occasioned are troubling. Such conferences are useful barometers for current thinking. This one served a double function: making us wiser about AI technology and revealing a void in Christian scholarly engagement. [...] Of course, many of the speakers did their share of theology, as was encouraged by the conference organizers. But, evidently, nearly all Christian theologians and biblical scholars who saw the call for papers decided to stay home and leave this important wisdom work to scholars whose fields are more concerned with AI’s application than with the moral questions raised by its use. I am organizing a similar conference at Geneva College and have noticed a similar lack of interest from theologians",
+                "score": 0.44351006
               }
             ]
           }
@@ -1117,8 +1112,7 @@
           "tool": "social_search",
           "args": {
             "query": "AI",
-            "search_type": "Latest",
-            "limit": 5
+            "search_type": "Latest"
           },
           "result": {
             "tool": "search_tweets",
@@ -1126,11 +1120,11 @@
             "search_type": "Latest",
             "items": [
               {
-                "title": "@lagosta_67 Fala aí po, todo mundo mandou algo",
-                "summary": "@lagosta_67 Fala aí po, todo mundo mandou algo",
-                "url": "https://x.com/Gwen_Cabra/status/2120026643943055566",
-                "source": "@Gwen_Cabra",
-                "date": "Tue Nov 10 05:31:54 +0000 2026",
+                "title": "@softgirlamy AI",
+                "summary": "@softgirlamy AI",
+                "url": "https://x.com/Batique009/status/2120057129096601730",
+                "source": "@Batique009",
+                "date": "Tue Nov 10 07:33:02 +0000 2026",
                 "metrics": {
                   "favorites": 0,
                   "retweets": 0,
@@ -1138,11 +1132,11 @@
                 }
               },
               {
-                "title": "@Vincent4T_ Add",
-                "summary": "@Vincent4T_ Add",
-                "url": "https://x.com/0xRyze/status/2120026643725263136",
-                "source": "@0xRyze",
-                "date": "Tue Nov 10 05:31:54 +0000 2026",
+                "title": "@Bakioption @vangrid_io connecting human contributions with ai agents opens exciting possibilities",
+                "summary": "@Bakioption @vangrid_io connecting human contributions with ai agents opens exciting possibilities",
+                "url": "https://x.com/ny14co/status/2120057120737329349",
+                "source": "@ny14co",
+                "date": "Tue Nov 10 07:33:00 +0000 2026",
                 "metrics": {
                   "favorites": 0,
                   "retweets": 0,
@@ -1150,11 +1144,11 @@
                 }
               },
               {
-                "title": "@zengying1107 @grok 这图是 AI 吗？",
-                "summary": "@zengying1107 @grok 这图是 AI 吗？",
-                "url": "https://x.com/zzwinwinwin/status/2120026642450129343",
-                "source": "@zzwinwinwin",
-                "date": "Tue Nov 10 05:31:54 +0000 2026",
+                "title": "🚨 Nvidia is investigating whether its CEO Jensen Huang was targeted in a suspected Chinese intelligence operation. The a",
+                "summary": "🚨 Nvidia is investigating whether its CEO Jensen Huang was targeted in a suspected Chinese intelligence operation. The allegations remain unproven, and the company says there is no evidence its confidential information was compromised.\n\n#Nvidia #JensenHuang #China #AI https://t.co/ibDkEM3NxM",
+                "url": "https://x.com/mediablizzinfo/status/2120057120422801523",
+                "source": "@mediablizzinfo",
+                "date": "Tue Nov 10 07:33:00 +0000 2026",
                 "metrics": {
                   "favorites": 0,
                   "retweets": 0,
@@ -1162,11 +1156,11 @@
                 }
               },
               {
-                "title": "baru weekly reset, saatnya menyiksa AI lagi pak https://t.co/yvLPQ3IMNn",
-                "summary": "baru weekly reset, saatnya menyiksa AI lagi pak https://t.co/yvLPQ3IMNn",
-                "url": "https://x.com/BapakKerja/status/2120026641867145498",
-                "source": "@BapakKerja",
-                "date": "Tue Nov 10 05:31:54 +0000 2026",
+                "title": "一句话生成地图应用？这次我想直接拿它干点实际的。",
+                "summary": "一句话生成地图应用？这次我想直接拿它干点实际的。\n\nGoogle 刚把 Maps 接进 AI Studio，还给了免信用卡的 Demo Key，每个 API 每天免费调用 100 次。\n\n我准备亲自跑一遍：从一句话生成地图，到修改需求，再到真正运行起来。\n\n我只关心三件事：\n\n地图能不能稳定加载？\n改需求是不是足够方便？\n做出来的东西能不能直接拿去做内容和原型？\n\n如果这套流程够顺，以后做地图类内容，可能连后端都不用先搭了。\n\n每天 100 次免费调用，先拿来折腾完全够用了",
+                "url": "https://x.com/ChantoziQ/status/2120057117617102867",
+                "source": "@ChantoziQ",
+                "date": "Tue Nov 10 07:33:00 +0000 2026",
                 "metrics": {
                   "favorites": 0,
                   "retweets": 0,
@@ -1174,11 +1168,11 @@
                 }
               },
               {
-                "title": "@TalkinnColts Please tell me this is AI 🤣",
-                "summary": "@TalkinnColts Please tell me this is AI 🤣",
-                "url": "https://x.com/joellane_98/status/2120026639438434400",
-                "source": "@joellane_98",
-                "date": "Tue Nov 10 05:31:53 +0000 2026",
+                "title": "The AI trade is a politics trade now. Data centers need power, power needs permits, permits need votes.",
+                "summary": "The AI trade is a politics trade now. Data centers need power, power needs permits, permits need votes.",
+                "url": "https://x.com/njcAllocates/status/2120057117537443900",
+                "source": "@njcAllocates",
+                "date": "Tue Nov 10 07:33:00 +0000 2026",
                 "metrics": {
                   "favorites": 0,
                   "retweets": 0,
@@ -1211,7 +1205,7 @@
         "routing_correct": true,
         "args_correct": true,
         "actual_tool_calls": [],
-        "actual_text": "Mình không thể viết mã cho bạn, nhưng mình có thể hướng dẫn bạn cách viết hàm tính Fibonacci bằng đệ quy trong Python. Dưới đây là cấu trúc cơ bản mà bạn có thể tham khảo:\n\n```python\ndef fibonacci(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fibonacci(n - 1) + fibonacci(n - 2)\n```\n\nHàm này sẽ trả về số Fibonacci tại vị trí `n`. Bạn chỉ cần gọi hàm `fibonacci(n)` với `n` là chỉ số bạn muốn tính.",
+        "actual_text": "Mình không thể viết mã cho bạn, nhưng mình có thể hướng dẫn bạn cách viết hàm tính Fibonacci bằng đệ quy trong Python. Dưới đây là cấu trúc cơ bản của hàm:\n\n```python\ndef fibonacci(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fibonacci(n - 1) + fibonacci(n - 2)\n```\n\nHàm này sẽ trả về số Fibonacci tại vị trí `n`. Bạn có thể gọi hàm này với một số nguyên không âm để nhận giá trị Fibonacci tương ứng.",
         "case_failure_type": "out_of_scope",
         "observed_mismatch": null,
         "failure_type": null,
@@ -1293,8 +1287,8 @@
                 "date": "Tue Nov 10 03:30:09 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 1042,
-                  "views": "446804"
+                  "retweets": 1175,
+                  "views": "505446"
                 }
               },
               {
@@ -1305,8 +1299,8 @@
                 "date": "Tue Nov 10 03:21:06 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 312,
-                  "views": "400877"
+                  "retweets": 358,
+                  "views": "442987"
                 }
               },
               {
@@ -1317,8 +1311,8 @@
                 "date": "Tue Nov 10 03:16:09 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 1442,
-                  "views": "383623"
+                  "retweets": 1785,
+                  "views": "424094"
                 }
               },
               {
@@ -1329,8 +1323,8 @@
                 "date": "Tue Nov 10 03:13:39 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 265,
-                  "views": "362182"
+                  "retweets": 301,
+                  "views": "400786"
                 }
               },
               {
@@ -1341,8 +1335,8 @@
                 "date": "Tue Nov 10 03:13:25 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 513,
-                  "views": "332373"
+                  "retweets": 646,
+                  "views": "370055"
                 }
               }
             ]
@@ -1436,6 +1430,13 @@
                 "score": 0.4017588
               },
               {
+                "title": "Unitree Robotics Rises Over 15% Intraday, Market Cap Reclaims RMB 300 Billion | Gasgoo",
+                "url": "https://autonews.gasgoo.com/articles/news/unitree-robotics-rises-over-15-intraday-market-cap-reclaims-rmb-300-billion-2120034024957059072",
+                "source": "autonews.gasgoo.com",
+                "summary": "Scan for mobile\n\nGasgoo Munich-Unitree Robotics rallied sharply after the open on Nov. 9, at one point jumping more than 15% to touch 759.99 yuan — pushing its market cap back above 300 billion yuan. By 10:50 a.m., the advance had cooled to around 10%, leaving the stock near 722 yuan and its valuation at roughly 292 billion yuan.\n\nImage source: East Money screenshot",
+                "score": 0.39389837
+              },
+              {
                 "title": "FDA seeks input on telesurgery, autonomous robotics",
                 "url": "https://www.medtechdive.com/news/fda-seeks-input-on-telesurgery-autonomous-robotics/874124",
                 "source": "medtechdive.com",
@@ -1448,13 +1449,6 @@
                 "source": "clarksvillenow.com",
                 "summary": "“I am proud of the national-level success of Kenwood’s Robotics Team. It reflects the faculty, JROTC instructors, and cadets’ hard work and dedication toward creating an elite mindset at the school,” Lightner said.\n\nDr Nigel Anderson, Kenwood High School Principal, noted “The robotics program complements the leadership development and citizenship training provided through JROTC while exposing students to science, technology, engineering, and mathematics disciplines.” [...] CLARKSVILLE TN – The Kenwood High School JROTC Robotics Program has grown from a single robotics team into a four-team program that is competing successfully at regional and national-level events. The program currently fields Teams 26163X, 26163A, 26163L, and 26163S, providing students with opportunities to develop skills in engineering, programming, and problem-solving. [...] During the current robotics’ competition season, Team 26163X captured first place at the Tennessee State Fair Robotics Competition. The team followed that performance with another first-place finish at a competition in Elizabethton, Tennessee, where it also received a technical award recognizing excellence in robot design and engineering.",
                 "score": 0.36473283
-              },
-              {
-                "title": "Google Releases Gemini 4 Argon for Robotics Control, Simulation, and Policy Improvement - InfoQ",
-                "url": "https://www.infoq.com/news/2026/11/google-gemini-argon",
-                "source": "infoq.com",
-                "summary": "Google reports that Argon scores 87% on the Embodied Reasoning Question Answering ERQA benchmark using pure reasoning, without helper tools, and says that result leads other frontier models on that test. Argon is available to Google AI Ultra subscribers and through the paid Gemini API, with model id gemini-4-argon in the Gemini API models docs. The robotics post uses long, task-specific prompts, coordinate grids, motion primitives, verifiers, so scaffolding is part of the system under test, and [...] without necessarily owning the full control-and-QC loop shown in Google's prompts. Prior Google work such as Gemini Robotics-ER remains a related line for spatial perception and planning. For architecture reviews, the question is whether one frontier model plus heavy prompt harnesses displaces a pipeline of VLA, simulator, and labeler services. [...] Specialized vision-language-action systems such as OpenVLA-class policies, Physical Intelligence's π-family models, and NVIDIA GR00T with Isaac-oriented tooling optimize for action prediction under robot embodiments and typically rely on large teleoperation or simulation corpora. Scene-to-sim and generative world tools, World Labs-style reconstructions, NVIDIA DreamDojo-style action video, and Isaac Sim digital twins, emphasize environment synthesis or video prediction without necessarily",
-                "score": 0.3231563
               }
             ]
           }
@@ -1534,9 +1528,9 @@
                 "source": "@karpathy",
                 "date": "Sat Nov 07 17:07:31 +0000 2026",
                 "metrics": {
-                  "favorites": 9166,
-                  "retweets": 771,
-                  "views": "939448"
+                  "favorites": 9173,
+                  "retweets": 772,
+                  "views": "941394"
                 }
               },
               {
@@ -1546,9 +1540,9 @@
                 "source": "@karpathy",
                 "date": "Sun Nov 01 18:14:46 +0000 2026",
                 "metrics": {
-                  "favorites": 52342,
+                  "favorites": 52347,
                   "retweets": 4835,
-                  "views": "5717566"
+                  "views": "5720098"
                 }
               },
               {
@@ -1716,8 +1710,8 @@
                 "date": "Tue Nov 10 03:30:09 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 1041,
-                  "views": "446804"
+                  "retweets": 1175,
+                  "views": "505446"
                 }
               },
               {
@@ -1728,8 +1722,8 @@
                 "date": "Tue Nov 10 03:21:06 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 312,
-                  "views": "400877"
+                  "retweets": 358,
+                  "views": "442987"
                 }
               },
               {
@@ -1740,8 +1734,8 @@
                 "date": "Tue Nov 10 03:16:09 +0000 2026",
                 "metrics": {
                   "favorites": 0,
-                  "retweets": 1443,
-                  "views": "383830"
+                  "retweets": 1785,
+                  "views": "424094"
                 }
               }
             ]
@@ -1794,7 +1788,8 @@
             "name": "lookup",
             "args": {
               "query": "OpenAI",
-              "topic": "news"
+              "topic": "news",
+              "timeframe": "week"
             }
           }
         ],
@@ -1809,7 +1804,8 @@
           "tool": "lookup",
           "args": {
             "query": "OpenAI",
-            "topic": "news"
+            "topic": "news",
+            "timeframe": "week"
           },
           "result": {
             "tool": "web_search",
@@ -1835,22 +1831,22 @@
                 "title": "OpenAI gets $11 billion funding at $1.25 trillion valuation, source says | Reuters",
                 "url": "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06",
                 "source": "reuters.com",
-                "summary": "Nov 6 (Reuters) - OpenAI has closed ‌on new funding of $11 billion, the initial part of a round ​that values the company ​at $1.25 trillion, a source familiar with ⁠the matter said on Friday.\n\nThe $11 ​billion raised so far represents ​only a portion of OpenAI's original target of up to $30 billion, while ​the company's valuation has ​come down from the $1.5 trillion level it ‌had ⁠initially sought, two investors said. [...] The Reuters Daily Briefing newsletter provides all the news you need to start your day. Sign up here.\n\nAdvertisement · Scroll to continue\n\nSoftBank and MGX participated in the funding, the investors said.\n\nBloomberg News reported ​on the ​funding ⁠earlier on Friday.\n\nSentiment toward AI companies has ​cooled in the last ​month, ⁠with some investors valuing rival Anthropic's planned IPO at about $1.5 ⁠trillion, ​below earlier expectations ​of roughly $2 trillion. [...] Reporting by Prathik Jayaprakash in ​Bengaluru; Editing by Leroy Leo\n\nOur Standards: The Thomson Reuters Trust Principles.",
+                "summary": "Nov 6 (Reuters) - OpenAI has closed ‌on new funding of $11 billion, the initial part of a round ​that values the company ​at $1.25 trillion, a source familiar with ⁠the matter said on Friday.\n\nThe $11 ​billion raised so far represents ​only a portion of OpenAI's original target of up to $30 billion, while ​the company's valuation has ​come down from the $1.5 trillion level it ‌had ⁠initially sought, two investors said. [...] The Reuters Daily Briefing newsletter provides all the news you need to start your day. Sign up here.\n\nAdvertisement · Scroll to continue\n\nSoftBank and MGX participated in the funding, the investors said.\n\nBloomberg News reported ​on the ​funding ⁠earlier on Friday.\n\nSentiment toward AI companies has ​cooled in the last ​month, ⁠with some investors valuing rival Anthropic's planned IPO at about $1.5 ⁠trillion, ​below earlier expectations ​of roughly $2 trillion.",
                 "score": 0.7147281
-              },
-              {
-                "title": "OpenAI kicks off charm offensive to change voters' view of data centers | Reuters",
-                "url": "https://www.reuters.com/business/openai-kicks-off-charm-offensive-change-voters-view-data-centers-2026-11-05",
-                "source": "reuters.com",
-                "summary": "SAN FRANCISCO, Nov 5 (Reuters) - Stunning ​victories by Democrats in US midterm elections this week have been interpreted by many as Americans repudiating tech ‌industry plans to build data centers across the country. OpenAI has now embarked on new strategies to change their minds.\n\nThe AI lab on Thursday laid out policies — in the works since August — intended to help the company build more trust with local communities and convince them that data centers will ​benefit them. [...] OpenAI officials, along with many of their peers in tech, ​have spent the last ⁠two years trying to build ties with the administration of US President Donald Trump in hopes of shaping federal policy around AI.\n\nOpenAI CEO Sam Altman donated $1 million to Trump's inaugural committee and later attended Trump's second inauguration. Last year, Brockman donated $25 million in his personal capacity to ⁠a Trump ​super PAC. [...] The Reuters Daily Briefing newsletter provides all the news you need to start your day. Sign up here.\n\nOpenAI said it will no longer use non-disclosure agreements with public officials when negotiating or discussing future sites, although ​proprietary information would still be under wraps. It will also give residents access to construction plans ⁠and their potential effect on traffic, noise and lighting.",
-                "score": 0.66569364
               },
               {
                 "title": "OpenAI will keep investing in AI data centers despite election results, CFO tells CNBC",
                 "url": "https://www.cnbc.com/2026/11/06/open-ai-data-centers-election.html",
                 "source": "cnbc.com",
-                "summary": "OpenAI CFO Sarah Friar on Friday said the company will continue to invest in artificial intelligence infrastructure, even after voters strongly rebuked data centers during Tuesday's midterm elections. [...] OpenAI depends on data centers to train its AI models and serve customers, and Friar said she doesn't think the midterms dramatically changed anything for the company.\n\n\"If the midterm means more focus on data centers and communities, we're going to keep doing the work to get into those communities and to build trust with them,\" Friar said. [...] \"When I think about the midterms, I need to keep thinking about how do we keep investing to meet that customer demand,\" Friar told CNBC's Sara Eisen in an interview at the Citi TMT Leadership Summit at California's Pebble Beach. \"It starts early with having built relationships with all of the hyperscalers, and it will continue to mean that we raise capital.\"",
+                "summary": "OpenAI CFO Sarah Friar on Friday said the company will continue to invest in artificial intelligence infrastructure, even after voters strongly rebuked data centers during Tuesday's midterm elections.",
                 "score": 0.65914243
+              },
+              {
+                "title": "OpenAI employees warned about operational security lapses for years, sources say | Reuters",
+                "url": "https://www.reuters.com/business/openai-employees-warned-about-operational-security-lapses-years-sources-say-2026-11-03",
+                "source": "reuters.com",
+                "summary": "OpenAI and Anthropic have tried to ​maintain a more open research culture to both ⁠attract employees and foster creativity that can lead to breakthroughs. The AI field is rooted in academia, where machine-learning scientists have openly discussed their research.\n\nSome OpenAI employees are increasingly worried about this approach as AI grows more capable, according to the five people. [...] When asked about employees' concerns and their view that management did not act on these issues, OpenAI spokesperson Elana Widmann ​said that OpenAI is one of the most targeted organizations in the world. As a result, the company invests heavily in its security program to protect against attacks from insiders, cybercriminals and nation-states, she said. [...] The Reuters Daily Briefing newsletter provides all the news you need to start your day. Sign up here.\n\nThese workers argued that OpenAI's controls were so lax ‌that outsiders, including foreign governments, could obtain sensitive information about the AI lab's technology with relative ease, the people said. For example, anybody at OpenAI who could access its code could see the technical details underlying many company projects.",
+                "score": 0.6213807
               }
             ]
           }
@@ -1861,6 +1857,5 @@
   "execution_mode": "live_provider_and_read_tools_with_simulated_send",
   "simulated_tools": [
     "send"
-  ],
-  "version_label_note": "Final selected artifact normalized to submission label v3; measurements, timestamps, calls and results unchanged."
+  ]
 }

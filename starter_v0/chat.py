@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,15 @@ from versioning import artifact_version_dict, build_artifact_version
 ROOT = Path(__file__).parent
 ARTIFACTS_DIR = ROOT / "artifacts"
 load_lab_env(ROOT)
+
+
+def console_print(text: str = "") -> None:
+    """Keep console encoding errors from interrupting a tool call or live chat."""
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        encoding = getattr(sys.stdout, "encoding", None) or "utf-8"
+        print(text.encode(encoding, errors="backslashreplace").decode(encoding))
 
 
 def now_iso() -> str:
@@ -112,7 +122,7 @@ def run_model_tool_loop(
         non_clarification_events: list[dict[str, Any]] = []
 
         for call in calls:
-            print(f"🔧 {call.name}({json.dumps(call.args, ensure_ascii=False, sort_keys=True)})")
+            console_print(f"[tool] {call.name}({json.dumps(call.args, ensure_ascii=True, sort_keys=True)})")
             event = execute_tool_call(call)
             round_record["tool_results"].append(event)
             all_tool_events.append(event)
@@ -189,8 +199,8 @@ def main() -> None:
         "turns": [],
     }
 
-    print(f"Research Agent chat. artifact_version={artifact_version.artifact_version}")
-    print("Type /exit to stop.")
+    console_print(f"Research Agent chat. artifact_version={artifact_version.artifact_version}")
+    console_print("Type /exit to stop.")
 
     history: list[dict[str, str]] = []
     turn_index = 0
@@ -198,7 +208,7 @@ def main() -> None:
         try:
             user_text = input("\nYou> ").strip()
         except (EOFError, KeyboardInterrupt):
-            print()
+            console_print()
             break
 
         if not user_text:
@@ -233,7 +243,7 @@ def main() -> None:
             )
             turn_record.update(result)
             assistant_text = result["assistant_text"]
-            print(f"\nAgent> {assistant_text}")
+            console_print(f"\nAgent> {assistant_text}")
             history.append({"role": "user", "content": user_text})
             history.append({"role": "assistant", "content": assistant_text})
         except Exception as exc:
@@ -241,15 +251,15 @@ def main() -> None:
                 "status": "provider_error",
                 "error": f"{type(exc).__name__}: {str(exc)}",
             })
-            print(f"\nERROR> {turn_record['error']}")
+            console_print(f"\nERROR> {turn_record['error']}")
 
         turn_record["ended_at"] = now_iso()
         transcript["turns"].append(turn_record)
         write_transcript(transcript_path, transcript)
-        print(f"Transcript saved: {transcript_path}")
+        console_print(f"Transcript saved: {transcript_path}")
 
     write_transcript(transcript_path, transcript)
-    print(f"Final transcript: {transcript_path}")
+    console_print(f"Final transcript: {transcript_path}")
 
 
 if __name__ == "__main__":

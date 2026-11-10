@@ -22,7 +22,7 @@ def get_date(offset_days: int = 0) -> dict[str, Any]:
         days = int(offset_days)
         if isinstance(offset_days, bool) or days != float(offset_days) or abs(days) > MAX_OFFSET_DAYS:
             raise ValueError
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return {
             "tool": "date",
             "error": "invalid_input",

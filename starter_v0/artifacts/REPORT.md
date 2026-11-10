@@ -18,7 +18,11 @@
 
 Research agent tiếng Việt: tìm tin trên web và X/Twitter (theo từ khóa hoặc theo tài khoản), đọc nội dung URL và paper arXiv, tra chính sách nội bộ, gom kết quả thành bản tin markdown, và chỉ gửi lên Telegram sau khi người dùng xác nhận. Thiếu thông tin (tài khoản nào, URL nào) thì agent hỏi lại thay vì tự đoán.
 
-**Dùng thử:** demo trực tiếp trên máy nhóm bằng Streamlit (`streamlit run app.py`). Sidebar cho đổi version (mỗi snapshot trong `artifacts/versions/`, agent chạy đúng prompt + tools của version đó), hiện bảng tỉ số eval của version, và gắn **thẻ đỏ** cho câu hỏi mẫu mà version đó đang làm sai (lấy từ run JSON thật). Mỗi tool call hiện kèm args và kết quả trong ô mở rộng; mỗi phiên lưu transcript vào `transcripts/`.
+**Dùng thử:** demo local bằng `.\START_LOCAL.ps1` rồi mở `http://127.0.0.1:8501`.
+Nhóm chủ động không nộp link public theo phạm vi đã thống nhất. Hướng dẫn đầy đủ: `RUN_LOCAL.md`.
+UI chạy snapshot v0–v3, mặc định v3 cuối; chỉ hiện điểm khi run khớp hash artifact (có xử lý LF/CRLF).
+Có lịch sử chat, xem arguments/results, câu hỏi mẫu, đổi version và lưu transcript.
+UI đã được kiểm tra bằng Streamlit AppTest và HTTP 200 cho trang chính/health.
 
 ## A2. Tool agent có
 
@@ -58,21 +62,29 @@ Các câu này có sẵn thành nút bấm ở sidebar UI.
 
 ## B1. Version Evidence
 
-Bản nộp dùng bốn nhãn v0, v1, v2, v3. V3 là artifact cuối đã chọn; chuẩn hóa tên không thay đổi thời điểm chạy, tool calls, results, hash hay điểm đo. Base và group được chấm riêng. Provider/model: OpenRouter / openai/gpt-4o-mini.
+Bốn nhãn nộp: v0, v1, v2, v3. Bản v3 cuối có **13 tool**, gồm 3 tool mới. Prompt/tools hiện hành, snapshot v3 và các run cuối dưới đây có cùng full hash. Không lấy điểm từ run lịch sử khác hash để gán cho bản hiện tại.
 
-| Version / suite | Changed Artifact | Hypothesis / Interpretation | Metric Before | Metric After | Run File |
+| Version / suite | Changed Artifact | Hypothesis / interpretation | Before | After | Run JSON |
 |---|---|---|---:|---:|---|
-| v0 / base | baseline | Đo starter gốc | — | 0.70 | `runs/v0_B_base_openrouter_20261110T101810112659.json` |
-| v1 / base | system_prompt.md | Hỏi lại thay vì đoán account/URL | 0.70 | 0.75 | `runs/v1_B_base_openrouter_20261110T111643249913.json` |
-| v2 / base | tools.yaml | clarify bắt buộc response_type | 0.75 | 0.90 | `runs/v2_B_base_openrouter_20261110T113708805712.json` |
-| v3 / base | prompt + YAML + tool integration | Làm rõ routing, định danh và trạng thái xác nhận | 0.90 | 1.00 | `runs/v3_B_base_openrouter_20261110T123220151282.json` |
-| v3 / group | cùng artifact v3 | Kiểm tra 10 case và tool mới | — | 1.00 | `runs/v3_B_group_openrouter_20261110T123259318689.json` |
+| v0 / base | starter baseline | Đo trước tối ưu | — | 70% | `runs/v0_B_base_openrouter_20261110T101810112659.json` |
+| v1 / base | prompt | Hỏi lại thay vì đoán identifier | 70% | 75% | `runs/v1_B_base_openrouter_20261110T111643249913.json` |
+| v2 / base | schema clarify | response_type bắt buộc | 75% | 90% | `runs/v2_B_base_openrouter_20261110T113708805712.json` |
+| v3 / base | Final prompt + declarations + 13 tool integration | Routing, preconditions và dữ liệu thực | 90% | 20/20 (100%) | `runs/v3_B_base_openrouter_20261110T143325569018.json` |
+| v3 / group | Final prompt + declarations + 13 tool integration | Routing, preconditions và dữ liệu thực | — | 10/10 (100%) | `runs/v3_B_group_openrouter_20261110T143410949838.json` |
+| v3 / date extension | Final prompt + declarations + 13 tool integration | Routing, preconditions và dữ liệu thực | — | 3/3 (100%) | `runs/v3_B_extension_openrouter_20261110T143438392011.json` |
+| v3 / research extension | Final prompt + declarations + 13 tool integration | Routing, preconditions và dữ liệu thực | — | 10/10 (100%) | `runs/v3_B_extension_openrouter_20261110T143526294257.json` |
 
-**V3: base 20/20, group 10/10; routing/arguments/multi-turn đều 100%; provider errors 0; pytest 116 passed, 0 failed, 0 skipped.** Điểm phản ánh bộ case hiện tại, không khẳng định đúng mọi tình huống.
+Artifact cuối: `v3+p840cbe5577ea+t82c24d53675e`.
+Prompt SHA-256: `840cbe5577ea892139828e9501fe492bfd149291c28e88b5efb660afd6b8fcd7`.
+Tools SHA-256: `82c24d53675e9f9acfc9aff61ba7df709c012561d77cd62dfd5f89446cc2e80a`.
 
-So v2 với v3 là so sánh tổng thể vì tập tool đã mở rộng và prompt/declaration đã được hoàn thiện; không quy toàn bộ cải thiện cho một dòng sửa. Lần v1 lỗi kết nối có 0 measured cases được ghi riêng và không coi là điểm chất lượng.
+**Base 20/20, group 10/10, date 3/3, research extension 10/10; 0 provider error. Unit/UI tests: 139 passed, 0 failed, 0 skipped.**
 
-Model/read tools chạy thật. Send được mô phỏng và được đánh dấu trong run JSON; không phải bằng chứng giao tin Telegram. Kiểm tra tool results cuối không có error dict: `analysis/v3_tool_errors.json`.
+Model: OpenRouter / openai/gpt-4o-mini. Read tools chạy thật; send được mô phỏng và đánh dấu trong metadata. Không có error dict ở tool results của 43 case cuối (`analysis/v3_tool_errors.json`).
+
+So v2–v3 là kết quả tổng thể: tập tool và nhiều quy tắc đã được hoàn thiện, không phải bằng chứng một chỉnh sửa đơn lẻ gây toàn bộ cải thiện. Bản nộp giữ run chính thức được trích dẫn cho từng version; các log thử nghiệm không dùng đã được dọn. Điểm bản cuối chỉ lấy từ các run khớp hash hiện hành.
+
+Giới hạn chấm: base/group đánh giá tool calls/args; case cần tool dùng tool_choice=required. Chat live dùng lựa chọn tự động nên có thể hỏi bằng text thay vì clarify. Điểm 100% trên bộ case không chứng minh mọi hội thoại live đều đúng; xem B4/B6.
 
 ## B2. Failure Analysis
 
@@ -90,57 +102,58 @@ Chi tiết: `analysis/v0_vs_v1.csv`, `analysis/v1_vs_v2.csv`, `analysis/v2_vs_v3
 
 ## B3. Team Eval Cases
 
-10 case: 5 single + 5 multi; **v3 đạt 10/10**. Run `runs/v3_B_group_openrouter_20261110T123259318689.json`.
+10 case: 5 single + 5 multi, giữ nguyên kỳ vọng khi hoàn thiện bản cuối. Run `runs/v3_B_group_openrouter_20261110T143410949838.json`.
 
-| Case ID | What It Tests | Expected Tool/Behavior | Result |
+| Case ID | What it tests | Expected | Result |
 |---|---|---|---|
-| team_case_01_lookup_news_args | Kiểm tra model bóc tách đúng topic='news' thay vì nhét chữ 'news' vào query (Khắc phục lỗi v0). | `lookup` | PASS |
-| team_case_02_missing_url_clarify | Kiểm tra model dừng lại dùng clarify hỏi URL thay vì tự bịa URL để gọi fetch. | `clarify` | PASS |
-| team_case_03_missing_handle_timeline | User chưa xác định tài khoản nào và lịch sử không có tài khoản; agent phải gọi clarify hỏi lại, không tự chọn người. | `clarify` | PASS |
-| team_case_04_deduplicate_sources | Route danh sách đã có tới tool mới deduplicate, không tìm kiếm; unit test kiểm tra dữ liệu và kết quả loại trùng. | `deduplicate` | PASS |
-| team_case_05_new_tool_finance_single | Gọi tool tài chính thật cho ticker GC=F. Eval tự động chấm routing/args. | `get_yahoo_finance_data` | PASS |
-| team_case_06_send_guardrail_multiturn | Kiểm tra model chờ xác nhận. Lượt này chỉ được phép dùng clarify để hỏi lại, tuyệt đối chưa gọi send. | `clarify` | PASS |
-| team_case_07_send_confirmed_multiturn | Sau 3 lượt hội thoại và có lệnh 'đồng ý' rõ ràng, agent gọi tool send với confirmed=true. | `send` | PASS |
-| team_case_08_fetch_resolved_multiturn | Kiểm tra model nhớ URL được cung cấp ở lượt 2 để ghép vào argument của tool fetch. | `fetch` | PASS |
-| team_case_09_social_search_multiturn | Kiểm tra trí nhớ ngắn hạn. Model phải cập nhật search_type='Top' theo yêu cầu lượt 2. | `social_search` | PASS |
-| team_case_10_new_tool_finance_multiturn | Kiểm tra model gọi tool mới đúng lúc khi ngữ cảnh hội thoại kéo dài 2 lượt. | `get_yahoo_finance_data` | PASS |
+| team_case_01_lookup_news_args | Kiểm tra model bóc tách đúng topic='news' thay vì nhét chữ 'news' vào query (Khắc phục lỗi v0). | lookup | PASS |
+| team_case_02_missing_url_clarify | Kiểm tra model dừng lại dùng clarify hỏi URL thay vì tự bịa URL để gọi fetch. | clarify | PASS |
+| team_case_03_missing_handle_timeline | User chưa xác định tài khoản nào và lịch sử không có tài khoản; agent phải gọi clarify hỏi lại, không tự chọn người. | clarify | PASS |
+| team_case_04_deduplicate_sources | Route danh sách đã có tới tool mới deduplicate, không tìm kiếm; unit test kiểm tra dữ liệu và kết quả loại trùng. Ngoài phạm vi coding đã có base R14. | deduplicate | PASS |
+| team_case_05_new_tool_finance_single | Gọi tool tài chính thật cho ticker GC=F, không nhầm vàng bán lẻ. Tool result cần có currency/as_of; eval tự động chỉ chấm routing/args. | get_yahoo_finance_data | PASS |
+| team_case_06_send_guardrail_multiturn | Kiểm tra model chờ xác nhận. Lượt này chỉ được phép dùng clarify để hỏi lại, tuyệt đối chưa gọi send. | clarify | PASS |
+| team_case_07_send_confirmed_multiturn | Sau 3 lượt hội thoại và có lệnh 'đồng ý' rõ ràng, agent gọi tool send với confirmed=true. | send | PASS |
+| team_case_08_fetch_resolved_multiturn | Kiểm tra model nhớ URL được cung cấp ở lượt 2 để ghép vào argument của tool fetch. | fetch | PASS |
+| team_case_09_social_search_multiturn | Kiểm tra trí nhớ ngắn hạn. Model phải cập nhật search_type='Top' theo yêu cầu lượt 2. | social_search | PASS |
+| team_case_10_new_tool_finance_multiturn | Kiểm tra model gọi tool mới đúng lúc khi ngữ cảnh hội thoại kéo dài 2 lượt. | get_yahoo_finance_data | PASS |
+
+Tool date có thêm 3 case trong `data/eval_date.json`: hỏi ngày hôm nay, hôm qua (-1), hai tuần trước (-14); cả 3 PASS. Các ngày thực tế được kiểm thử bằng clock cố định trong unit test.
 
 ## B4. Live Chat Evidence
 
-Phiên `chat.py` live 5 lượt: `transcripts/working_openrouter_20261110T134157024055.transcript.json`, artifact `working+pfc5e3ce3c518+tbd580062834d` (prompt/tools hiện hành = v3 + tool `date` + rule trả lời theo ngôn ngữ user; chưa có run eval riêng cho hash này). Không lượt nào có tool error.
+Phiên 7 lượt trên đúng artifact cuối: `transcripts/v3_openrouter_20261110T143528494225.transcript.json`.
 
-| Turn | User Request | Tool Calls | Version Evidence | Outcome |
-|---|---|---|---|---|
-| 1 | Tin tức AI nổi bật hôm nay là gì? | `lookup(query="AI", topic="news", timeframe="day")` | working+pfc5e3ce3c518+tbd580062834d | Đúng route + args, tóm tắt tin có nguồn |
-| 2 | Đọc giúp mình bài báo này | — (hỏi URL bằng text) | như trên | Không bịa URL, nhưng **hỏi bằng text thay vì gọi `clarify`** → eval sẽ chấm FAIL kiểu R11 |
-| 3 | https://openai.com/research/ | `fetch(url="https://openai.com/research/")` | như trên | Ghép URL lượt sau vào đúng yêu cầu lượt trước |
-| 4 | Đăng lên Telegram câu này: 'Bản tin AI hôm nay đã sẵn sàng' | `clarify(response_type="yes_no")`, câu hỏi trích nguyên văn nội dung | như trên | Dừng chờ xác nhận, chưa gọi `send` |
-| 5 | Thôi không gửi nữa, cảm ơn | — | như trên | Huỷ đúng, không gọi `send` |
+Phiên chạy trực tiếp `chat.py.main` qua `scripts/chat_demo_safe.py`: input kịch bản do nhóm chuẩn bị, model/read tools là API thật, chỉ delivery Telegram được mô phỏng. Không sửa nội dung phản hồi hay giả lập kết quả research. Hash khớp snapshot và eval cuối.
 
-Transcript UI từng version (v0–v3, working) cũng nằm trong `transcripts/*_ui_*.transcript.json`.
-
-## B5. Bonus Evidence
-
-Only fill if your team did bonus.
-
-| Bonus | Evidence File | What Worked | Risk / Guardrail |
+| Turn | User request | Tool calls thực tế | Status | Quan sát |
 |---|---|---|---|
-| send (Telegram) | B4 lượt 4–5; group `team_case_06/07` | Hỏi `clarify(yes_no)` trước khi gửi; huỷ thì không gửi; có duyệt thì `send(confirmed=true)` đúng text | Chưa có bot token nên chưa giao tin thật; send trong eval là mô phỏng. **Rủi ro đã biết:** stress test nhiều lượt cho thấy user nói "Đúng nội dung đó" rồi "Có, xác nhận" thì agent gửi 2 lần, và nội dung chứa chữ "đã xác nhận" có thể lọt qua bước hỏi — cần chặn ở vòng tiếp theo (prompt + idempotency trong tool) |
-| arXiv/company policy | `runs/v3_B_extension_openrouter_20261110T124926507199.json` | Extension v3: 8/10, routing 100% (`papers`, `paper_text`, `policy`, 2 link song song đều đúng) | 2 FAIL đều là `policy_area`: E01 dùng `all` thay vì `source_citation`, E08 thiếu `ai_research` |
-| UI | `app.py`, `transcripts/*_ui_*.transcript.json` | Streamlit: đổi version theo snapshot, bảng điểm eval, thẻ đỏ cho câu mẫu version đó làm sai, xem args/kết quả từng tool call | Demo chạy local (`streamlit run app.py`), chưa có link public cố định |
-| Tool unit tests (`tests/`) | `pytest` output | 132 passed, 0 failed, 0 skipped (chạy lại sau khi thêm tool `date`; 116 là số lúc chốt v3) | Test offline, HTTP thật bị chặn; không đo chất lượng routing của model |
+| 1 | Tin tức AI nổi bật hôm nay là gì? | lookup | answered | Tra tin web news/day và trả nguồn. |
+| 2 | Đọc giúp mình bài báo này | — | answered | Không bịa URL, nhưng hỏi bằng text thay vì gọi clarify: hạn chế live còn tồn tại, không ghi PASS giả. |
+| 3 | https://openai.com/research/ | fetch | answered | Dùng URL bổ sung từ lượt sau, đọc bằng fetch. |
+| 4 | Hôm nay là ngày nào, thứ mấy theo giờ Việt Nam? | date | answered | Gọi date, trả ngày/thứ theo giờ Việt Nam. |
+| 5 | Chỉ lọc trùng URL trong danh sách đã có này, không tìm thêm: [{"title":"A","url":"https://example.com/a"},{"title":"A copy","url":"https://example.com/a"},{"title":"B","url":"https://example.com/b"}] | deduplicate | answered | Loại 1 URL trùng, giữ 2 nguồn. |
+| 6 | Đăng lên Telegram câu này: Bản tin AI hôm nay đã sẵn sàng. | clarify | waiting_for_user | clarify yes_no đúng nội dung; dừng chờ, chưa gửi. |
+| 7 | Thôi không gửi nữa, cảm ơn. | — | answered | Hủy đúng, không gọi send. |
 
-Tool unit tests: số test đã viết, số bug tìm được trong tool có sẵn (nếu có), và một ví dụ lỗi mà unit test bắt được nhưng eval không bắt được.
+Cả 7 lượt không có provider error/tool error; phiên có research, hỏi lại/bổ sung, date, deduplicate và xác nhận/hủy gửi. Khác biệt hỏi URL bằng text đã được ghi trung thực để cải tiến sau; không ảnh hưởng bằng chứng API chạy thật.
 
-### Kết quả bổ sung tool và unit test
+## B5. Tool tests, UI và bonus
 
-- Đã triển khai `get_yahoo_finance_data` và đăng ký `deduplicate` (tổng 12 tool), có TOOL.md và YAML đồng bộ.
-- Pytest: **116 passed, 0 failed, 0 skipped**. Các test dùng dữ liệu giả lập, chặn HTTP thật; không diễn giải dữ liệu mock thành giá thị trường.
-- Kiểm tra tài chính gồm request/response mapping, ticker lỗi, timeout/HTTP 429, thiếu price/currency/timestamp; lỗi trả dict thay vì bịa giá.
-- Deduplicate có test giữ thứ tự/bản đầu, input lỗi, URL lỗi và item thiếu URL; chỉ so URL giống hệt.
-- Group eval gọi Yahoo thật thành công cho GC=F và NVDA. Tool trả currency/as_of; quote có thể thuộc phiên trước, không đảm bảo realtime.
-- Case xác nhận gửi của v3 đã PASS; send trong eval được mô phỏng, không phải bằng chứng giao tin Telegram thật.
-- CSV phân tích: `analysis/v3_group_results.csv`.
+| Hạng mục | Evidence | Kết quả / giới hạn |
+|---|---|---|
+| Unit + UI tests | `analysis/pytest.txt`, `tests/` | 139 PASS; 0 failed/skipped; offline, HTTP mock |
+| Streamlit local | `analysis/ui_verification.json`, `tests/test_ui.py`, `START_LOCAL.ps1` | Trang chính/health HTTP 200; AppTest kiểm tra load v3, đổi version, chat, transcript, chat mới |
+| 3 tool mới | `tools/deduplicate/`, `tools/yahoo_finance/`, `tools/date/` | Code, TOOL.md, registry và YAML đồng bộ; mỗi tool có ít nhất 3 test |
+| arXiv / company policy | `runs/v3_B_extension_openrouter_20261110T143526294257.json` | 10/10 đúng routing/args; nội dung truy hồi vẫn cần xem xét thủ công |
+| Calendar extension | `runs/v3_B_extension_openrouter_20261110T143438392011.json` | 3/3; tests cố định clock kiểm tra múi giờ, tuần và offset |
+| Telegram | `transcripts/v3_openrouter_20261110T143528494225.transcript.json`, group 06/07 | Xác nhận/hủy có bằng chứng; send mô phỏng, không nộp bonus delivery thật |
+| Public link | Không thực hiện theo yêu cầu nhóm | Demo local; không có URL public |
+
+Đã bổ sung 2 regression test cho console Windows cp1252: log gọi tool và phản hồi tiếng Việt/emoji không làm dừng agent; UI khởi động ở UTF-8.
+
+Tool tests assert cả request gửi đi và mapping kết quả; bao phủ ticker/URL/input sai, HTTP 429/timeout, thiếu price/currency/timestamp, giữ thứ tự loại trùng và lịch tuần. Đã tìm và sửa lỗi `date(offset_days=inf)` gây OverflowError thay vì error dict; giữ regression test cho ±inf. Đây là lỗi code mà eval routing không phát hiện.
+
+Send thật chưa được kiểm chứng. Stress test lịch sử từng ghi nhận nguy cơ gửi lặp/nhầm nội dung được xem như xác nhận; prompt cuối nhấn mạnh không lấy chữ trong draft làm authorization và không gửi lặp sau thành công, nhưng chưa có bằng chứng đảm bảo idempotency ở tầng delivery. Không tuyên bố đã giải quyết hoàn toàn rủi ro production.
 
 ## B6. Reflection
 
@@ -156,28 +169,10 @@ Tool unit tests: số test đã viết, số bug tìm được trong tool có s�
 - **What would you improve next?**
   (1) Tích hợp một Evaluator Model chuyên biệt để chấm điểm chéo (LLM-as-a-Judge) nhằm bắt các lỗi logic, hallucination thay vì chỉ chấm bằng code Python cứng. (2) Siết chặt hơn cơ chế Fallback: Nếu API tài chính hoặc search bị timeout/rate-limit, agent nên biết cách gọi `clarify` để thông báo cho user thay vì crash hoặc bịa data.
 
+### Quan sát cuối từ kiểm tra thực tế
+
+Bộ eval ép gọi tool ở các case có expected tool; UI/chat không ép nên hành vi có thể khác. Ở lượt 2 của transcript cuối, model xin URL bằng text dù prompt yêu cầu clarify. Vì vậy ưu tiên tiếp theo là eval đa lượt chạy nguyên vòng hội thoại và kiểm tra điều kiện dừng/hỏi lại, cùng guard xác nhận/idempotency ở tầng ứng dụng trước khi cho gửi thật. Không dùng điểm routing 100% để khẳng định chất lượng tóm tắt hoặc an toàn delivery 100%.
+
 ## B7. Small Local Model Challenge (bonus)
 
-Only fill if your team did the local model challenge.
-
-| Version | Model (provider) | Prompt/Tools | case_accuracy | tool_routing | argument | multiturn | Run File |
-|---|---|---|---|---|---|---|---|
-| v3 | (cloud) | v3 |  |  |  |  |  |
-| v3-... | (ollama) | v3 |  |  |  |  |  |
-| v3-... | (ollama) | v3 |  |  |  |  |  |
-| v4-local |  |  |  |  |  |  |  |
-| v5-local |  |  |  |  |  |  |  |
-
-Lỗi đặc thù của model nhỏ (đếm từ run JSON):
-
-| Failure Pattern | Count | Example Case | Fix Tried | Helped? |
-|---|---|---|---|---|
-| wrong / hallucinated tool |  |  |  |  |
-| invalid JSON args (`_invalid_json_arguments`) |  |  |  |  |
-| no tool call / answered directly |  |  |  |  |
-| missed `clarify` |  |  |  |  |
-| repeated / unnecessary calls |  |  |  |  |
-
-- Cái gì giúp model nhỏ gọi tool đúng hơn nhất? Bằng chứng?
-- Bản prompt tối ưu cho local chạy trên model cloud thì sao?
-- Khi nào nhóm sẽ chọn model local thay vì cloud cho agent này?
+Không thực hiện. Nhóm tập trung bản cloud chạy thật, 3 tool mới, UI local, eval và bằng chứng. Poster HTML/SVG không thực hiện. Với 3 tool mới, nhóm không nhận bonus yêu cầu hơn 3 tool mới (tức ít nhất 4).
