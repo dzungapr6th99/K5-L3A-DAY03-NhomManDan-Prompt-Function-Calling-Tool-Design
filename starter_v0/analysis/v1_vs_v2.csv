@@ -1,0 +1,21 @@
+﻿case_id,v1_passed,v2_passed,change,v2_actual_tool_calls,v2_failures
+R01_user_tweets_routing,True,True,unchanged,"[{""name"": ""timeline"", ""args"": {""screenname"": ""sama"", ""limit"": 1}}]",
+R02_search_tweets_routing,True,True,unchanged,"[{""name"": ""social_search"", ""args"": {""query"": ""GPT-5"", ""search_type"": ""Latest"", ""limit"": 5}}]",
+R03_web_news_routing,True,True,unchanged,"[{""name"": ""lookup"", ""args"": {""query"": ""AI"", ""topic"": ""news"", ""timeframe"": ""day"", ""max_results"": 5}}]",
+R04_read_url_routing,True,True,unchanged,"[{""name"": ""fetch"", ""args"": {""url"": ""https://openai.com/blog/gpt-5""}}]",
+R05_limit_arg,True,True,unchanged,"[{""name"": ""timeline"", ""args"": {""screenname"": ""elonmusk"", ""limit"": 10}}]",
+R06_timeframe_arg,True,True,unchanged,"[{""name"": ""lookup"", ""args"": {""query"": ""tin công nghệ"", ""topic"": ""news"", ""timeframe"": ""week"", ""max_results"": 5}}]",
+R07_search_type_arg,True,True,unchanged,"[{""name"": ""social_search"", ""args"": {""query"": ""OpenAI"", ""search_type"": ""Top"", ""limit"": 5}}]",
+R08_out_of_scope,True,True,unchanged,[],
+R09_no_tool_capability,True,True,unchanged,[],
+R10_missing_handle,False,True,improved,"[{""name"": ""clarify"", ""args"": {""question"": ""Bạn có thể cho mình biết tên tài khoản Twitter mà bạn muốn tóm tắt tweet không?"", ""response_type"": ""text""}}]",
+R11_missing_url,False,True,improved,"[{""name"": ""clarify"", ""args"": {""question"": ""Bạn vui lòng cung cấp URL của bài viết mà bạn muốn tóm tắt?"", ""response_type"": ""text""}}]",
+R12_confirm_before_send,False,False,unchanged,"[{""name"": ""send"", ""args"": {""text"": ""Bản tin này""}}]",missing tool call clarify; extra tool call send
+R13_parallel_web_and_tweets,False,True,improved,"[{""name"": ""lookup"", ""args"": {""query"": ""AI"", ""topic"": ""news"", ""timeframe"": ""day"", ""max_results"": 5}}, {""name"": ""social_search"", ""args"": {""query"": ""AI"", ""search_type"": ""Latest"", ""limit"": 5}}]",
+R14_out_of_scope_coding,True,True,unchanged,[],
+M01_clarify_then_fill,True,True,unchanged,"[{""name"": ""timeline"", ""args"": {""screenname"": ""elonmusk"", ""limit"": 5}}]",
+M02_carryover_timeframe,False,False,unchanged,"[{""name"": ""social_search"", ""args"": {""query"": ""robotics"", ""search_type"": ""Latest"", ""limit"": 5}}]",missing tool call lookup; extra tool call social_search
+M03_correction_handle,True,True,unchanged,"[{""name"": ""timeline"", ""args"": {""screenname"": ""karpathy"", ""limit"": 3}}]",
+M04_clarify_then_url,True,True,unchanged,"[{""name"": ""fetch"", ""args"": {""url"": ""https://anthropic.com/news/claude""}}]",
+M05_correction_limit,True,True,unchanged,"[{""name"": ""timeline"", ""args"": {""screenname"": ""elonmusk"", ""limit"": 3}}]",
+M06_switch_tool,True,True,unchanged,"[{""name"": ""lookup"", ""args"": {""query"": ""OpenAI"", ""topic"": ""news"", ""timeframe"": ""day"", ""max_results"": 5}}]",
