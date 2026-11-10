@@ -1,0 +1,23 @@
+# Mân Đàn theme: red / black / gold, football-club feel (no club logos or names).
+[client]
+toolbarMode = "minimal"  # hide Deploy / dev menu during the demo
+
+[theme]
+base = "light"
+primaryColor = "#C8102E"
+backgroundColor = "#F6F4EF"
+secondaryBackgroundColor = "#ECE8E0"
+textColor = "#141414"
+linkColor = "#A50E25"
+borderColor = "#E2DED6"
+baseRadius = "10px"
+font = "Be Vietnam Pro:https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "Barlow Condensed:https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap, sans-serif"
+
+[theme.sidebar]
+backgroundColor = "#121212"
+secondaryBackgroundColor = "#1C1C1C"
+textColor = "#F2F2F2"
+primaryColor = "#F2C230"
+linkColor = "#F2C230"
+borderColor = "#2C2C2C"

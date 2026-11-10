@@ -18,7 +18,7 @@
 
 Research agent tiếng Việt: tìm tin trên web và X/Twitter (theo từ khóa hoặc theo tài khoản), đọc nội dung URL và paper arXiv, tra chính sách nội bộ, gom kết quả thành bản tin markdown, và chỉ gửi lên Telegram sau khi người dùng xác nhận. Thiếu thông tin (tài khoản nào, URL nào) thì agent hỏi lại thay vì tự đoán.
 
-**Dùng thử:** demo trực tiếp trên máy nhóm bằng Streamlit (`streamlit run app.py`). Sidebar có sẵn câu hỏi mẫu; mỗi tool call hiện kèm args và kết quả trong ô mở rộng; mỗi phiên lưu transcript vào `transcripts/`.
+**Dùng thử:** demo trực tiếp trên máy nhóm bằng Streamlit (`streamlit run app.py`). Sidebar cho đổi version (mỗi snapshot trong `artifacts/versions/`, agent chạy đúng prompt + tools của version đó), hiện bảng tỉ số eval của version, và gắn **thẻ đỏ** cho câu hỏi mẫu mà version đó đang làm sai (lấy từ run JSON thật). Mỗi tool call hiện kèm args và kết quả trong ô mở rộng; mỗi phiên lưu transcript vào `transcripts/`.
 
 ## A2. Tool agent có
 
