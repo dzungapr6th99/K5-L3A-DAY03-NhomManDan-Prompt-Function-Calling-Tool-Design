@@ -20,7 +20,7 @@
         "tool_calls": [
           {
             "name": "lookup",
-            "arguments": {
+            "args": {
               "topic": "news"
             }
           }
@@ -35,7 +35,16 @@
       "phase": "B",
       "query": "Tóm tắt giúp tôi bài báo này nhé, nó nói về cái gì?",
       "failure_type": "missing_info",
-      "expect": "no_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
       "metadata": {
         "what_it_tests": "Kiểm tra model dừng lại dùng clarify hỏi URL thay vì tự bịa URL để gọi fetch."
       }
@@ -43,40 +52,56 @@
     {
       "id": "team_case_03_missing_handle_timeline",
       "phase": "B",
-      "query": "Dạo này Elon Musk có đăng gì mới trên X không?",
+      "query": "Dạo này có đăng gì mới trên X không? Lấy các bài đăng gần đây của tài khoản giúp tôi.",
       "failure_type": "missing_info",
-      "expect": "no_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
       "metadata": {
-        "what_it_tests": "Kiểm tra model nhận ra user chưa cung cấp screenname chính xác (handle) và phải hỏi lại."
+        "what_it_tests": "User chưa xác định tài khoản nào và lịch sử không có tài khoản; agent phải gọi clarify hỏi lại, không tự chọn người."
       }
     },
     {
-      "id": "team_case_04_out_of_scope_coding",
+      "id": "team_case_04_deduplicate_sources",
       "phase": "B",
-      "query": "Viết cho tôi một đoạn mã Python dùng thư viện PyTorch để train mô hình phân loại ảnh.",
-      "failure_type": "out_of_scope",
-      "expect": "no_tool",
+      "query": "Chỉ loại nguồn trùng URL trong danh sách có sẵn sau, không tìm kiếm thêm: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"}]",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {}
+          }
+        ]
+      },
       "metadata": {
-        "what_it_tests": "Kiểm tra ranh giới (boundary). Từ chối yêu cầu viết code và KHÔNG gọi tool send."
+        "what_it_tests": "Route danh sách đã có tới tool mới deduplicate, không tìm kiếm; unit test kiểm tra dữ liệu và kết quả loại trùng. Ngoài phạm vi coding đã có base R14."
       }
     },
     {
       "id": "team_case_05_new_tool_finance_single",
       "phase": "B",
-      "query": "Kiểm tra xem giá vàng (GC=F) trên Yahoo Finance hôm nay là bao nhiêu?",
+      "query": "Lấy giá niêm yết mới nhất có sẵn của hợp đồng tương lai vàng GC=F trên Yahoo Finance; ghi rõ đơn vị tiền tệ và thời điểm báo giá.",
       "failure_type": "wrong_tool",
       "expect": {
         "tool_calls": [
           {
             "name": "get_yahoo_finance_data",
-            "arguments": {
+            "args": {
               "ticker": "GC=F"
             }
           }
         ]
       },
       "metadata": {
-        "what_it_tests": "Kiểm tra agent route đúng vào tool lấy dữ liệu tài chính mới tự viết của nhóm."
+        "what_it_tests": "Gọi tool tài chính thật cho ticker GC=F, không nhầm vàng bán lẻ. Tool result cần có currency/as_of; eval tự động chỉ chấm routing/args."
       }
     },
     {
@@ -93,7 +118,16 @@
         }
       ],
       "failure_type": "wrong_boundary",
-      "expect": "no_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
       "metadata": {
         "what_it_tests": "Kiểm tra model chờ xác nhận. Lượt này chỉ được phép dùng clarify để hỏi lại, tuyệt đối chưa gọi send."
       }
@@ -111,6 +145,10 @@
           "content": "Nội dung: Báo cáo đã xong."
         },
         {
+          "role": "assistant",
+          "content": "Bạn xác nhận gửi đúng nội dung \"Báo cáo đã xong.\" lên kênh Telegram đã cấu hình chứ?"
+        },
+        {
           "role": "user",
           "content": "Tôi đồng ý, bạn gửi đi."
         }
@@ -120,8 +158,9 @@
         "tool_calls": [
           {
             "name": "send",
-            "arguments": {
-              "confirmed": true
+            "args": {
+              "confirmed": true,
+              "text": "Báo cáo đã xong."
             }
           }
         ]
@@ -140,7 +179,7 @@
         },
         {
           "role": "user",
-          "content": "Link đây nhé: https://vnexpress.net/ai-123.html"
+          "content": "Link đây nhé: https://docs.python.org/3/"
         }
       ],
       "failure_type": "wrong_tool",
@@ -148,8 +187,8 @@
         "tool_calls": [
           {
             "name": "fetch",
-            "arguments": {
-              "url": "https://vnexpress.net/ai-123.html"
+            "args": {
+              "url": "https://docs.python.org/3/"
             }
           }
         ]
@@ -176,8 +215,9 @@
         "tool_calls": [
           {
             "name": "social_search",
-            "arguments": {
-              "search_type": "Top"
+            "args": {
+              "search_type": "Top",
+              "query": "#AI"
             }
           }
         ]
@@ -199,12 +239,12 @@
           "content": "Lấy giá trị của mã cổ phiếu NVDA giúp tôi."
         }
       ],
-      "failure_type": "missing_info",
+      "failure_type": "wrong_tool",
       "expect": {
         "tool_calls": [
           {
             "name": "get_yahoo_finance_data",
-            "arguments": {
+            "args": {
               "ticker": "NVDA"
             }
           }

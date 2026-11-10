@@ -17,6 +17,8 @@ from .policy.tool import search_company_policy
 from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
+from .deduplicate.tool import deduplicate
+from .yahoo_finance.tool import get_yahoo_finance_data
 from .date.tool import get_date
 
 
@@ -36,6 +38,8 @@ TOOL_FUNCTIONS = {
     "policy": search_company_policy,
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
+    "deduplicate": deduplicate,
+    "get_yahoo_finance_data": get_yahoo_finance_data,
     "date": get_date,
     # TODO(student): register your new tool here, e.g. "my_tool": my_tool_function,
     # then declare it in artifacts/tools.yaml and run `pytest tests/test_tool_contract.py`.

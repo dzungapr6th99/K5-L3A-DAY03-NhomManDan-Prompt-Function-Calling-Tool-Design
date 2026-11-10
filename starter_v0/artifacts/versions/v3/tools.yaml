@@ -1,0 +1,160 @@
+# starter_v0 — tool declarations (intentionally vague).
+# Names and descriptions here are a rough first draft. Routing rules, name->handle
+# mapping, arg conventions (news/timeframe/Top), and the send-confirmation boundary
+# are NOT spelled out anywhere yet. Your job is to make these declarations + the
+# system prompt good enough that the agent routes correctly on the eval.
+#
+# If you rename a tool, keep the name in sync across:
+#   this file  ->  tools/__init__.py (TOOL_FUNCTIONS)  ->  data/eval_base.json + data/eval_research_extension.json
+# `pytest tests/test_tool_contract.py` checks this sync for you.
+#
+# TODO(student):
+#   - Rewrite every description: what it does, WHEN to use it, WHEN NOT to use it.
+#   - Spell out arg conventions in parameter descriptions (handle format, topic/timeframe, search_type).
+#   - Make the `send` confirmation boundary explicit.
+#   - Declare your new tool(s) at the end of this file.
+tools:
+  # ---------------- Core tools ----------------
+  - name: clarify
+    description: "Hỏi người dùng và dừng chờ. Với yêu cầu gửi/đăng/Telegram chưa xác nhận: bắt buộc response_type=yes_no, kể cả chưa có bản tin (hỏi xác nhận ý định và xin nội dung trong question); không dùng text cho nhánh này. Với thiếu account/URL của yêu cầu đọc/tìm: response_type=text. Nếu đã xác nhận đúng nội dung thì không hỏi lại. Không hỏi handle khi đã nhận diện chắc chắn người dùng muốn xem tài khoản nào."
+    parameters:
+      type: object
+      properties:
+        question: {type: string, default: "", description: "Câu hỏi"}
+        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "yes_no cho mọi xác nhận gửi/đăng chưa được duyệt, dù còn thiếu nội dung; text khi xin account/URL để đọc; choice khi có lựa chọn."}
+        options: {type: array, default: [], items: {type: string}, description: "Các lựa chọn"}
+      required: [question, response_type]
+
+  - name: timeline
+    description: "Lấy bài đăng CỦA một tài khoản X cụ thể đã xác định từ tên người hoặc handle trong hội thoại. Không được gọi nếu user chỉ nói tweet mới nhất mà chưa chỉ ra tài khoản/người nào: khi đó dùng clarify(response_type=text). Không dùng your_account, username, unknown hay tài khoản mẫu; không tự chọn người. Tên đã biết có thể ánh xạ: Sam Altman=sama, Elon Musk=elonmusk, Andrej Karpathy=karpathy. Không dùng cho bài đăng về chủ đề."
+    parameters:
+      type: object
+      properties:
+        screenname: {type: string, description: "Handle thật của đúng người/tài khoản user đã xác định trong hội thoại; bỏ @. Không placeholder hoặc đoán tài khoản khi user chưa nêu người."}
+        limit: {type: integer, default: 5, description: "Số lượng"}
+      required: [screenname]
+
+  - name: social_search
+    description: "Tìm trên mạng xã hội."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa"}
+        search_type: {type: string, enum: [Latest, Top], default: "Latest", description: "Cách sắp xếp"}
+        limit: {type: integer, default: 5, description: "Số lượng"}
+      required: [query]
+
+  - name: lookup
+    description: "Nếu người dùng muốn tìm tin tức, hãy đặt topic='news' và loại bỏ chữ 'news' khỏi chuỗi query (ví dụ: query='AI', topic='news')."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Truy vấn"}
+        topic: {type: string, enum: [general, news], default: "general", description: "Phân loại"}
+        timeframe: {type: string, enum: [day, week, month, year], default: "week", description: "Khoảng thời gian"}
+        max_results: {type: integer, default: 5, description: "Số kết quả"}
+      required: [query]
+
+  - name: fetch
+    description: "Lấy nội dung từ một địa chỉ."
+    parameters:
+      type: object
+      properties:
+        url: {type: string, default: "", description: "Địa chỉ"}
+      required: [url]
+
+  - name: format
+    description: "Trình bày dữ liệu đã có thành văn bản."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+              section: {type: string}
+        template: {type: string, enum: [brief, sections, bullets, thread, daily_ai_vn], default: "sections", description: "Khuôn"}
+        headline: {type: string, default: "", description: "Tiêu đề"}
+      required: [items, template]
+
+  # ---------------- Bonus tools ----------------
+  - name: send
+    description: "Chỉ dùng công cụ này khi người dùng đã xác nhận rõ ràng (confirmed=true)."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Nội dung"}
+        confirmed: {type: boolean, default: false, description: "Cờ xác nhận"}
+      required: [text]
+
+  - name: policy
+    description: "Tìm trong tài liệu nội bộ."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Truy vấn"}
+        policy_area: {type: string, enum: [all, ai_research, source_citation, data_privacy, external_publishing, tool_usage], default: "all", description: "Nhóm"}
+        top_k: {type: integer, default: 3, description: "Số mục"}
+      required: [query]
+
+  - name: papers
+    description: "Tìm bài báo khoa học."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa"}
+        max_results: {type: integer, default: 5, description: "Số lượng"}
+        sort_by: {type: string, enum: [relevance, lastUpdatedDate, submittedDate], default: "relevance", description: "Sắp xếp"}
+      required: [query]
+
+  - name: paper_text
+    description: "Lấy nội dung text của một bài báo."
+    parameters:
+      type: object
+      properties:
+        arxiv_url: {type: string, default: "", description: "ID hoặc địa chỉ"}
+        max_pages: {type: integer, default: 5, description: "Số trang"}
+        max_chars: {type: integer, default: 8000, description: "Số ký tự"}
+      required: [arxiv_url]
+
+  - name: deduplicate
+    description: >
+      Loại nguồn trùng URL trong danh sách item đã có, giữ bản đầu và thứ tự.
+      Dùng khi user yêu cầu lọc trùng hoặc trước khi format nhiều nguồn.
+      Không dùng để tìm kiếm/đọc URL; chỉ so URL giống hệt, không bỏ tracking.
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          description: Danh sách nguồn đã có; item thiếu URL được giữ lại.
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              summary: {type: string}
+              source: {type: string}
+      required: [items]
+
+  - name: get_yahoo_finance_data
+    description: >
+      Lấy giá niêm yết mới nhất có sẵn trên Yahoo Finance cho một ticker cụ thể.
+      Dùng khi user hỏi giá mã như NVDA hoặc GC=F; không dùng cho tin tức hay giao dịch.
+      Thiếu/không rõ ticker thì hỏi clarify, không tự đoán mã.
+      Luôn trình bày currency và as_of; giá có thể trễ hoặc thuộc phiên trước.
+      GC=F là hợp đồng tương lai vàng, không phải giá vàng bán lẻ Việt Nam.
+    parameters:
+      type: object
+      properties:
+        ticker:
+          type: string
+          description: Một mã Yahoo Finance, ví dụ NVDA, GC=F, BTC-USD hoặc ^GSPC; không phải URL.
+      required: [ticker]
