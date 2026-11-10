@@ -34,7 +34,8 @@ Research agent tiếng Việt: tìm tin trên web và X/Twitter (theo từ khóa
 | policy | Tìm trong company policy markdown nội bộ | không |
 | papers | Tìm paper trên arXiv | không |
 | paper_text | Tải PDF arXiv và trích text | không |
-| deduplicate_sources | Loại nguồn trùng URL trước khi làm bản tin _(đang làm — Dũng chốt tên/contract)_ | **có** |
+| deduplicate | Loại nguồn trùng URL trước khi làm bản tin _(đã có code, chưa đăng ký trong `tools/__init__.py` + `tools.yaml`)_ | **có** |
+| date | Ngày hiện tại theo giờ Việt Nam; `offset_days` cho câu hỏi tương đối (hôm qua -1, tuần trước -7, tuần sau 7), kèm 7 ngày Thứ Hai → Chủ Nhật của tuần đó | **có** |
 
 ## A3. Câu hỏi mẫu để thử
 

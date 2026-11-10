@@ -4,7 +4,8 @@ Run from starter_v0/:  streamlit run app.py   (theme: .streamlit/config.toml)
 Reuses the multi-round tool loop + transcript format from chat.py.
 
 Version picker: one entry per snapshot in artifacts/versions/<v>/ (its own prompt + tools),
-plus "working" = live artifacts/ when it matches no snapshot yet.
+plus live artifacts/ when it matches no snapshot yet: labelled with the version of a run measured on
+exactly those bytes (e.g. v3 evaluated before anyone snapshotted it), else "working".
 Scoreboard + red-card tags: newest run in runs/ with the same version label that measured
 at least one case. Matched by label, not hash: hashes differ across OSes (CRLF vs LF).
 """
@@ -21,7 +22,7 @@ from chat import ARTIFACTS_DIR, ROOT, now_iso, run_model_tool_loop, safe_slug, t
 from env_loader import load_lab_env
 from providers import make_provider
 from tools import load_tool_declarations, to_openai_tools
-from versioning import artifact_version_dict, build_artifact_version
+from versioning import artifact_version_dict, build_artifact_version, file_hash
 
 PROVIDER = "openrouter"
 HISTORY_WINDOW = 5
@@ -56,7 +57,7 @@ CSS = f"""<style>
 .md-pct{{font:700 24px 'Barlow Condensed',sans-serif;color:#F2C230}}
 .md-grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}}
 .md-cell{{background:#1A1A1A;border-radius:8px;padding:8px 10px}}
-.md-cell b{{display:block;font:700 24px 'Barlow Condensed',sans-serif;color:#fff}}
+.md-cell b{{display:block;font:700 24px 'Barlow Condensed',sans-serif;color:#fff;white-space:nowrap}}
 .md-cell span{{display:block;font-size:11px;line-height:1.3;white-space:nowrap;color:#A8A8A8}}
 .md-meta{{font-size:11px;color:#A8A8A8}}
 .md-meta{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:10px;word-break:break-all;line-height:1.6}}
@@ -100,7 +101,10 @@ def version_sources() -> dict[str, tuple[Path, Path]]:
         if (d / "system_prompt.md").is_file() and (d / "tools.yaml").is_file()
     }
     if not any(same_files(pair) for pair in found.values()):
-        found[WORKING] = LIVE
+        hashes = tuple(file_hash(p) for p in LIVE)
+        hits = [d for d in latest_runs().values() if (d.get("prompt_hash"), d.get("tools_hash")) == hashes]
+        label = max(hits, key=lambda d: d.get("generated_at", ""))["version"] if hits else WORKING
+        found[label if label not in found else WORKING] = LIVE
     return found
 
 
@@ -140,7 +144,7 @@ def sample_tag(runs: dict, version: str, case: str) -> tuple[str, str]:
         return "pass", f'<span class="md-tag md-pass">✓ Đạt {v}</span>'
     calls = hit["result"].get("actual_tool_calls") or []
     did = ", ".join(f"{c['name']}({short_args(c.get('args'))})" for c in calls) or "không gọi tool"
-    want = " + ".join(c["name"] for c in hit.get("expect", {}).get("tool_calls", [])) or "không gọi tool"
+    want = " + ".join(f"{c['name']}({short_args(c.get('args'))})" for c in hit.get("expect", {}).get("tool_calls", [])) or "không gọi tool"
     return "fail", (f'<span class="md-tag md-fail"><i></i>Thẻ đỏ {v}</span>'
                     f'<div class="md-why">{v} làm <span>{html.escape(did)}</span> — cần <span>{html.escape(want)}</span></div>')
 
@@ -263,7 +267,7 @@ with st.sidebar:
         list(sources),
         key="version",
         on_change=new_chat,
-        format_func=lambda v: f"{v} — artifacts/ chưa snapshot" if v == WORKING else v,
+        format_func=lambda v: f"{v} — artifacts/ chưa snapshot" if sources[v] == LIVE else v,
         help="Mỗi thư mục artifacts/versions/<v>/ là một version: chọn version nào thì agent chạy đúng prompt + tools của version đó.",
     )
     st.markdown(scoreboard(ver, runs.get((ver, "base"))), unsafe_allow_html=True)

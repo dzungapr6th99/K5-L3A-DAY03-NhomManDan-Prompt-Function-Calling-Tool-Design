@@ -123,3 +123,11 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: date
+    description: "Lấy ngày hiện tại theo giờ Việt Nam. Gọi tool này trước khi trả lời bất kỳ câu hỏi nào về ngày hoặc thứ, không tự đoán ngày. Kết quả luôn có last_week / this_week / next_week (Thứ Hai → Chủ Nhật), nên 'tuần trước' / 'last week', 'tuần sau' / 'next week' đọc thẳng từ đó. Ngày lệch khác thì dùng offset_days: hôm qua / yesterday = -1, ngày mai / tomorrow = 1, '2 tuần trước' = -14, 'N ngày nữa' = N; kết quả có date, weekday và week_of_date."
+    parameters:
+      type: object
+      properties:
+        offset_days: {type: integer, default: 0, description: "Số ngày lệch so với hôm nay: âm là quá khứ, dương là tương lai"}
+      required: []
