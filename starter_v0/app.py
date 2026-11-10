@@ -40,7 +40,7 @@ model = getattr(provider, "default_model", None)
 
 
 def new_chat() -> None:
-    version = build_artifact_version(st.session_state.get("version") or "v0", PROMPT_PATH, TOOLS_PATH)
+    version = build_artifact_version(st.session_state.get("version") or "v3", PROMPT_PATH, TOOLS_PATH)
     transcript_id = f"{safe_slug(version.version)}_{PROVIDER}_ui_{datetime.now():%Y%m%dT%H%M%S%f}"
     st.session_state.update(
         messages=[],  # what the UI renders: {role, content, events}
@@ -102,7 +102,7 @@ if "transcript" not in st.session_state:
 
 with st.sidebar:
     st.header("🔎 Research Agent")
-    st.text_input("Version", value="v0", key="version", on_change=new_chat)
+    st.text_input("Version", value="v3", key="version", on_change=new_chat)
     t = st.session_state.transcript
     st.caption(f"Model: `{model}`  \nPrompt `#{t['prompt_hash'][:8]}` · Tools `#{t['tools_hash'][:8]}`")
     st.button("🗑 Chat mới", on_click=new_chat, width="stretch")

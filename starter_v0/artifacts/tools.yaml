@@ -16,21 +16,21 @@
 tools:
   # ---------------- Core tools ----------------
   - name: clarify
-    description: " Dùng khi request thiếu các thông tin bắt buộc để chạy các tool khác (ví dụ: thiếu URL cho fetch, thiếu handle cho timeline)."
+    description: "Hỏi người dùng và dừng chờ. Với yêu cầu gửi/đăng/Telegram chưa xác nhận: bắt buộc response_type=yes_no, kể cả chưa có bản tin (hỏi xác nhận ý định và xin nội dung trong question); không dùng text cho nhánh này. Với thiếu account/URL của yêu cầu đọc/tìm: response_type=text. Nếu đã xác nhận đúng nội dung thì không hỏi lại. Không hỏi handle khi đã nhận diện chắc chắn người dùng muốn xem tài khoản nào."
     parameters:
       type: object
       properties:
         question: {type: string, default: "", description: "Câu hỏi"}
-        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời"}
+        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "yes_no cho mọi xác nhận gửi/đăng chưa được duyệt, dù còn thiếu nội dung; text khi xin account/URL để đọc; choice khi có lựa chọn."}
         options: {type: array, default: [], items: {type: string}, description: "Các lựa chọn"}
       required: [question, response_type]
 
   - name: timeline
-    description: "Lấy các bài đăng gần đây."
+    description: "Lấy bài đăng CỦA một tài khoản X cụ thể đã xác định từ tên người hoặc handle trong hội thoại. Không được gọi nếu user chỉ nói tweet mới nhất mà chưa chỉ ra tài khoản/người nào: khi đó dùng clarify(response_type=text). Không dùng your_account, username, unknown hay tài khoản mẫu; không tự chọn người. Tên đã biết có thể ánh xạ: Sam Altman=sama, Elon Musk=elonmusk, Andrej Karpathy=karpathy. Không dùng cho bài đăng về chủ đề."
     parameters:
       type: object
       properties:
-        screenname: {type: string, default: "", description: "Tên tài khoản"}
+        screenname: {type: string, description: "Handle thật của đúng người/tài khoản user đã xác định trong hội thoại; bỏ @. Không placeholder hoặc đoán tài khoản khi user chưa nêu người."}
         limit: {type: integer, default: 5, description: "Số lượng"}
       required: [screenname]
 
@@ -123,3 +123,38 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: deduplicate
+    description: >
+      Loại nguồn trùng URL trong danh sách item đã có, giữ bản đầu và thứ tự.
+      Dùng khi user yêu cầu lọc trùng hoặc trước khi format nhiều nguồn.
+      Không dùng để tìm kiếm/đọc URL; chỉ so URL giống hệt, không bỏ tracking.
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          description: Danh sách nguồn đã có; item thiếu URL được giữ lại.
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              summary: {type: string}
+              source: {type: string}
+      required: [items]
+
+  - name: get_yahoo_finance_data
+    description: >
+      Lấy giá niêm yết mới nhất có sẵn trên Yahoo Finance cho một ticker cụ thể.
+      Dùng khi user hỏi giá mã như NVDA hoặc GC=F; không dùng cho tin tức hay giao dịch.
+      Thiếu/không rõ ticker thì hỏi clarify, không tự đoán mã.
+      Luôn trình bày currency và as_of; giá có thể trễ hoặc thuộc phiên trước.
+      GC=F là hợp đồng tương lai vàng, không phải giá vàng bán lẻ Việt Nam.
+    parameters:
+      type: object
+      properties:
+        ticker:
+          type: string
+          description: Một mã Yahoo Finance, ví dụ NVDA, GC=F, BTC-USD hoặc ^GSPC; không phải URL.
+      required: [ticker]
