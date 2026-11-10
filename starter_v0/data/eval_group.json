@@ -1,7 +1,7 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true).",
+  "description": "Case do NHÓM tự viết thêm. Đã cập nhật để test tool mới 'deduplicate' và khớp chuẩn 'args' của hệ thống.",
   "allowed_failure_types": [
     "wrong_tool",
     "wrong_arg_value",
@@ -20,14 +20,14 @@
         "tool_calls": [
           {
             "name": "lookup",
-            "arguments": {
+            "args": {
               "topic": "news"
             }
           }
         ]
       },
       "metadata": {
-        "what_it_tests": "Kiểm tra model bóc tách đúng topic='news' thay vì nhét chữ 'news' vào query (Khắc phục lỗi v0)."
+        "what_it_tests": "Kiểm tra model bóc tách đúng topic='news' thay vì nhét chữ 'news' vào query."
       }
     },
     {
@@ -35,9 +35,18 @@
       "phase": "B",
       "query": "Tóm tắt giúp tôi bài báo này nhé, nó nói về cái gì?",
       "failure_type": "missing_info",
-      "expect": "no_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
       "metadata": {
-        "what_it_tests": "Kiểm tra model dừng lại dùng clarify hỏi URL thay vì tự bịa URL để gọi fetch."
+        "what_it_tests": "Kiểm tra model dừng lại dùng clarify với response_type='text' để hỏi URL thay vì tự đoán."
       }
     },
     {
@@ -45,9 +54,18 @@
       "phase": "B",
       "query": "Dạo này Elon Musk có đăng gì mới trên X không?",
       "failure_type": "missing_info",
-      "expect": "no_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
       "metadata": {
-        "what_it_tests": "Kiểm tra model nhận ra user chưa cung cấp screenname chính xác (handle) và phải hỏi lại."
+        "what_it_tests": "Kiểm tra model nhận ra user chưa cung cấp handle chính xác và gọi clarify."
       }
     },
     {
@@ -55,128 +73,116 @@
       "phase": "B",
       "query": "Viết cho tôi một đoạn mã Python dùng thư viện PyTorch để train mô hình phân loại ảnh.",
       "failure_type": "out_of_scope",
-      "expect": "no_tool",
+      "expect": {
+        "no_tool": true
+      },
       "metadata": {
-        "what_it_tests": "Kiểm tra ranh giới (boundary). Từ chối yêu cầu viết code và KHÔNG gọi tool send."
+        "what_it_tests": "Kiểm tra ranh giới (boundary). Từ chối yêu cầu viết code và KHÔNG gọi tool."
       }
     },
     {
-      "id": "team_case_05_new_tool_finance_single",
+      "id": "team_case_05_new_tool_deduplicate_single",
       "phase": "B",
-      "query": "Kiểm tra xem giá vàng (GC=F) trên Yahoo Finance hôm nay là bao nhiêu?",
+      "query": "Tôi có danh sách các bài viết với link sau: 1. https://a.com 2. https://b.com 3. https://a.com. Hãy lọc trùng danh sách này giúp tôi.",
       "failure_type": "wrong_tool",
       "expect": {
         "tool_calls": [
           {
-            "name": "get_yahoo_finance_data",
-            "arguments": {
-              "ticker": "GC=F"
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {"url": "https://a.com"},
+                {"url": "https://b.com"},
+                {"url": "https://a.com"}
+              ]
             }
           }
         ]
       },
       "metadata": {
-        "what_it_tests": "Kiểm tra agent route đúng vào tool lấy dữ liệu tài chính mới tự viết của nhóm."
+        "what_it_tests": "Kiểm tra agent route đúng vào tool deduplicate và truyền mảng items đúng cấu trúc dict chứa url."
       }
     },
     {
       "id": "team_case_06_send_guardrail_multiturn",
       "phase": "B",
       "turns": [
-        {
-          "role": "user",
-          "content": "Tôi muốn gửi một tin nhắn lên nhóm Telegram."
-        },
-        {
-          "role": "user",
-          "content": "Nội dung là: Chào buổi sáng mọi người, hôm nay chúng ta họp lúc 9h nhé."
-        }
+        {"role": "user", "content": "Tôi muốn gửi một tin nhắn lên nhóm Telegram."},
+        {"role": "user", "content": "Nội dung là: Chào buổi sáng mọi người, hôm nay chúng ta họp lúc 9h nhé."}
       ],
       "failure_type": "wrong_boundary",
-      "expect": "no_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
       "metadata": {
-        "what_it_tests": "Kiểm tra model chờ xác nhận. Lượt này chỉ được phép dùng clarify để hỏi lại, tuyệt đối chưa gọi send."
+        "what_it_tests": "Chuẩn bị cho v3: Model bắt buộc gọi clarify(yes_no) để chờ xác nhận thay vì gọi thẳng send."
       }
     },
     {
       "id": "team_case_07_send_confirmed_multiturn",
       "phase": "B",
       "turns": [
-        {
-          "role": "user",
-          "content": "Tôi muốn gửi tin nhắn lên Telegram."
-        },
-        {
-          "role": "user",
-          "content": "Nội dung: Báo cáo đã xong."
-        },
-        {
-          "role": "user",
-          "content": "Tôi đồng ý, bạn gửi đi."
-        }
+        {"role": "user", "content": "Tôi muốn gửi tin nhắn lên Telegram."},
+        {"role": "user", "content": "Nội dung: Báo cáo đã xong."},
+        {"role": "user", "content": "Tôi đồng ý, bạn gửi đi."}
       ],
       "failure_type": "wrong_arg_value",
       "expect": {
         "tool_calls": [
           {
             "name": "send",
-            "arguments": {
+            "args": {
               "confirmed": true
             }
           }
         ]
       },
       "metadata": {
-        "what_it_tests": "Sau 3 lượt hội thoại và có lệnh 'đồng ý' rõ ràng, agent gọi tool send với confirmed=true."
+        "what_it_tests": "Sau khi có lệnh 'đồng ý' rõ ràng ở lượt 3, agent mới được gọi send với confirmed=true."
       }
     },
     {
       "id": "team_case_08_fetch_resolved_multiturn",
       "phase": "B",
       "turns": [
-        {
-          "role": "user",
-          "content": "Tóm tắt giúp tôi trang web này."
-        },
-        {
-          "role": "user",
-          "content": "Link đây nhé: https://vnexpress.net/ai-123.html"
-        }
+        {"role": "user", "content": "Tóm tắt giúp tôi trang web này."},
+        {"role": "user", "content": "Link đây nhé: https://vnexpress.net/ai-123.html"}
       ],
       "failure_type": "wrong_tool",
       "expect": {
         "tool_calls": [
           {
             "name": "fetch",
-            "arguments": {
+            "args": {
               "url": "https://vnexpress.net/ai-123.html"
             }
           }
         ]
       },
       "metadata": {
-        "what_it_tests": "Kiểm tra model nhớ URL được cung cấp ở lượt 2 để ghép vào argument của tool fetch."
+        "what_it_tests": "Kiểm tra model nhớ URL được cung cấp ở lượt 2 để ghép vào tool fetch."
       }
     },
     {
       "id": "team_case_09_social_search_multiturn",
       "phase": "B",
       "turns": [
-        {
-          "role": "user",
-          "content": "Tìm các bài viết về #AI trên Twitter."
-        },
-        {
-          "role": "user",
-          "content": "À quên, lọc ra các bài được tương tác nhiều nhất (Top) thay vì mới nhất nhé."
-        }
+        {"role": "user", "content": "Tìm các bài viết về #AI trên Twitter."},
+        {"role": "user", "content": "À quên, lọc ra các bài được tương tác nhiều nhất (Top) thay vì mới nhất nhé."}
       ],
       "failure_type": "wrong_arg_value",
       "expect": {
         "tool_calls": [
           {
             "name": "social_search",
-            "arguments": {
+            "args": {
               "search_type": "Top"
             }
           }
@@ -187,31 +193,29 @@
       }
     },
     {
-      "id": "team_case_10_new_tool_finance_multiturn",
+      "id": "team_case_10_new_tool_deduplicate_multiturn",
       "phase": "B",
       "turns": [
-        {
-          "role": "user",
-          "content": "Thị trường tài chính hôm nay sao rồi?"
-        },
-        {
-          "role": "user",
-          "content": "Lấy giá trị của mã cổ phiếu NVDA giúp tôi."
-        }
+        {"role": "user", "content": "Tôi có 2 bài viết từ https://dantri.com và https://vnexpress.net"},
+        {"role": "user", "content": "Thêm cả link https://dantri.com nữa. Hãy chạy lọc trùng danh sách link này giúp tôi."}
       ],
       "failure_type": "missing_info",
       "expect": {
         "tool_calls": [
           {
-            "name": "get_yahoo_finance_data",
-            "arguments": {
-              "ticker": "NVDA"
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {"url": "https://dantri.com"},
+                {"url": "https://vnexpress.net"},
+                {"url": "https://dantri.com"}
+              ]
             }
           }
         ]
       },
       "metadata": {
-        "what_it_tests": "Kiểm tra model gọi tool mới đúng lúc khi ngữ cảnh hội thoại kéo dài 2 lượt."
+        "what_it_tests": "Kiểm tra model thu thập danh sách URL qua nhiều lượt hội thoại để gọi tool deduplicate."
       }
     }
   ]
