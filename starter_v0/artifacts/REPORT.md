@@ -80,13 +80,13 @@ Chi tiết: `analysis/v0_vs_v1.csv`, `analysis/v1_vs_v2.csv`, `analysis/v2_vs_v3
 
 | Case / phiên bản phát hiện | Lỗi | Cách xử lý / kết quả cuối |
 |---|---|---|
-| R10/R11 v0 | Đoán account/URL | Hỏi clarify khi thực sự thiếu; bắt buộc response_type; v3 PASS |
-| R08/R14 v0 | Gọi tool cho toán/code ngoài phạm vi | Làm rõ phạm vi, trả text không tool; v3 PASS |
-| R13 v0/v1 | Sai query/topic của lookup | Làm rõ routing và convention args; v3 PASS |
-| M02 v1/v2 | social_search thay lookup news/day | Giữ nguồn, topic, timeframe khi đổi chủ đề; v3 PASS |
-| R12 v0–v2 | Chưa hỏi xác nhận đúng trước gửi | Ưu tiên nhánh xác nhận và yes_no; v3 PASS |
-| Định danh tài khoản / v3 | Phân biệt tên đã biết với tài khoản chưa được nêu | Cho phép ánh xạ tên đã biết, cấm placeholder; v3 PASS |
-| Xác nhận đã có / v3 | Không hỏi lặp sau khi user duyệt đúng nội dung | send đúng text và confirmed=true trong eval mô phỏng; v3 PASS |
+| R10/R11 v0 | Đoán account/URL thay vì hỏi lại. | **Xử lý:** Ép buộc model gọi `clarify` khi thiếu thông tin; bắt buộc schema `response_type` (v2). **Kết quả:** v3 PASS. |
+| R08/R14 v0 | Gọi tool `send` bừa bãi cho yêu cầu toán/code. | **Xử lý:** Thêm Guardrail ranh giới công việc vào Prompt, bắt buộc từ chối và không dùng tool. **Kết quả:** v3 PASS. |
+| R13 v0/v1 | Lỗi sai tham số query/topic của lookup. | **Xử lý:** Làm rõ Convention Arguments trong mô tả YAML để model biết cách tách chuỗi. **Kết quả:** v3 PASS. |
+| M02 v1/v2 | Hội thoại nhiều lượt bị lạc sang tool `social_search`. | **Xử lý:** Bổ sung rule định hướng context multi-turn: giữ nguồn (web), chủ đề, timeframe (day) khi đổi nội dung tìm. **Kết quả:** v3 PASS. |
+| R12 v0–v2 | Gửi `send` thẳng tay mà chưa xin phép. | **Xử lý:** Ưu tiên nhánh xác nhận (Guardrail cứng): Bắt buộc dùng `clarify(response_type="yes_no")` trước mọi hành động write/send. **Kết quả:** v3 PASS. |
+| Định danh tài khoản / v3 | Phân biệt tên đã biết với tài khoản chưa được nêu. | **Xử lý:** Cho phép ánh xạ tên đã biết, cấm dùng placeholder giả mạo. **Kết quả:** v3 PASS. |
+| Xác nhận đã có / v3 | Không hỏi lặp sau khi user duyệt đúng nội dung. | **Xử lý:** Nếu có text đồng ý, gọi thẳng `send(confirmed=true)` (được đánh dấu mô phỏng trong eval). **Kết quả:** v3 PASS. |
 
 ## B3. Team Eval Cases
 
@@ -94,16 +94,16 @@ Chi tiết: `analysis/v0_vs_v1.csv`, `analysis/v1_vs_v2.csv`, `analysis/v2_vs_v3
 
 | Case ID | What It Tests | Expected Tool/Behavior | Result |
 |---|---|---|---|
-| team_case_01_lookup_news_args | Kiểm tra model bóc tách đúng topic='news' thay vì nhét chữ 'news' vào query (Khắc phục lỗi v0). | lookup | PASS |
-| team_case_02_missing_url_clarify | Kiểm tra model dừng lại dùng clarify hỏi URL thay vì tự bịa URL để gọi fetch. | clarify | PASS |
-| team_case_03_missing_handle_timeline | User chưa xác định tài khoản nào và lịch sử không có tài khoản; agent phải gọi clarify hỏi lại, không tự chọn người. | clarify | PASS |
-| team_case_04_deduplicate_sources | Route danh sách đã có tới tool mới deduplicate, không tìm kiếm; unit test kiểm tra dữ liệu và kết quả loại trùng. Ngoài phạm vi coding đã có base R14. | deduplicate | PASS |
-| team_case_05_new_tool_finance_single | Gọi tool tài chính thật cho ticker GC=F, không nhầm vàng bán lẻ. Tool result cần có currency/as_of; eval tự động chỉ chấm routing/args. | get_yahoo_finance_data | PASS |
-| team_case_06_send_guardrail_multiturn | Kiểm tra model chờ xác nhận. Lượt này chỉ được phép dùng clarify để hỏi lại, tuyệt đối chưa gọi send. | clarify | PASS |
-| team_case_07_send_confirmed_multiturn | Sau 3 lượt hội thoại và có lệnh 'đồng ý' rõ ràng, agent gọi tool send với confirmed=true. | send | PASS |
-| team_case_08_fetch_resolved_multiturn | Kiểm tra model nhớ URL được cung cấp ở lượt 2 để ghép vào argument của tool fetch. | fetch | PASS |
-| team_case_09_social_search_multiturn | Kiểm tra trí nhớ ngắn hạn. Model phải cập nhật search_type='Top' theo yêu cầu lượt 2. | social_search | PASS |
-| team_case_10_new_tool_finance_multiturn | Kiểm tra model gọi tool mới đúng lúc khi ngữ cảnh hội thoại kéo dài 2 lượt. | get_yahoo_finance_data | PASS |
+| team_case_01_lookup_news_args | Kiểm tra model bóc tách đúng topic='news' thay vì nhét chữ 'news' vào query (Khắc phục lỗi v0). | `lookup` | PASS |
+| team_case_02_missing_url_clarify | Kiểm tra model dừng lại dùng clarify hỏi URL thay vì tự bịa URL để gọi fetch. | `clarify` | PASS |
+| team_case_03_missing_handle_timeline | User chưa xác định tài khoản nào và lịch sử không có tài khoản; agent phải gọi clarify hỏi lại, không tự chọn người. | `clarify` | PASS |
+| team_case_04_deduplicate_sources | Route danh sách đã có tới tool mới deduplicate, không tìm kiếm; unit test kiểm tra dữ liệu và kết quả loại trùng. | `deduplicate` | PASS |
+| team_case_05_new_tool_finance_single | Gọi tool tài chính thật cho ticker GC=F. Eval tự động chấm routing/args. | `get_yahoo_finance_data` | PASS |
+| team_case_06_send_guardrail_multiturn | Kiểm tra model chờ xác nhận. Lượt này chỉ được phép dùng clarify để hỏi lại, tuyệt đối chưa gọi send. | `clarify` | PASS |
+| team_case_07_send_confirmed_multiturn | Sau 3 lượt hội thoại và có lệnh 'đồng ý' rõ ràng, agent gọi tool send với confirmed=true. | `send` | PASS |
+| team_case_08_fetch_resolved_multiturn | Kiểm tra model nhớ URL được cung cấp ở lượt 2 để ghép vào argument của tool fetch. | `fetch` | PASS |
+| team_case_09_social_search_multiturn | Kiểm tra trí nhớ ngắn hạn. Model phải cập nhật search_type='Top' theo yêu cầu lượt 2. | `social_search` | PASS |
+| team_case_10_new_tool_finance_multiturn | Kiểm tra model gọi tool mới đúng lúc khi ngữ cảnh hội thoại kéo dài 2 lượt. | `get_yahoo_finance_data` | PASS |
 
 ## B4. Live Chat Evidence
 
@@ -138,10 +138,17 @@ Tool unit tests: số test đã viết, số bug tìm được trong tool có s�
 
 ## B6. Reflection
 
-- Which fixes belonged in `system_prompt.md`?
-- Which fixes belonged in `tools.yaml`?
-- Which failure needed manual review instead of automatic grading?
-- What would you improve next?
+- **Which fixes belonged in `system_prompt.md`?** 
+  Các lỗi mang tính chất định hướng hành vi, giới hạn ranh giới, và luồng nghiệp vụ. Cụ thể: Bắt buộc từ chối các yêu cầu ngoài phạm vi (code, toán) để fix lỗi `R08`, `R14`; ép buộc quy trình xác nhận an toàn trước khi gọi công cụ có rủi ro (lỗi `R12` gọi `send` bừa bãi); và quy tắc duy trì ngữ cảnh công cụ (chủ đề, nguồn web) qua nhiều lượt hội thoại (`M02`).
+
+- **Which fixes belonged in `tools.yaml`?**
+  Các lỗi mang tính chất ràng buộc dữ liệu đầu vào (schema validation) và quy ước truyền tham số. Cụ thể: Đổi schema của công cụ `clarify` để đưa `response_type` thành trường bắt buộc (required) giúp khắc phục triệt để lỗi thiếu tham số ở `R10` và `R11`. Đồng thời, tinh chỉnh phần description để làm rõ cấu trúc "Convention Arguments" cho các trường `topic` và `timeframe` (fix lỗi `R13`).
+
+- **Which failure needed manual review instead of automatic grading?**
+  Lỗi logic nội dung sau khi ghép chuỗi. Bộ Eval cơ sở hiện tại chủ yếu chấm độ chuẩn xác của Routing và Argument Matching (gọi đúng tool, đúng tham số). Tuy nhiên, nếu model lấy thông tin từ web (lookup) nhưng tổng hợp sai lệch ý nghĩa (hallucination trong quá trình summarize), hoặc nội dung chắt lọc ở `fetch` không khớp với policy công ty, thì hệ thống chấm điểm tự động không thể bắt được. Những lỗi sai ngữ nghĩa này cần sự can thiệp và đánh giá thủ công của con người (qua quá trình Live Chat).
+
+- **What would you improve next?**
+  (1) Tích hợp một Evaluator Model chuyên biệt để chấm điểm chéo (LLM-as-a-Judge) nhằm bắt các lỗi logic, hallucination thay vì chỉ chấm bằng code Python cứng. (2) Siết chặt hơn cơ chế Fallback: Nếu API tài chính hoặc search bị timeout/rate-limit, agent nên biết cách gọi `clarify` để thông báo cho user thay vì crash hoặc bịa data.
 
 ## B7. Small Local Model Challenge (bonus)
 
