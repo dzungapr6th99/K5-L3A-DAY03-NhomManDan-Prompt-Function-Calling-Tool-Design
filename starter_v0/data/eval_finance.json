@@ -1,0 +1,22 @@
+{
+  "dataset_id": "team_finance_extension",
+  "dataset_role": "group",
+  "cases": [
+    {
+      "id": "finance_nvda_quote",
+      "phase": "B",
+      "query": "Lấy báo giá gần nhất trên Yahoo Finance cho mã NVDA giúp tôi.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "get_yahoo_finance_data", "args": {"ticker": "NVDA"}}]},
+      "metadata": {"what_it_tests": "Route tới tool báo giá và truyền đúng ticker."}
+    },
+    {
+      "id": "finance_gold_futures_quote",
+      "phase": "B",
+      "query": "Lấy giá hợp đồng tương lai vàng GC=F từ Yahoo Finance.",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "get_yahoo_finance_data", "args": {"ticker": "GC=F"}}]},
+      "metadata": {"what_it_tests": "Giữ đúng ký hiệu ticker hợp đồng tương lai."}
+    }
+  ]
+}

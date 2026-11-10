@@ -123,3 +123,36 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: deduplicate
+    description: >
+      Loại kết quả trùng URL trong danh sách items đã có, trước khi format bản tin
+      hoặc khi user yêu cầu lọc trùng. Giữ lần xuất hiện đầu và thứ tự ban đầu.
+      Chỉ so chuỗi URL chính xác; giữ item không có URL. Không tìm kiếm nội dung mới.
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          description: "Các bài cần lọc trùng; giữ nguyên các trường dữ liệu đã có."
+          items:
+            type: object
+            properties:
+              url: {type: string, description: "URL bài viết nếu có."}
+              title: {type: string}
+              summary: {type: string}
+              source: {type: string}
+      required: [items]
+
+  - name: get_yahoo_finance_data
+    description: >
+      Lấy báo giá phiên giao dịch thường gần nhất trên Yahoo Finance cho ticker rõ ràng
+      như AAPL, NVDA hoặc GC=F. GC=F là hợp đồng tương lai vàng, không phải vàng miếng
+      trong nước. Dùng khi hỏi giá thị trường của mã cụ thể; nếu thiếu ticker thì clarify.
+      Không dùng để tìm tin tức, dự đoán giá hay khuyến nghị đầu tư. Giá có thể trễ;
+      kiểm tra market_time và currency khi trả lời.
+    parameters:
+      type: object
+      properties:
+        ticker: {type: string, description: "Mã Yahoo Finance do user cung cấp, ví dụ AAPL, NVDA, GC=F."}
+      required: [ticker]

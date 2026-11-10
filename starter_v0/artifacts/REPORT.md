@@ -34,7 +34,8 @@ Research agent tiếng Việt: tìm tin trên web và X/Twitter (theo từ khóa
 | policy | Tìm trong company policy markdown nội bộ | không |
 | papers | Tìm paper trên arXiv | không |
 | paper_text | Tải PDF arXiv và trích text | không |
-| deduplicate_sources | Loại nguồn trùng URL trước khi làm bản tin _(đang làm — Dũng chốt tên/contract)_ | **có** |
+| deduplicate | Loại item trùng chính xác URL, giữ lần xuất hiện đầu và thứ tự; chạy cục bộ | **có** |
+| get_yahoo_finance_data | Lấy báo giá phiên thường gần nhất từ Yahoo Finance theo ticker, kèm currency và market_time | **có** |
 
 ## A3. Câu hỏi mẫu để thử
 
@@ -49,6 +50,11 @@ Các câu này có sẵn thành nút bấm ở sidebar UI.
 7. `Tìm paper arXiv mới về AI agent evaluation` → `papers`
 8. `Theo policy công ty, đăng bản tin lên Telegram có cần xác nhận trước không?` → `policy`
 9. `Viết giúp mình hàm Python tính Fibonacci` → ngoài phạm vi, agent từ chối, không gọi tool
+10. `Lọc trùng các link https://example.com/a, https://example.com/b, https://example.com/a` → `deduplicate`
+11. `Lấy báo giá gần nhất trên Yahoo Finance cho mã NVDA` → `get_yahoo_finance_data(ticker="NVDA")`
+
+Tool tài chính cũng nhận `GC=F` (hợp đồng tương lai vàng, không phải giá vàng miếng).
+Báo giá có thể trễ hoặc thuộc phiên trước; phải đọc `market_time` và `currency` khi trả lời.
 
 ---
 
@@ -78,20 +84,26 @@ Phân tích các lỗi tiêu biểu phát hiện từ log của baseline và qu�
 
 ## B3. Team Eval Cases
 
-Danh sách 10 case kiểm thử (5 single, 5 multi) do nhóm tự viết trong `data/eval_group.json` để nhắm vào các lỗi đặc thù của $v0$ và kiểm thử tích hợp tool mới `get_yahoo_finance_data` (lấy dữ liệu chứng khoán/vàng).
+Danh sách 10 case kiểm thử (5 single, 5 multi) do nhóm tự viết trong `data/eval_group.json` để nhắm vào các lỗi đặc thù của $v0$ và kiểm thử tool mới `deduplicate`. Hai case riêng cho `get_yahoo_finance_data` nằm trong `data/eval_finance.json`, chưa chạy eval API.
 
 | Case ID | What It Tests | Expected Tool/Behavior | Result (v2) |
 |---|---|---|---|
 | team_case_01_lookup_news_args | Model bóc tách topic='news' thay vì nhét chữ 'news' vào query web search. | `lookup(topic="news")` | Đợi run |
-| team_case_02_missing_url_clarify | Model phải hỏi URL bài báo thay vì tự đoán URL rác để gọi fetch. | `no_tool` (chờ clarify) | Đợi run |
-| team_case_03_missing_handle_timeline | Nhận diện handle bị thiếu, dừng lại hỏi chứ không đoán bừa screenname. | `no_tool` (chờ clarify) | Đợi run |
+| team_case_02_missing_url_clarify | Model phải hỏi URL bài báo thay vì tự đoán URL rác để gọi fetch. | `clarify(response_type="text")` | Đợi run |
+| team_case_03_missing_handle_timeline | Nhận diện handle bị thiếu, dừng lại hỏi chứ không đoán bừa screenname. | `clarify(response_type="text")` | Đợi run |
 | team_case_04_out_of_scope_coding | Kiểm tra ranh giới: từ chối viết code PyTorch, trả lời chay không gọi tool. | `no_tool` | Đợi run |
-| team_case_05_new_tool_finance_single | Model route đúng vào tool mới của nhóm khi user hỏi mã cổ phiếu AAPL. | `get_yahoo_finance_data(ticker="AAPL")` | Đợi run |
-| team_case_06_send_guardrail_multiturn | Bắt buộc dừng lại xin phép (yes/no) ở lượt 2, tuyệt đối chưa gọi send. | `no_tool` (clarify yes/no) | Đợi run |
+| team_case_05_new_tool_deduplicate_single | Route đúng tool và truyền danh sách URL để loại trùng. | `deduplicate(items=[...])` | Đợi run |
+| team_case_06_send_guardrail_multiturn | Bắt buộc dừng lại xin phép (yes/no) ở lượt 2, tuyệt đối chưa gọi send. | `clarify(response_type="yes_no")` | Đợi run |
 | team_case_07_send_confirmed_multiturn | Chỉ gọi send(confirmed=true) khi hội thoại có chữ "Tôi đồng ý" ở lượt 3. | `send(confirmed=true)` | Đợi run |
 | team_case_08_fetch_resolved_multiturn | Mang (carry) URL từ lượt 2 xuống lượt cuối để gọi `fetch`. | `fetch(url="https://...")` | Đợi run |
 | team_case_09_social_search_multiturn | Cập nhật tham số theo yêu cầu mới nhất (đổi từ Latest sang Top ở lượt 2). | `social_search(search_type="Top")` | Đợi run |
-| team_case_10_new_tool_finance_multiturn | Gọi tool mới (get_yahoo_finance_data) đúng thời điểm trong ngữ cảnh 2 lượt. | `get_yahoo_finance_data(ticker="NVDA")` | Đợi run |
+| team_case_10_new_tool_deduplicate_multiturn | Gom URL từ hai lượt hội thoại để lọc trùng. | `deduplicate(items=[...])` | Đợi run |
+
+Chạy thêm eval tài chính từ `starter_v0/` (gọi API thật):
+
+```bash
+python run_eval.py --provider openrouter --version v3 --suite extension --eval-cases data/eval_finance.json
+```
 
 ## B4. Live Chat Evidence
 
@@ -110,9 +122,15 @@ Only fill if your team did bonus.
 | send (Telegram) |  |  |  |
 | arXiv/company policy |  |  |  |
 | UI |  |  |  |
-| Tool unit tests (`tests/`) | `pytest` output |  |  |
+| Tool unit tests (`tests/`) | `python -m pytest -q`: 124 passed | Test tool cũ, deduplicate, Yahoo Finance và registry/contract | HTTP giả lập, không dùng API thật |
 
 Tool unit tests: số test đã viết, số bug tìm được trong tool có sẵn (nếu có), và một ví dụ lỗi mà unit test bắt được nhưng eval không bắt được.
+
+- `tests/test_tools_todo.py`: test tool sẵn có và deduplicate (input sai, rỗng, giữ thứ tự, không sửa input).
+- `tests/test_finance_tool.py`: test request/response Yahoo, futures ticker, input sai, HTTP 429, timeout, lỗi kết nối và response thiếu giá/thời gian; kiểm tra deduplicate chạy qua agent registry.
+- Kết quả offline hiện tại: 124 passed, 0 failed, 0 skipped. Chưa phát hiện bug trong implementation tool cũ ở các test này.
+- Ví dụ lỗi unit test có thể bắt mà routing eval không bắt: model gọi đúng ticker nhưng implementation map sai currency hoặc market_time. Unit test kiểm tra trực tiếp các trường đó.
+- Chưa chạy smoke test Yahoo trực tiếp hoặc eval model cho tool tài chính; kết quả mock không chứng minh endpoint đang truy cập được. Endpoint không chính thức có thể thay đổi hoặc rate-limit.
 
 ## B6. Reflection
 
