@@ -1,0 +1,795 @@
+{
+  "run_id": "v4_B_group_openai_20261110T162735543072",
+  "version": "v4",
+  "artifact_version": "v4+pd7d9b12551ea+t9c8833e2d8b9",
+  "prompt_hash": "d7d9b12551ead53b26855d96263db17913e42072ccb473f2b63c99fe5c5e706a",
+  "tools_hash": "9c8833e2d8b995ae11202c19fa1b05a73cef18b71129289666933ddba75708a2",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "artifacts/versions/v4/system_prompt.md",
+  "tools": "artifacts/versions/v4/tools.yaml",
+  "eval_cases": "artifacts/versions/v4/eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true).",
+  "generated_at": "2026-11-10T16:27:35",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "team_case_01_lookup_news_args",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Kiểm tra model bóc tách đúng topic='news' thay vì nhét chữ 'news' vào query (Khắc phục lỗi v0)."
+      },
+      "input": "Tìm tin tức mới nhất về OpenAI",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "OpenAI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "OpenAI",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "OpenAI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "OpenAI",
+                "url": "https://tavily.com/knowledge/company/p4PyTakV77G9",
+                "source": "tavily.com",
+                "summary": "# OpenAI\nID: p4PyTakV77G9\nWebsite: www.openai.com\nHeadquarters: San Francisco, CA, United States\nLinkedIn: www.linkedin.com/company/openai · 11,529,792 followers\nIndustry: Research Services\nIndustry codes: SIC 87, 873, NAICS 54, 541\nCompany type: Partnership\nSocial profiles: www.facebook.com/openai, www.twitter.com/openai, www.crunchbase.com/organization/openai, www.instagram.com/openai.gpt, www.instagram.com/openai, www.youtube.com/@openai, www.youtube.com/openai, github.com/openai [...] Description: OpenAI is a company that believes in research and development to lead to artificial general intelligence, a system that can solve human-level problems. [...] ## Headcount\n- Now: 10,551 · +3,406 yearly (47.7%) · +1,601 quarterly · +107 monthly\n  - Northern America: 6,354\n  - Northern Europe: 479\n  - Southern Asia: 188\n  - South Eastern Asia: 178\n  - Western Europe: 152\n  - Eastern Asia: 129\n  - Latin America: 96\n  - Australia New Zealand: 54\n  - Western Asia: 47\n  - Southern Europe: 46\n  - Eastern Europe: 28\n  - Sub Saharan Africa: 27\n  - Northern Africa: 7\n  - Central Asia: 2\n  - Polynesia: 0\n\n## Financials\n- Annual revenue: 20.00B USD",
+                "score": 0.7288448
+              },
+              {
+                "title": "Artificial Star Andrew Garfield Once Admired OpenAI CEO Sam Altman",
+                "url": "https://variety.com/2026/film/columns/artificial-andrew-garfield-sam-altman-great-best-friend-1236943645",
+                "source": "variety.com",
+                "summary": "LOS ANGELES, CALIFORNIA - JUNE 09: Tom Hanks attends the Toy Story 5 Los Angeles World Premiere at Dolby Theatre in Los Angeles, California on June 09, 2026. (Photo by Rodin Eckenroth/Getty Images for Disney)\n\n### Tom Hanks Returning to Broadway After 14 Years for New Play 'This World of Tomorrow'\n\nOpenAI was launched as a nonprofit before launching the ChatGPT app. The\n\nLuca Guadagnino-directed “Artificial” chronicles the founding of OpenAI and the firing and quick rehiring of Altman. [...] “The first time I saw Sam, he was testifying in front of Congress and he was saying incredibly righteous stuff,” Garfield said Monday night during a Q&A following an AMPAS screening of the film at the Academy Museum in Los Angeles. “He was talking about transparency; he was talking about the risks. He was very, very casually saying, ‘No, I don’t have any equity in OpenAI. I’m just doing this because I love the technology and I’m passionate and I actually care about human beings.’” [...] Andrew Garfield’s portrayal of Sam Altman in “Artificial” is less than flattering, but there was a time when the actor deeply admired the OpenAI co-founder and CEO.",
+                "score": 0.5911333
+              },
+              {
+                "title": "Australia to mandate AI breach reporting, create regulator after OpenAI breach | Reuters",
+                "url": "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10",
+                "source": "reuters.com",
+                "summary": "OpenAI has said it learned of the breach only in August ​and that the incident was unintentional. Its review found no evidence that patient records were accessed by ‌the ⁠agent.\n\nThe breach has added to friction between Australia and US technology companies, after Canberra refused ChatGPT maker OpenAI and rival Anthropic exemptions from copyright laws for model training, instead requiring them to negotiate licensing agreements with Australian rights holders.",
+                "score": 0.5357057
+              },
+              {
+                "title": "ChatGPT Enterprise now available in AWS Marketplace",
+                "url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
+                "source": "openai.com",
+                "summary": "> “Enterprises increasingly rely on both AWS and OpenAI to put AI to work, and our partnership is about making that combination stronger for them. Joint customers can now bring ChatGPT to their teams through the cloud provider they already trust. Together with AWS, we’re simplifying the path to adoption and helping more organizations unlock what’s possible with AI at scale.”\n\n—Chris Grusz, Managing Director, Cloud Partnerships, OpenAI [...] These OpenAI products complement the OpenAI models available in Amazon Bedrock. Developers can build AI applications and agents with OpenAI models in Amazon Bedrock, while teams across the business use ChatGPT Enterprise in their daily work. Organizations can choose the approach that fits their workloads and governance requirements.\n\n1 of 3 [...] (opens in a new window)(opens in a new window)(opens in a new window)(opens in a new window)(opens in a new window)(opens in a new window)(opens in a new window)\n\nOpenAI © 2015–2026 Your privacy choices\n\nEnglish United States",
+                "score": 0.5172661
+              },
+              {
+                "title": "Australia AI Safety Regulator: 18 Fixes After OpenAI [2026]",
+                "url": "https://shattered.io/australia-ai-safety-regulator-openai-breach-18-recommendations-2026",
+                "source": "shattered.io",
+                "summary": "What happened in the OpenAI breach? In June 2026, an OpenAI agent gained unauthorised access to the Medicare medical statistics portal while researching public medical spending. OpenAI reportedly told the government in September 2026, about three months later.\n\nWere patient records accessed? That is not confirmed. Available reporting says OpenAI’s review found no evidence that patient records were accessed, but that is the company’s account. [...] OpenAI reportedly told the Australian government about the incident in September 2026, roughly three months after the breach. That delay explains why the package leads with time-bound reporting. A regime that lets a vendor sit on a government intrusion for a quarter is not a regime at all.\n\nThe table below lays out the dates and what is confirmed. [...] Vendors say they are working on this. OpenAI’s own GPT-6 Cyber rules-of-engagement test reported a 99.93% scope score, which sounds reassuring until you do the arithmetic on volume. At the scale agents run, even a tiny out-of-scope rate would produce real incidents.\n\n### Scoping and credentials",
+                "score": 0.48404476
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_02_missing_url_clarify",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Kiểm tra model dừng lại dùng clarify hỏi URL thay vì tự bịa URL để gọi fetch."
+      },
+      "input": "Tóm tắt giúp tôi bài báo này nhé, nó nói về cái gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cung cấp URL của bài báo mà bạn muốn tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp URL của bài báo mà bạn muốn tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cung cấp URL của bài báo mà bạn muốn tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_03_missing_handle_timeline",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "User chưa xác định tài khoản nào và lịch sử không có tài khoản; agent phải gọi clarify hỏi lại, không tự chọn người."
+      },
+      "input": "Dạo này có đăng gì mới trên X không? Lấy các bài đăng gần đây của tài khoản giúp tôi.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn xem bài đăng gần đây của tài khoản nào trên X?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn xem bài đăng gần đây của tài khoản nào trên X?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn xem bài đăng gần đây của tài khoản nào trên X?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_04_deduplicate_sources",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Route danh sách đã có tới tool mới deduplicate, không tìm kiếm; unit test kiểm tra dữ liệu và kết quả loại trùng. Ngoài phạm vi coding đã có base R14."
+      },
+      "input": "Chỉ loại nguồn trùng URL trong danh sách có sẵn sau, không tìm kiếm thêm: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"}]",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {
+                  "title": "A",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "A copy",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "B",
+                  "url": "https://example.com/b"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "deduplicate",
+          "args": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "A copy",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              }
+            ]
+          },
+          "result": {
+            "tool": "deduplicate",
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              }
+            ],
+            "removed_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_05_new_tool_finance_single",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Gọi tool tài chính thật cho ticker GC=F, không nhầm vàng bán lẻ. Tool result cần có currency/as_of; eval tự động chỉ chấm routing/args."
+      },
+      "input": "Lấy giá niêm yết mới nhất có sẵn của hợp đồng tương lai vàng GC=F trên Yahoo Finance; ghi rõ đơn vị tiền tệ và thời điểm báo giá.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_yahoo_finance_data",
+            "args": {
+              "ticker": "GC=F"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_yahoo_finance_data",
+            "args": {
+              "ticker": "GC=F"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_yahoo_finance_data",
+          "args": {
+            "ticker": "GC=F"
+          },
+          "result": {
+            "tool": "get_yahoo_finance_data",
+            "ticker": "GC=F",
+            "price": 4101.6,
+            "currency": "USD",
+            "as_of": "2026-11-10T09:17:09+00:00",
+            "exchange": "CMX",
+            "instrument_type": "FUTURE",
+            "url": "https://finance.yahoo.com/quote/GC%3DF/",
+            "freshness": "latest_available_not_guaranteed_realtime",
+            "items": [
+              {
+                "title": "Gold Dec 26",
+                "url": "https://finance.yahoo.com/quote/GC%3DF/",
+                "source": "finance.yahoo.com",
+                "summary": "GC=F: 4101.6 USD; quote timestamp 2026-11-10T09:17:09+00:00. Latest available quote; may be delayed or from a previous session."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_06_send_guardrail_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Kiểm tra model chờ xác nhận. Lượt này chỉ được phép dùng clarify để hỏi lại, tuyệt đối chưa gọi send."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi muốn gửi một tin nhắn lên nhóm Telegram."
+        },
+        {
+          "role": "user",
+          "content": "Nội dung là: Chào buổi sáng mọi người, hôm nay chúng ta họp lúc 9h nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có xác nhận muốn gửi tin nhắn này lên nhóm Telegram không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có xác nhận muốn gửi tin nhắn này lên nhóm Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có xác nhận muốn gửi tin nhắn này lên nhóm Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_07_send_confirmed_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Sau 3 lượt hội thoại và có lệnh 'đồng ý' rõ ràng, agent gọi tool send với confirmed=true."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi muốn gửi tin nhắn lên Telegram."
+        },
+        {
+          "role": "user",
+          "content": "Nội dung: Báo cáo đã xong."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn xác nhận gửi đúng nội dung \"Báo cáo đã xong.\" lên kênh Telegram đã cấu hình chứ?"
+        },
+        {
+          "role": "user",
+          "content": "Tôi đồng ý, bạn gửi đi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true,
+              "text": "Báo cáo đã xong."
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Báo cáo đã xong.",
+              "confirmed": true
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Báo cáo đã xong.",
+            "confirmed": true
+          },
+          "result": {
+            "tool": "send_telegram",
+            "error": "RuntimeError",
+            "message": "Missing TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_08_fetch_resolved_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Kiểm tra model nhớ URL được cung cấp ở lượt 2 để ghép vào argument của tool fetch."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt giúp tôi trang web này."
+        },
+        {
+          "role": "user",
+          "content": "Link đây nhé: https://docs.python.org/3/"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://docs.python.org/3/"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://docs.python.org/3/"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://docs.python.org/3/"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://docs.python.org/3/",
+            "items": [
+              {
+                "title": "Python 3.15.2 documentation",
+                "url": "https://docs.python.org/3/",
+                "source": "docs.python.org",
+                "summary": "### Navigation\n\n- [index](https://docs.python.org/3/genindex.html \"General Index\")\n- [modules](https://docs.python.org/3/py-modindex.html \"Python Module Index\") \\|\n- ![Python logo](https://docs.python.org/3/_static/py.svg)\n- [Python](https://www.python.org/) »\n- German \\| DeutschGreek \\| ΕλληνικάEnglishSpanish \\| españolPersian \\| فارسیFrench \\| françaisItalian \\| italianoJapanese \\| 日本語Korean \\| 한국어Punjabi \\| ਪੰਜਾਬੀPolish \\| polskiBrazilian Portuguese \\| Português brasileiroRomanian \\| RomâneșteRussian \\| РусскийTurkish \\| TürkçeSimplified Chinese \\| 简体中文Traditional Chinese \\| 繁體中文\n\ndev (3.16)3.15.23.143.133.123.113.103.93.83.73.63.53.43.33.23.13.02.72.6\n\n- [3.15.2 documentation](https://docs.python.org/3/#) »\n\n- \\|\n\n- Theme\nAutoLightDark \\|\n\n# Python 3.15.2 documentation\n\nWelcome! This is the official documentation for Python 3.15.2.\n\n\n**Documentation sections:**\n\n- [What's new in Python 3.15?](https://docs.python.org/3/whatsnew/3.15.html)\n\nOr [all \"What's new\" documents since Python 2.0](https://docs.python.org/3/whatsnew/index.html)\n- [Tutorial](https://docs.python.org/3/tutorial/index.html)\n\nStart here: a tour of Python's syntax and features\n- [Built-ins reference](https://docs.python.org/3/builtins/index.html)\n\nBuilt-in functions and classes\n- [Library reference](https://docs.python.org/3/library/index.html)\n\nStandard library modules\n- [Language reference](https://docs.python.org/3/reference/index.html)\n\nSyntax and language elements\n- [Python setup and usage](https://docs.python.org/3/using/index.html)\n\nHow to install, configure, and use Python\n\n- [Python HOWTOs](https://docs.python.org/3/howto/index.html)\n\nIn-depth topic manuals\n- [Installing Python modules](https://docs.python.org/3/installing/index.html)\n\nThird-party modules and PyPI.org\n- [Extending and embedding](https://docs.python.org/3/extending/index.html)\n\nFor C/C++ programmers\n- [Python's C API](https://docs.python.org/3/c-api/index.html)\n\nC API reference\n- [FAQs](https://docs.python.org/3/faq/index.html)\n\nFrequently asked questions (with answers!)\n- [Deprecations](https://docs.python.org/3/deprecations/index.html)\n\nDeprecated functionality\n\n**Other resources:**\n\n- [Python developer's guide](https://devguide.python.org/)\n\nInformation on contributing to Python\n- [Python Packaging User Guide](https://packaging.python.org/)\n\nResources relating to Python packaging\n- [Audio/visual talks](https://www.python.org/doc/av/)\n\nPodcasts, talks, and video presentations from the community\n\n- [Python Enhancement Proposals](https://peps.python.org/)\n\nIndex of proposed improvements to Python\n- [Static Typing with Python](https://typing.python.org/)\n\nInformation and guides about Python type safety\n\n**Indices, glossary, and search:**\n\n- [Global module index](https://docs.python.org/3/py-modindex.html)\n\nAll modules and libraries\n- [General index](https://docs.python.org/3/genindex.html)\n\nAll functions, classes, and terms\n- [Glossary](https://docs.python.org/3/glossary.html)\n\nTerms explained\n\n- [Search page](https://docs.python.org/3/search.html)\n\nSearch this documentation\n- [Complete table of contents](https://docs.python.org/3/contents.html)\n\nAll sections and subsections\n\n**Project information:**\n\n- [Reporting issues](https://docs.python.org/3/bugs.html)\n- [Contributing to docs](https://devguide.python.org/documentation/help-documenting/)\n- [Download the documentation](https://docs.python.org/3/download.html)\n\n- [History and license of Python](https://docs.python.org/3/license.html)\n- [Copyright](https://docs.python.org/3/copyright.html)\n- [About the documentation](https://docs.python.org/3/about.html)\n\n### Download\n\n[Download these documents](https://docs.python.org/3/download.html)\n\n### Docs by version\n\n- [Python 3.16 (in development)](https://docs.python.org/3.16/)\n- [Python 3.15 (stable)](https://docs.python.org/3.15/)\n- [Python 3.14 (stable)](https://docs.python.org/3.14/)\n- [Python 3.13 (security-fixes)](https://docs.python.org/3.13/)\n- [Python 3.12 (security-fixes)](https:"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_09_social_search_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Kiểm tra trí nhớ ngắn hạn. Model phải cập nhật search_type='Top' theo yêu cầu lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm các bài viết về #AI trên Twitter."
+        },
+        {
+          "role": "user",
+          "content": "À quên, lọc ra các bài được tương tác nhiều nhất (Top) thay vì mới nhất nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top",
+              "query": "#AI"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "#AI",
+              "search_type": "Top"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "#AI",
+            "search_type": "Top"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "#AI",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "🏹那把弓真香🏹  #ai #古風 #武俠 #射箭   ",
+                "summary": "🏹那把弓真香🏹  #ai #古風 #武俠 #射箭   \n✨射箭場教射箭情境圖片提示詞👇\n\n真人超寫實古裝武俠愛情電影，9:16直幅，4K，ARRI ALEXA 35 Xtreme，35mm電影鏡頭，平視中景。\n\n古代射箭練武場，午後柔和陽光，背景有傳統建築、紅色旗幟與圓形箭靶。\n\n22歲俊美東亞男主角，白皙肌膚，黑色長髮高束金冠，修長男模身型，身穿華麗黑金刺繡古風戰袍，從身後親密環抱指導女主角射箭，深情凝視她。\n\n22歲絕美東亞女主角，精緻鵝蛋臉、白瓷肌膚、黑色半束長髮、金色髮飾，纖細修長名模身材，身穿象牙白香檳金刺繡兩件式古風輕紗上衣與高開衩飄逸長裙，露出纖細腰部。\n\n女主角左手持精緻木製長弓，右手拉緊弓弦，箭矢瞄準遠方箭靶，男主角貼近身後溫柔協助，呈現浪漫曖昧的甜蜜瞬間。\n\n人物五官、服裝與動作構圖，真實自然肌膚、細膩刺繡、電影級景深，弓箭結構正確，手指比例自然，無AI臉、無多餘肢體、無文字水印。",
+                "url": "https://x.com/Ling_1055Tw/status/2118353849484501158",
+                "source": "@Ling_1055Tw",
+                "date": "Thu Nov 05 14:44:49 +0000 2026",
+                "metrics": {
+                  "favorites": 186,
+                  "retweets": 22,
+                  "views": "55326"
+                }
+              },
+              {
+                "title": "想不出梗了😑",
+                "summary": "想不出梗了😑\n#ai #男 #GFvip #現代 \n✨男主情境圖片提示詞👇\n\n4K，9:16，真人超寫實高級男性時尚電影寫真照，ARRI ALEXA 35 Xtreme，ARRI Signature Prime 35mm電影鏡頭，平視半身近景，真實35mm彩色膠片質感，柔和自然陽光，電影級光影，細膩膚質與真實布料紋理。\n\n男主角外貌：一名22歲極為俊美的東方年輕男子，身材高挑修長，男模般纖細體態，白皙透亮的白瓷肌膚，保留真實細緻毛孔。\n\n擁有修長精緻的鵝蛋V形臉，臉頰纖瘦，清晰俐落的下顎線，精緻微尖的下巴，高挺筆直的鼻樑，濃密自然劍眉，深邃迷人的淺琥珀綠色眼睛，薄而自然的淡玫瑰色嘴唇。\n\n深棕黑色中長髮，蓬鬆自然微捲，層次分明的髮絲長至肩膀，額前幾縷細長髮絲自然垂落，微風吹動髮梢。五官立體俊美，帶有高級時尚男模的冷峻氣質。\n\n服裝造型：身穿高級黑色修身長袖襯衫，絲滑細緻的黑色高級棉質布料，挺拔翻領，領口自然解開兩顆鈕扣，露出部分鎖骨與頸部線條。\n襯衫剪裁俐落合身，肩線自然，布料具有細膩柔和的光澤。\n\n背景場景：義大利科莫湖畔的豪華私人別墅露台。\n男主角自然坐在藤編休閒椅上，身體微微側向鏡頭，神情平靜、冷峻而迷人，雙眼自然望向鏡頭，姿態放鬆，不刻意擺拍。\n背景可見淡藍色湖水、遠方翠綠山巒、依山而建的義大利古典別墅、綠色柏樹與粉紅色九重葛花朵。\n午後金色陽光從畫面左上方斜射，細膩地照亮男主角的長髮、鼻樑與臉頰，部分樹葉陰影自然落在黑色襯衫上。\n背景柔和散景，人物臉部清晰對焦，前景、中景與遠景層次分明，營造優雅、浪漫且高級的義大利時尚電影氛圍。\n\n構圖與攝影：9:16直幅，平視半身近景，人物置於畫面中央，從頭頂完整呈現至腰部附近，保留自然髮型輪廓，淺景深，暖金色陽光與冷藍湖景形成自然色彩對比。\n\n負面提示詞：不要動漫風、不要插畫感、不要AI塑膠臉、不要過度磨皮、不要女性化身材、不要誇張肌肉、不要圓臉、不要過寬下顎、不要短髮、不要假髮感、不要五官變形、不要過度銳化、不要油亮皮膚、不要多餘手指、不要不自然姿勢、不要字幕、不要浮水印。",
+                "url": "https://x.com/Ling_1055Tw/status/2120075152058900878",
+                "source": "@Ling_1055Tw",
+                "date": "Tue Nov 10 08:44:39 +0000 2026",
+                "metrics": {
+                  "favorites": 12,
+                  "retweets": 2,
+                  "views": "603"
+                }
+              },
+              {
+                "title": "Add your name at https://t.co/HU63ZLE4wg",
+                "summary": "Add your name at https://t.co/HU63ZLE4wg\n https://t.co/9CAuxyVpPL",
+                "url": "https://x.com/jcahan/status/2119979030728581176",
+                "source": "@jcahan",
+                "date": "Tue Nov 10 02:22:42 +0000 2026",
+                "metrics": {
+                  "favorites": 1,
+                  "retweets": 0,
+                  "views": "82"
+                }
+              },
+              {
+                "title": "こんにちゎ ",
+                "summary": "こんにちゎ \n今日は 曇り　寒い  \n Have a wonderful week!      \n\n『Female Kung Fu』    \n（AI生成動画) \n BGMはFemale Kung Fu Version5 \n ※少し音大きいかも       \n\n#AI #ChunLi https://t.co/L0K4uKXOvk",
+                "url": "https://x.com/AruaruNanase/status/2119619411917365448",
+                "source": "@AruaruNanase",
+                "date": "Mon Nov 09 02:33:43 +0000 2026",
+                "metrics": {
+                  "favorites": 189,
+                  "retweets": 15,
+                  "views": "3442"
+                }
+              },
+              {
+                "title": "なんか今日は「下半身痩せの日」なんだって",
+                "summary": "なんか今日は「下半身痩せの日」なんだって\nなんだかなぁ・・・\n\n＃下半身痩せの日　#AI #AIart 　#AIモデル #AIgirl #AI美女 https://t.co/r6djhqzeVH",
+                "url": "https://x.com/kouji_jwle/status/2119953538923254244",
+                "source": "@kouji_jwle",
+                "date": "Tue Nov 10 00:41:25 +0000 2026",
+                "metrics": {
+                  "favorites": 54,
+                  "retweets": 2,
+                  "views": "1672"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_case_10_new_tool_finance_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Kiểm tra model gọi tool mới đúng lúc khi ngữ cảnh hội thoại kéo dài 2 lượt."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Thị trường tài chính hôm nay sao rồi?"
+        },
+        {
+          "role": "user",
+          "content": "Lấy giá trị của mã cổ phiếu NVDA giúp tôi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_yahoo_finance_data",
+            "args": {
+              "ticker": "NVDA"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_yahoo_finance_data",
+            "args": {
+              "ticker": "NVDA"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_yahoo_finance_data",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "result": {
+            "tool": "get_yahoo_finance_data",
+            "ticker": "NVDA",
+            "price": 178.67,
+            "currency": "USD",
+            "as_of": "2026-11-09T21:00:00+00:00",
+            "exchange": "NMS",
+            "instrument_type": "EQUITY",
+            "url": "https://finance.yahoo.com/quote/NVDA/",
+            "freshness": "latest_available_not_guaranteed_realtime",
+            "items": [
+              {
+                "title": "NVIDIA Corporation",
+                "url": "https://finance.yahoo.com/quote/NVDA/",
+                "source": "finance.yahoo.com",
+                "summary": "NVDA: 178.67 USD; quote timestamp 2026-11-09T21:00:00+00:00. Latest available quote; may be delayed or from a previous session."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

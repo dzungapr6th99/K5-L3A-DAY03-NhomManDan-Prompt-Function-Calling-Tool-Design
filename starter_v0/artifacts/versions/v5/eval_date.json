@@ -1,0 +1,31 @@
+{
+  "dataset_id": "day03_date_extension",
+  "dataset_role": "group",
+  "description": "Calendar routing for the new date tool; validate dates in offline unit tests with a frozen clock.",
+  "cases": [
+    {
+      "id": "D01_today_vietnam",
+      "phase": "B",
+      "query": "Hôm nay là ngày nào, thứ mấy theo giờ Việt Nam?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "date", "args": {}}]},
+      "metadata": {"what_it_tests": "Route explicit calendar question to date instead of guessing from training data."}
+    },
+    {
+      "id": "D02_yesterday_offset",
+      "phase": "B",
+      "query": "Cho tôi ngày và thứ của hôm qua theo giờ Việt Nam.",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "date", "args": {"offset_days": -1}}]},
+      "metadata": {"what_it_tests": "Translate yesterday into offset_days=-1."}
+    },
+    {
+      "id": "D03_two_weeks_ago",
+      "phase": "B",
+      "query": "What date was exactly two weeks ago in Vietnam?",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "date", "args": {"offset_days": -14}}]},
+      "metadata": {"what_it_tests": "English calendar request uses the same date tool and a negative offset."}
+    }
+  ]
+}

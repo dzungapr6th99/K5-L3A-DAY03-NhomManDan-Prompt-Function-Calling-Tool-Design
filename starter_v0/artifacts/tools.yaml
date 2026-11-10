@@ -308,3 +308,22 @@ tools:
         default: 0
         description: 'Số ngày lệch so với hôm nay: âm là quá khứ, dương là tương lai'
     required: []
+- name: wikipedia
+  description: 'Lấy tóm tắt đầu trang của một bài Wikipedia: kiến thức nền kiểu "X là gì / là ai / là công ty gì", hoặc
+    khi user nói rõ tra Wikipedia. Không dùng cho tin tức hay sự kiện mới (lookup), bài trên X (timeline/social_search)
+    hay URL đã cho (fetch). Kết quả not_found thì thử lang còn lại; ambiguous=true thì hỏi user muốn nghĩa nào.'
+  parameters:
+    type: object
+    properties:
+      title:
+        type: string
+        description: 'Tên trang Wikipedia viết như tiêu đề bài, ví dụ Anthropic; không phải cả câu hỏi.'
+      lang:
+        type: string
+        enum:
+        - vi
+        - en
+        default: vi
+        description: 'vi trước; chủ đề AI/công nghệ thường chỉ có trang en.'
+    required:
+    - title

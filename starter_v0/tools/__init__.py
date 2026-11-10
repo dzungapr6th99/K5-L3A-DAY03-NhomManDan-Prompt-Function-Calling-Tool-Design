@@ -20,6 +20,7 @@ from .lookup.tool import web_search
 from .deduplicate.tool import deduplicate
 from .yahoo_finance.tool import get_yahoo_finance_data
 from .date.tool import get_date
+from .wikipedia.tool import wikipedia_summary
 
 
 # NOTE (starter_v0): tool names here are intentionally vague. These keys are the
@@ -41,6 +42,7 @@ TOOL_FUNCTIONS = {
     "deduplicate": deduplicate,
     "get_yahoo_finance_data": get_yahoo_finance_data,
     "date": get_date,
+    "wikipedia": wikipedia_summary,
     # TODO(student): register your new tool here, e.g. "my_tool": my_tool_function,
     # then declare it in artifacts/tools.yaml and run `pytest tests/test_tool_contract.py`.
 }

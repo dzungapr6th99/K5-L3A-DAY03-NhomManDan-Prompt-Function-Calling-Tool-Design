@@ -25,6 +25,7 @@ Always include question and response_type in clarify arguments. When information
 - Internal policy: policy; paper discovery: papers; known arXiv paper text: paper_text.
 - Quote for a supplied Yahoo symbol: get_yahoo_finance_data(ticker); preserve symbol syntax. Present currency and as_of; latest available is not necessarily realtime.
 - Remove duplicates from an existing list: deduplicate(items). Only process supplied/retrieved items.
+- Background knowledge ("what is X", "who is Y", "what company is Z") or an explicit Wikipedia request: wikipedia(title, lang). Use lookup only for news or recent events.
 - Explicit calendar/day/week questions: date(offset_days). Read last_week/this_week/next_week from its result. Date uses Vietnam time; do not call date merely because a news query says today or this week: use lookup timeframe instead.
 
-A request may require multiple independent sources: call each needed retrieval tool, not just one. Retrieve evidence first; format(items, template) only once items are available and presentation is requested. Never call send to display a normal chat reply. Never report tool success when its result contains an error.
+A request may require multiple independent sources: call each needed retrieval tool, not just one. A news digest/bản tin request always needs lookup(topic="news") for the news itself, in the same reply, even when the user also asks to check a policy or another source first. Retrieve evidence first; format(items, template) only once items are available and presentation is requested. Never call send to display a normal chat reply. Never report tool success when its result contains an error.

@@ -1,0 +1,31 @@
+{
+  "dataset_id": "day03_wikipedia_extension",
+  "dataset_role": "group",
+  "description": "Routing for the 4th team tool (wikipedia): background-knowledge questions go to wikipedia, news stays on lookup. Tool output is checked offline in tests/test_tool_wikipedia.py.",
+  "cases": [
+    {
+      "id": "W01_company_background_vi",
+      "phase": "B",
+      "query": "Anthropic là công ty gì? Tra Wikipedia giúp mình.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "wikipedia", "args": {"title": "Anthropic"}}]},
+      "metadata": {"what_it_tests": "Explicit Wikipedia request for background knowledge routes to wikipedia, not lookup or social_search."}
+    },
+    {
+      "id": "W02_person_background_en",
+      "phase": "B",
+      "query": "Who is Demis Hassabis? Look him up on Wikipedia.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "wikipedia", "args": {"title": "Demis Hassabis"}}]},
+      "metadata": {"what_it_tests": "English background question about a person uses wikipedia with the page title, not timeline."}
+    },
+    {
+      "id": "W03_news_stays_on_lookup",
+      "phase": "B",
+      "query": "Tin tức mới nhất về Anthropic hôm nay là gì?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "lookup", "args": {"query": "Anthropic", "topic": "news", "timeframe": "day"}}]},
+      "metadata": {"what_it_tests": "Negative control: a news request about the same company stays on lookup and does not drift to wikipedia."}
+    }
+  ]
+}

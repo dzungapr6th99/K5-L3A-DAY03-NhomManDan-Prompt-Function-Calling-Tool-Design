@@ -6,8 +6,9 @@ Reuses the multi-round tool loop + transcript format from chat.py.
 Version picker: one entry per snapshot in artifacts/versions/<v>/ (its own prompt + tools),
 plus live artifacts/ when it matches no snapshot yet: labelled with the version of a run measured on
 exactly those bytes (e.g. v3 evaluated before anyone snapshotted it), else "working".
-Scoreboard + red-card tags: newest run matching both version and artifact hashes.
-LF-normalized hashes are also accepted for snapshots transferred across OSes.
+Scoreboard + red-card tags: newest run matching both version and artifact hashes, per eval file
+(several datasets share suite=extension). LF-normalized hashes are also accepted for snapshots
+transferred across OSes. Tab "Bảng điểm": Bộ test khởi đầu (eval_base) | Bộ test mở rộng (every other lab eval).
 """
 from __future__ import annotations
 
@@ -42,6 +43,13 @@ SAMPLES = [
     ("Theo policy công ty, đăng bản tin lên Telegram có cần xác nhận trước không?", "policy", "E03"),
     ("Viết giúp mình hàm Python tính Fibonacci", "không gọi tool", "R14"),
 ]
+# Bộ test mở rộng = every lab eval besides eval_base: (eval file stem, label)
+EXTENDED = [
+    ("eval_group", "Nhóm tự viết"),
+    ("eval_research_extension", "Research extension"),
+    ("eval_date", "Tool date"),
+    ("eval_wikipedia", "Tool wikipedia"),
+]
 SHIELD = "polygon(50% 0, 100% 14%, 100% 58%, 50% 100%, 0 58%, 0 14%)"
 CSS = f"""<style>
 .md-crest{{display:flex;align-items:center;gap:14px;margin-bottom:4px}}
@@ -60,6 +68,8 @@ CSS = f"""<style>
 .md-cell{{background:#1A1A1A;border-radius:8px;padding:8px 10px}}
 .md-cell b{{display:block;font:700 24px 'Barlow Condensed',sans-serif;color:#fff;white-space:nowrap}}
 .md-cell span{{display:block;font-size:11px;line-height:1.3;white-space:nowrap;color:#A8A8A8}}
+.md-grid2{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.md-cell .md-file{{white-space:normal;word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:#8A8A8A;margin-top:2px}}
 .md-meta{{font-size:11px;color:#A8A8A8}}
 .md-meta{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:10px;word-break:break-all;line-height:1.6}}
 .md-h2{{font:700 24px 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;color:#F2F2F2;
@@ -113,8 +123,20 @@ def default_version(sources: dict[str, tuple[Path, Path]]) -> str:
     return next((v for v, pair in sources.items() if same_files(pair)), WORKING)
 
 
+def hash_variants(path: Path) -> set[str]:
+    """Hash of the file as on disk, as LF and as CRLF: a run made on Windows hashes CRLF bytes,
+    while git checks the same snapshot out with LF on macOS/Linux (and vice versa)."""
+    lf = path.read_bytes().replace(b"\r\n", b"\n")
+    return {file_hash(path), hashlib.sha256(lf).hexdigest(), hashlib.sha256(lf.replace(b"\n", b"\r\n")).hexdigest()}
+
+
+def eval_name(run: dict) -> str:
+    """Eval file stem of a run, e.g. eval_base; runs written on Windows store data\\eval_base.json."""
+    return Path(str(run.get("eval_cases") or f"eval_{run.get('suite')}").replace("\\", "/")).stem
+
+
 def latest_runs() -> dict[tuple[str, str], dict]:
-    """(version, suite) -> newest run that measured >= 1 case (all-provider-error runs are skipped)."""
+    """(version, eval file stem) -> newest run that measured >= 1 case (all-provider-error runs are skipped)."""
     best: dict[tuple[str, str], dict] = {}
     for f in (ROOT / "runs").glob("*.json"):
         try:
@@ -127,10 +149,10 @@ def latest_runs() -> dict[tuple[str, str], dict]:
         pair = (snapshot / "system_prompt.md", snapshot / "tools.yaml")
         if not all(p.is_file() for p in pair):
             pair = LIVE
-        candidates = [{file_hash(p), hashlib.sha256(p.read_bytes().replace(b"\r\n", b"\n")).hexdigest()} for p in pair]
+        candidates = [hash_variants(p) for p in pair]
         if d.get("prompt_hash") not in candidates[0] or d.get("tools_hash") not in candidates[1]:
             continue
-        key = (d.get("version"), d.get("suite"))
+        key = (d.get("version"), eval_name(d))
         if key not in best or d.get("generated_at", "") > best[key].get("generated_at", ""):
             best[key] = {**d, "file": f.name}
     return best
@@ -143,7 +165,7 @@ def short_args(args: dict | None, limit: int = 60) -> str:
 
 def sample_tag(runs: dict, version: str, case: str) -> tuple[str, str]:
     """(status: fail|pass|none, tag HTML incl. why-it-failed) for one sample question under `version`."""
-    run = runs.get((version, "extension" if case.startswith("E") else "base"))
+    run = runs.get((version, "eval_research_extension" if case.startswith("E") else "eval_base"))
     hit = next((r for r in run["results"] if r["id"].split("_")[0] == case), None) if run else None
     v = html.escape(version)
     if hit is None:
@@ -160,13 +182,13 @@ def sample_tag(runs: dict, version: str, case: str) -> tuple[str, str]:
 def scoreboard(version: str, run: dict | None) -> str:
     v = html.escape(version)
     if not run:
-        return (f'<div class="md-score"><div class="md-label">Bảng tỉ số · {v}</div>'
+        return (f'<div class="md-score"><div class="md-label">Bộ test khởi đầu · {v}</div>'
                 f'<div class="md-big" style="font-size:30px;margin:8px 0">Chưa ra sân</div>'
                 f'<div class="md-meta">Chưa có run base cho {v}.<br>python run_eval.py --version {v} --suite base …</div></div>')
     s = run["summary"]
     pct = lambda key: f"{s.get(key, 0):.0%}"  # noqa: E731
     return (
-        f'<div class="md-score"><div class="md-label">Bảng tỉ số · {v} · base</div>'
+        f'<div class="md-score"><div class="md-label">Bộ test khởi đầu · {v} · base</div>'
         f'<div class="md-row"><div class="md-big">{s["passed_cases"]}/{s["total_cases"]}</div>'
         f'<div><div class="md-sub">case đạt</div><div class="md-pct">{pct("case_accuracy")}</div></div></div>'
         f'<div class="md-grid">'
@@ -175,6 +197,26 @@ def scoreboard(version: str, run: dict | None) -> str:
         f'<div class="md-cell"><b>{pct("multiturn_accuracy")}</b><span>Multi</span></div></div>'
         f'<div class="md-meta">{html.escape(run.get("provider", ""))} · {html.escape(run.get("model", ""))}'
         f' · lỗi provider {s.get("provider_error_cases", 0)}<br>{html.escape(run["file"])}</div></div>'
+    )
+
+
+def extended_board(version: str, runs: dict) -> str:
+    """Bộ test mở rộng: one cell per extra eval file, headline = passed/total over the measured ones."""
+    cells, passed, total = [], 0, 0
+    for key, label in EXTENDED:
+        run = runs.get((version, key))
+        if run:
+            s = run["summary"]
+            passed, total = passed + s["passed_cases"], total + s["total_cases"]
+            score, note = f'{s["passed_cases"]}/{s["total_cases"]}', run["file"]
+        else:
+            score, note = "—", "Chưa đo"
+        cells.append(f'<div class="md-cell"><b>{score}</b><span>{label}</span><div class="md-file">{html.escape(note)}</div></div>')
+    return (
+        f'<div class="md-score"><div class="md-label">Bộ test mở rộng · {html.escape(version)}</div>'
+        f'<div class="md-row"><div class="md-big">{f"{passed}/{total}" if total else "—"}</div>'
+        f'<div><div class="md-sub">case đạt</div><div class="md-pct">{f"{passed / total:.0%}" if total else "chưa đo"}</div></div></div>'
+        f'<div class="md-grid md-grid2">{"".join(cells)}</div></div>'
     )
 
 
@@ -278,7 +320,6 @@ with st.sidebar:
         format_func=lambda v: f"{v} — artifacts/ chưa snapshot" if sources[v] == LIVE else v,
         help="Mỗi thư mục artifacts/versions/<v>/ là một version: chọn version nào thì agent chạy đúng prompt + tools của version đó.",
     )
-    st.markdown(scoreboard(ver, runs.get((ver, "base"))), unsafe_allow_html=True)
     t = st.session_state.transcript
     st.caption(f"Model `{model}` · Prompt `#{t['prompt_hash'][:8]}` · Tools `#{t['tools_hash'][:8]}`")
     st.button("Chat mới", on_click=new_chat, icon=":material/restart_alt:", width="stretch")
@@ -302,29 +343,41 @@ with st.sidebar:
         )
     st.caption(f"Transcript: `{st.session_state.transcript_path.name}`")
 
-st.markdown(
-    '<div class="md-hero"><div class="md-line" aria-hidden="true"></div><div class="md-circle" aria-hidden="true"></div>'
-    '<h1>Hỏi agent</h1><p>Tìm tin trên web và X, đọc URL và paper arXiv, tra policy nội bộ, gom thành bản tin. '
-    'Chỉ gửi Telegram khi bạn xác nhận.</p>'
-    f'<span class="md-pill">Đang dùng {html.escape(ver)}</span></div>',
-    unsafe_allow_html=True,
-)
-if not st.session_state.messages:
-    st.caption("Bấm một câu hỏi mẫu ở sidebar hoặc gõ câu hỏi bên dưới.")
-for msg in st.session_state.messages:
-    render(msg)
+chat_tab, board_tab = st.tabs(["Chat", "Bảng điểm"])
 
-prompt = st.chat_input("Hỏi agent… ví dụ: Tin AI hôm nay có gì?") or clicked
-if prompt:
-    user_msg = {"role": "user", "content": prompt}
-    st.session_state.messages.append(user_msg)
-    render(user_msg)
-    with st.spinner("Agent đang gọi tool…"):
-        turn = run_turn(prompt)
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": turn.get("assistant_text"),
-        "events": turn.get("tool_events", []),
-        "status": turn.get("status"),
-    })
-    st.rerun()
+with board_tab:
+    st.caption(
+        f"Run eval mới nhất của **{ver}** có hash khớp prompt + tools. Khởi đầu = 20 case lab cho sẵn (`eval_base`). "
+        "Mở rộng = mọi bộ eval khác của lab: case nhóm tự viết, research extension, tool date, tool wikipedia."
+    )
+    left, right = st.columns(2)
+    left.markdown(scoreboard(ver, runs.get((ver, "eval_base"))), unsafe_allow_html=True)
+    right.markdown(extended_board(ver, runs), unsafe_allow_html=True)
+
+with chat_tab:
+    st.markdown(
+        '<div class="md-hero"><div class="md-line" aria-hidden="true"></div><div class="md-circle" aria-hidden="true"></div>'
+        '<h1>Hỏi agent</h1><p>Tìm tin trên web và X, đọc URL và paper arXiv, tra policy nội bộ và Wikipedia, gom thành bản tin. '
+        'Chỉ gửi Telegram khi bạn xác nhận.</p>'
+        f'<span class="md-pill">Đang dùng {html.escape(ver)}</span></div>',
+        unsafe_allow_html=True,
+    )
+    if not st.session_state.messages:
+        st.caption("Bấm một câu hỏi mẫu ở sidebar hoặc gõ câu hỏi bên dưới.")
+    for msg in st.session_state.messages:
+        render(msg)
+
+    prompt = st.chat_input("Hỏi agent… ví dụ: Tin AI hôm nay có gì?") or clicked
+    if prompt:
+        user_msg = {"role": "user", "content": prompt}
+        st.session_state.messages.append(user_msg)
+        render(user_msg)
+        with st.spinner("Agent đang gọi tool…"):
+            turn = run_turn(prompt)
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": turn.get("assistant_text"),
+            "events": turn.get("tool_events", []),
+            "status": turn.get("status"),
+        })
+        st.rerun()

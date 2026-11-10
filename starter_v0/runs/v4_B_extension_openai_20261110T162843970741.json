@@ -1,0 +1,240 @@
+{
+  "run_id": "v4_B_extension_openai_20261110T162843970741",
+  "version": "v4",
+  "artifact_version": "v4+pd7d9b12551ea+t9c8833e2d8b9",
+  "prompt_hash": "d7d9b12551ead53b26855d96263db17913e42072ccb473f2b63c99fe5c5e706a",
+  "tools_hash": "9c8833e2d8b995ae11202c19fa1b05a73cef18b71129289666933ddba75708a2",
+  "phase": "B",
+  "suite": "extension",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "artifacts/versions/v4/system_prompt.md",
+  "tools": "artifacts/versions/v4/tools.yaml",
+  "eval_cases": "artifacts/versions/v4/eval_wikipedia.json",
+  "dataset_id": "day03_wikipedia_extension",
+  "dataset_role": "group",
+  "description": "Routing for the 4th team tool (wikipedia): background-knowledge questions go to wikipedia, news stays on lookup. Tool output is checked offline in tests/test_tool_wikipedia.py.",
+  "generated_at": "2026-11-10T16:28:43",
+  "summary": {
+    "total_cases": 3,
+    "measured_cases": 3,
+    "provider_error_cases": 0,
+    "passed_cases": 3,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": null,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "W01_company_background_vi",
+      "phase": "B",
+      "suite": "extension",
+      "case_suite": "extension",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Explicit Wikipedia request for background knowledge routes to wikipedia, not lookup or social_search."
+      },
+      "input": "Anthropic là công ty gì? Tra Wikipedia giúp mình.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "title": "Anthropic"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "title": "Anthropic",
+              "lang": "vi"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "title": "Anthropic",
+            "lang": "vi"
+          },
+          "result": {
+            "tool": "wikipedia",
+            "lang": "vi",
+            "title": "Anthropic",
+            "description": "Công ty trí tuệ nhân tạo của Mỹ",
+            "summary": "Anthropic PBC là một công ty trí tuệ nhân tạo của Hoa Kỳ, đặt trụ sở tại San Francisco, California. Công ty phát triển một dòng mô hình ngôn ngữ lớn (LLM) mang tên Claude và tập trung vào lĩnh vực an toàn AI. Anthropic được thành lập vào năm 2021 bởi một số cựu thành viên của OpenAI, trong đó có hai anh em Daniela Amodei và Dario Amodei, lần lượt giữ chức chủ tịch và tổng giám đốc điều hành. Anthropic là công ty tư nhân và tính đến tháng 5 năm 2026, công ty được ước tính có giá trị 965 tỷ đô la Mỹ.",
+            "url": "https://vi.wikipedia.org/wiki/Anthropic",
+            "ambiguous": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "W02_person_background_en",
+      "phase": "B",
+      "suite": "extension",
+      "case_suite": "extension",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "English background question about a person uses wikipedia with the page title, not timeline."
+      },
+      "input": "Who is Demis Hassabis? Look him up on Wikipedia.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "title": "Demis Hassabis"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "title": "Demis Hassabis"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "title": "Demis Hassabis"
+          },
+          "result": {
+            "tool": "wikipedia",
+            "error": "not_found",
+            "lang": "vi",
+            "title": "Demis Hassabis",
+            "message": "No vi.wikipedia.org page titled 'Demis Hassabis'; try lang=en or a more exact title."
+          }
+        }
+      ]
+    },
+    {
+      "id": "W03_news_stays_on_lookup",
+      "phase": "B",
+      "suite": "extension",
+      "case_suite": "extension",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Negative control: a news request about the same company stays on lookup and does not drift to wikipedia."
+      },
+      "input": "Tin tức mới nhất về Anthropic hôm nay là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Anthropic",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Anthropic",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Anthropic",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Anthropic",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Anthropic",
+                "url": "https://tavily.com/knowledge/company/49NlR6zHvu8c",
+                "source": "tavily.com",
+                "summary": "# Anthropic\nID: 49NlR6zHvu8c\nWebsite: www.anthropic.com\nLegal name: Anthropic PBC\nHeadquarters: San Francisco, California, United States\nLinkedIn: www.linkedin.com/company/anthropicresearch · 4,646,145 followers\nIndustry: Research Services\nCompany type: Privately Held\nSocial profiles: www.facebook.com/anthropicai, www.facebook.com/anthropicai/?ref=py_c, www.twitter.com/anthropicai, www.crunchbase.com/organization/anthropic, www.instagram.com/anthropicai, www.youtube.com/@anthropic-ai [...] Email: support@anthropic.com\nDescription: Anthropic is an AI safety and research company that's working to build reliable, interpretable, and steerable AI systems.",
+                "score": 0.8941352
+              },
+              {
+                "title": "EXCLUSIVE: Anthropic’s nearly $70 billion IPO plan briefly circulated to banks, then retracted | Reuters",
+                "url": "https://www.reuters.com/business/anthropic-aims-raise-up-693-billion-blockbuster-ipo-2026-11-10",
+                "source": "reuters.com",
+                "summary": "Investors ​had previously discussed a valuation of ​as much as $2 trillion for ⁠Anthropic, but expectations have since come down, with the $1.5 trillion figure viewed as the high end of the range, Reuters previously reported.\n\nFounded in 2021 by former OpenAI executives including Amodei and his sister ​Daniela Amodei, who is now Anthropic's president, Anthropic has emerged as one of the leading generative ​AI developers with ⁠its Claude family of models. [...] The Anthropic IPO comes at a time when other companies in the AI infrastructure and data center sectors have delayed or withdrawn their planned listings, facing a rise in interest rates that has helped fuel a punishing selloff in shares and bonds of AI operators such as CoreWeave Inc (CRWV.O) and broader questions about the sustainability of AI spending. [...] Nov 9 (Reuters) - Details of Anthropic’s blockbuster IPO, including plans by the AI ‌company to raise nearly $70 billion, were briefly circulated to banks before being retracted late on Monday, according to emails seen by Reuters.",
+                "score": 0.7395922
+              },
+              {
+                "title": "Anthropic reportedly plans to move forward with IPO plans | TechCrunch",
+                "url": "https://techcrunch.com/2026/11/09/anthropic-reportedly-plans-to-move-forward-with-ipo-plans",
+                "source": "techcrunch.com",
+                "summary": "Anthropic plans to set a valuation range this week and begin trading on Thursday or Friday of next week, the Journal reported.\n\nInvestors will look to Anthropic’s valuation to gauge the strength of the AI boom. Some institutional investors are now pushing for a valuation below the $1.5 trillion target discussed as recently as last week, a figure that was itself considerably below the $2 trillion floated a few months ago, the report said. [...] Posted:\n\n# Anthropic reportedly plans to move forward with IPO plans\n\nLaunching a major tech IPO would seem risky right now, shortly after one of Nasdaq’s biggest selloffs and amid revelations that a CEO central to the AI boom had an affair with a suspected Chinese spy. But that isn’t deterring Anthropic, which is moving ahead with its listing plans, according to The Wall Street Journal. [...] OpenAI, Anthropic’s main rival, was reportedly valued at $1.25 trillion last week after the ChatGPT maker raised $11 billion in fresh capital, short of the $20 billion it had initially sought.\n\nGet an Early Peek at the Next TechCrunch Disrupt  \nDisrupt, Startup Battlefield, and more will return next year, and you can be at the front of the line.  \nSign up for our waitlist\n\n### Newsletters\n\nSubscribe for the industry’s biggest tech news",
+                "score": 0.6519982
+              },
+              {
+                "title": "Anthropic retracts IPO details after sending filing to bankers - Reuters",
+                "url": "https://sg.finance.yahoo.com/news/anthropic-retracts-ipo-details-sending-030830834.html",
+                "source": "sg.finance.yahoo.com",
+                "summary": "Investing.com\n\n# Anthropic retracts IPO details after sending filing to bankers - Reuters\n\nAyushman Ojha\n\n1 min read\n\n ANT\n\nInvesting.com-- Artificial intelligence company Anthropic sent bankers details of a potential blockbuster initial public offering before retracting the pricing information, saying the figures were inaccurate, Reuters reported on Monday, citing emails seen by the news agency. [...] The retraction adds uncertainty to preparations for what could be one of the largest stock market listings by an artificial intelligence company, as investors closely monitor the sector's rapid expansion and growing capital requirements.\n\nOriginal Article\n\nAnthropic retracts IPO details after sending filing to bankers - Reuters\n\nWuXi AppTec shares gain after U.S. removes company from military list\n\nU.S. stock futures steady after tech-led rebound; CPI in focus\n\nTerms  and Privacy Policy [...] Unsure what to buy ahead of earnings? Our AI's recent pre-earnings calls delivered gains of +77% to +118% after results dropped. See this month's earnings picks »\n\nAnthropic subsequently sent another email to bankers saying the pricing details were inaccurate and that an updated filing would be provided later, according to the Reuters report.",
+                "score": 0.6426349
+              },
+              {
+                "title": "Anthropic releases Claude Fable 5.2 and Mythos 5.2 | Mashable",
+                "url": "https://mashable.com/tech/anthropic-release-claude-fable-5-2-and-mythos-5-2",
+                "source": "mashable.com",
+                "summary": "New frontier models from OpenAI, Google, Anthropic, and Meta have been released at a rapid clip in recent months, and the two new Anthropic models closely follow the release of Google Gemini 4 Carbon, Meta Muse Wonder, and OpenAI's GPT-6 Astra. On launch day, Claude Fable 5.2 claimed the top spot on the Artificial Analysis Intelligence leaderboard\"), previously held by Gemini 4 Carbon.\n\n You May Also Like \n\n--- [...] Home > Tech\n\n# Anthropic announces Claude Fable 5.2 and Mythos 5.2. They'e already solved black hole physics problems.\n\nFable 5.2 is available to users now.\n\nBy\n\nMatt Binder\n\nMatt Binder\n\nMatt Binder\n\nSenior Tech Reporter\n\nMatt Binder joined Mashable's tech vertical in 2018, where he covers social media, tech policy, cybersecurity, online scams, cryptocurrency, AI, creator news, weird tech, and other related tech beats.\n\nRead Full Bio\n\n on [...] Mashable Potato\n\nRecommended For You\n\nAnthropic launches Fable 5.1 as AI security worries mount\n\nFable 5.1 arrives with lower prices and tighter safeguards, days after reports of AI agents going rogue during security tests.\n\nBy Chance Townsend\n\nstylized blue sky and clouds with Fable 5.1 written in the middle\n\nstylized blue sky and clouds with Fable 5.1 written in the middle\n\nAnthropic launches Claude Opus 5.5, promising Fable-level performance at a lower price",
+                "score": 0.5663309
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

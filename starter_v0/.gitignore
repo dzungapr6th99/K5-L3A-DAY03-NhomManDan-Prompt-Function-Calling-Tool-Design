@@ -9,3 +9,6 @@ arxiv_papers/
 
 # Ad hoc UI sessions are local; the official CLI transcript is submitted.
 transcripts/*_ui_*.transcript.json
+
+# Glossary nội bộ (không nộp)
+GLOSSARY.md

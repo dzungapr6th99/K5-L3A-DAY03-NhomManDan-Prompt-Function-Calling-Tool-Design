@@ -16,12 +16,12 @@
 
 ## A1. Agent này làm được gì
 
-Research agent tiếng Việt: tìm tin trên web và X/Twitter (theo từ khóa hoặc theo tài khoản), đọc nội dung URL và paper arXiv, tra chính sách nội bộ, gom kết quả thành bản tin markdown, và chỉ gửi lên Telegram sau khi người dùng xác nhận. Thiếu thông tin (tài khoản nào, URL nào) thì agent hỏi lại thay vì tự đoán.
+Research agent tiếng Việt: tìm tin trên web và X/Twitter (theo từ khóa hoặc theo tài khoản), đọc nội dung URL và paper arXiv, tra chính sách nội bộ và kiến thức nền trên Wikipedia, gom kết quả thành bản tin markdown, và chỉ gửi lên Telegram sau khi người dùng xác nhận. Thiếu thông tin (tài khoản nào, URL nào) thì agent hỏi lại thay vì tự đoán.
 
 **Dùng thử:** demo local bằng `.\START_LOCAL.ps1` rồi mở `http://127.0.0.1:8501`.
 Nhóm chủ động không nộp link public theo phạm vi đã thống nhất. Hướng dẫn đầy đủ: `RUN_LOCAL.md`.
-UI chạy snapshot v0–v3, mặc định v3 cuối; chỉ hiện điểm khi run khớp hash artifact (có xử lý LF/CRLF).
-Có lịch sử chat, xem arguments/results, câu hỏi mẫu, đổi version và lưu transcript.
+UI chạy snapshot v0–v5, mặc định v5 cuối; chỉ hiện điểm khi run khớp hash artifact (chấp nhận cả file LF và CRLF, vì run chạy trên Windows còn repo checkout trên macOS/Linux là LF).
+Tab **Chat**: lịch sử chat, xem arguments/results, câu hỏi mẫu, đổi version và lưu transcript. Tab **Bảng điểm**: bộ test khởi đầu (20 case base) và bộ test mở rộng (nhóm tự viết, research extension, tool date, tool wikipedia) của version đang chọn.
 UI đã được kiểm tra bằng Streamlit AppTest và HTTP 200 cho trang chính/health.
 
 ## A2. Tool agent có
@@ -41,6 +41,7 @@ UI đã được kiểm tra bằng Streamlit AppTest và HTTP 200 cho trang chí
 | deduplicate | Loại item trùng URL giống hệt nhau, giữ nguồn đầu tiên | **có** |
 | get_yahoo_finance_data | Lấy giá niêm yết Yahoo theo ticker, kèm currency và thời điểm báo giá; có thể trễ | **có** |
 | date | Ngày hiện tại theo giờ Việt Nam, luôn kèm tuần trước / tuần này / tuần sau (Thứ Hai → Chủ Nhật); `offset_days` cho ngày lệch khác (hôm qua -1, 2 tuần trước -14) | **có** |
+| wikipedia | Tóm tắt đầu trang Wikipedia (`vi`/`en`, không cần API key) cho câu hỏi kiến thức nền "X là gì / là ai"; báo `not_found` / `ambiguous` thay vì đoán | **có** (v4) |
 
 ## A3. Câu hỏi mẫu để thử
 
@@ -62,7 +63,7 @@ Các câu này có sẵn thành nút bấm ở sidebar UI.
 
 ## B1. Version Evidence
 
-Bốn nhãn nộp: v0, v1, v2, v3. Bản v3 cuối có **13 tool**, gồm 3 tool mới. Prompt/tools hiện hành, snapshot v3 và các run cuối dưới đây có cùng full hash. Không lấy điểm từ run lịch sử khác hash để gán cho bản hiện tại.
+Sáu nhãn nộp: v0–v3 là phần lab chính (v3 có **13 tool**, gồm 3 tool mới); v4 thêm tool mới thứ 4 `wikipedia` (bonus "hơn 3 tool"), v5 sửa case E06 bị tụt ở v4. **Bản nộp cuối là v5: 14 tool, gồm 4 tool mới.** Mỗi snapshot và các run của nó có cùng full hash. Không lấy điểm từ run lịch sử khác hash để gán cho bản hiện tại.
 
 | Version / suite | Changed Artifact | Hypothesis / interpretation | Before | After | Run JSON |
 |---|---|---|---:|---:|---|
@@ -73,14 +74,27 @@ Bốn nhãn nộp: v0, v1, v2, v3. Bản v3 cuối có **13 tool**, gồm 3 tool
 | v3 / group | Final prompt + declarations + 13 tool integration | Routing, preconditions và dữ liệu thực | — | 10/10 (100%) | `runs/v3_B_group_openrouter_20261110T143410949838.json` |
 | v3 / date extension | Final prompt + declarations + 13 tool integration | Routing, preconditions và dữ liệu thực | — | 3/3 (100%) | `runs/v3_B_extension_openrouter_20261110T143438392011.json` |
 | v3 / research extension | Final prompt + declarations + 13 tool integration | Routing, preconditions và dữ liệu thực | — | 10/10 (100%) | `runs/v3_B_extension_openrouter_20261110T143526294257.json` |
+| v4 / base | tool `wikipedia` + YAML + 1 dòng routing | Tool kiến thức nền không làm hỏng routing cũ | 100% | 20/20 (100%) | `runs/v4_B_base_openai_20261110T162659299468.json` |
+| v4 / group | như trên | như trên | 100% | 10/10 (100%) | `runs/v4_B_group_openai_20261110T162735543072.json` |
+| v4 / research extension | như trên | như trên | 100% | **9/10 (90%)** | `runs/v4_B_extension_openai_20261110T162810368821.json` |
+| v4 / date extension | như trên | như trên | 100% | 3/3 (100%) | `runs/v4_B_extension_openai_20261110T162826795733.json` |
+| v4 / wikipedia extension | như trên | Câu kiến thức nền → `wikipedia`; tin tức vẫn `lookup` | — | 3/3 (100%) | `runs/v4_B_extension_openai_20261110T162843970741.json` |
+| v5 / base | prompt: 1 câu | Bản tin luôn cần `lookup(topic=news)` cùng lượt, kể cả khi user bảo kiểm tra policy trước | 100% | 20/20 (100%) | `runs/v5_B_base_openai_20261110T165452666998.json` |
+| v5 / group | như trên | như trên | 100% | 10/10 (100%) | `runs/v5_B_group_openai_20261110T165517496503.json` |
+| v5 / research extension | như trên | như trên | 90% | **10/10 (100%)** | `runs/v5_B_extension_openai_20261110T165540372874.json` |
+| v5 / date extension | như trên | như trên | 100% | 3/3 (100%) | `runs/v5_B_extension_openai_20261110T165547136771.json` |
+| v5 / wikipedia extension | như trên | như trên | 100% | 3/3 (100%) | `runs/v5_B_extension_openai_20261110T165552950134.json` |
 
-Artifact cuối: `v3+p840cbe5577ea+t82c24d53675e`.
-Prompt SHA-256: `840cbe5577ea892139828e9501fe492bfd149291c28e88b5efb660afd6b8fcd7`.
-Tools SHA-256: `82c24d53675e9f9acfc9aff61ba7df709c012561d77cd62dfd5f89446cc2e80a`.
+**v4 làm tụt E06** ("Làm bản tin AI hôm nay, nhưng kiểm tra policy công ty về source/citation trước"): cả 3 lần chạy chỉ gọi `policy`, không gọi `lookup`; v3 đạt cả 3 lần. Bỏ dòng routing hoặc rút mô tả wikipedia còn 1 câu vẫn trượt (2/2 mỗi cách), nên nguyên nhân là việc thêm tool thứ 14. Một câu chung "first/before không phải lý do để chờ" không sửa được (0/2); câu cụ thể "bản tin luôn cần `lookup(topic=news)` cùng lượt" sửa được (2/2 thử, rồi 10/10 ở run chính thức v5).
 
-**Base 20/20, group 10/10, date 3/3, research extension 10/10; 0 provider error. Unit/UI tests: 139 passed, 0 failed, 0 skipped.**
+Artifact cuối: `v5+p12885e0c0bf8+t9c8833e2d8b9`.
+Prompt SHA-256: `12885e0c0bf887823732cb40f468ee7bdca2061b27594548d5f9ca8aacd3fc53`.
+Tools SHA-256: `9c8833e2d8b995ae11202c19fa1b05a73cef18b71129289666933ddba75708a2`.
+(v3: `v3+p840cbe5577ea+t82c24d53675e`, hash tính trên file CRLF của máy Windows; v4/v5 tính trên file LF.)
 
-Model: OpenRouter / openai/gpt-4o-mini. Read tools chạy thật; send được mô phỏng và đánh dấu trong metadata. Không có error dict ở tool results của 43 case cuối (`analysis/v3_tool_errors.json`).
+**v5: base 20/20, group 10/10, research extension 10/10, date 3/3, wikipedia 3/3; 0 provider error. Unit/UI tests: 153 passed, 0 failed, 0 skipped.**
+
+Model: `gpt-4o-mini` cho mọi version. v0–v3 gọi qua OpenRouter (`openai/gpt-4o-mini`); v4–v5 gọi thẳng OpenAI (`gpt-4o-mini`) vì key OpenRouter hết credit, cùng model nên vẫn so được. Read tools chạy thật; send được mô phỏng và đánh dấu trong metadata. Không có error dict ở tool results của 43 case cuối của v3 (`analysis/v3_tool_errors.json`).
 
 So v2–v3 là kết quả tổng thể: tập tool và nhiều quy tắc đã được hoàn thiện, không phải bằng chứng một chỉnh sửa đơn lẻ gây toàn bộ cải thiện. Bản nộp giữ run chính thức được trích dẫn cho từng version; các log thử nghiệm không dùng đã được dọn. Điểm bản cuối chỉ lấy từ các run khớp hash hiện hành.
 
@@ -119,6 +133,8 @@ Chi tiết: `analysis/v0_vs_v1.csv`, `analysis/v1_vs_v2.csv`, `analysis/v2_vs_v3
 
 Tool date có thêm 3 case trong `data/eval_date.json`: hỏi ngày hôm nay, hôm qua (-1), hai tuần trước (-14); cả 3 PASS. Các ngày thực tế được kiểm thử bằng clock cố định trong unit test.
 
+Tool wikipedia (v4) có 3 case riêng trong `data/eval_wikipedia.json` để `eval_group.json` giữ đúng 5 single + 5 multi: hỏi "Anthropic là công ty gì? Tra Wikipedia" (tiếng Việt), "Who is Demis Hassabis?" (tiếng Anh), và một case đối chứng "tin mới nhất về Anthropic hôm nay" phải ở lại `lookup`. Kết quả: xem B1.
+
 ## B4. Live Chat Evidence
 
 Phiên 7 lượt trên đúng artifact cuối: `transcripts/v3_openrouter_20261110T143528494225.transcript.json`.
@@ -141,12 +157,13 @@ Cả 7 lượt không có provider error/tool error; phiên có research, hỏi 
 
 | Hạng mục | Evidence | Kết quả / giới hạn |
 |---|---|---|
-| Unit + UI tests | `analysis/pytest.txt`, `tests/` | 139 PASS; 0 failed/skipped; offline, HTTP mock |
+| Unit + UI tests | `analysis/pytest.txt`, `tests/` | 139 PASS ở bản v3; sau khi thêm wikipedia và sửa UI: 153 PASS, 0 failed/skipped; offline, HTTP mock |
 | Streamlit local | `analysis/ui_verification.json`, `tests/test_ui.py`, `START_LOCAL.ps1` | Trang chính/health HTTP 200; AppTest kiểm tra load v3, đổi version, chat, transcript, chat mới |
-| 3 tool mới | `tools/deduplicate/`, `tools/yahoo_finance/`, `tools/date/` | Code, TOOL.md, registry và YAML đồng bộ; mỗi tool có ít nhất 3 test |
+| 4 tool mới (bonus "hơn 3 tool") | `tools/deduplicate/`, `tools/yahoo_finance/`, `tools/date/`, `tools/wikipedia/` | Code, TOOL.md, registry và YAML đồng bộ; mỗi tool có ít nhất 3 test (`tests/test_tool_wikipedia.py`: 8 test gồm URL/User-Agent, 404 → `not_found`, trang định hướng, input sai, lỗi mạng) và eval case route tới (wikipedia: `data/eval_wikipedia.json`) |
+| UI: bảng điểm theo bộ test | `app.py`, `tests/test_ui.py` | Tab Bảng điểm tách bộ khởi đầu / mở rộng; sửa lỗi bảng điểm báo "Chưa đo" trên macOS/Linux (run Windows hash CRLF, checkout LF) và lỗi các bộ cùng `suite=extension` đè nhau; có regression test |
 | arXiv / company policy | `runs/v3_B_extension_openrouter_20261110T143526294257.json` | 10/10 đúng routing/args; nội dung truy hồi vẫn cần xem xét thủ công |
 | Calendar extension | `runs/v3_B_extension_openrouter_20261110T143438392011.json` | 3/3; tests cố định clock kiểm tra múi giờ, tuần và offset |
-| Telegram | `transcripts/v3_openrouter_20261110T143528494225.transcript.json`, group 06/07 | Xác nhận/hủy có bằng chứng; send mô phỏng, không nộp bonus delivery thật |
+| Telegram | `transcripts/v3_openrouter_20261110T143528494225.transcript.json`, group 06/07 | Xác nhận/hủy có bằng chứng; send mô phỏng, không nộp bonus delivery thật: Telegram bắt trả phí SMS khi đăng ký tài khoản bằng số Việt Nam, nhóm không ai có tài khoản nên `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` để trống. Một phiên live riêng (không nộp, nhóm giữ một transcript) cho thấy lượt "Có, gửi đi" gọi đúng 1 lần `send(confirmed=true)`, tool trả lỗi thiếu token và agent báo gửi lỗi chứ không nhận vơ đã gửi |
 | Public link | Không thực hiện theo yêu cầu nhóm | Demo local; không có URL public |
 
 Đã bổ sung 2 regression test cho console Windows cp1252: log gọi tool và phản hồi tiếng Việt/emoji không làm dừng agent; UI khởi động ở UTF-8.
@@ -175,4 +192,35 @@ Bộ eval ép gọi tool ở các case có expected tool; UI/chat không ép nê
 
 ## B7. Small Local Model Challenge (bonus)
 
-Không thực hiện. Nhóm tập trung bản cloud chạy thật, 3 tool mới, UI local, eval và bằng chứng. Poster HTML/SVG không thực hiện. Với 3 tool mới, nhóm không nhận bonus yêu cầu hơn 3 tool mới (tức ít nhất 4).
+Ollama 0.40 trên MacBook M1 16 GB, 2 model 3B có tag `tools`: `qwen2.5:3b` và `llama3.2:3b`. Chạy bộ base 20 case. Mốc là prompt/tools **v3** (snapshot `artifacts/versions/v3`, 13 tool) đúng như README; tool `wikipedia` của v4/v5 không đưa vào để so được với cloud v3. Bản local riêng: `artifacts/tools_local.yaml`, `artifacts/system_prompt_local.md`; snapshot từng vòng ở `artifacts/versions_local/`. Mọi run có dòng trong `version_log.csv`. Poster HTML/SVG không thực hiện.
+
+| Version | Model (provider) | Prompt/Tools | case_accuracy | tool_routing | argument | multiturn | Run File |
+|---|---|---|---:|---:|---:|---:|---|
+| v3 | gpt-4o-mini (OpenRouter) | v3 | 1.00 | 1.00 | 1.00 | 1.00 | `runs/v3_B_base_openrouter_20261110T143325569018.json` |
+| v3-qwen3b | qwen2.5:3b (ollama) | v3 | 0.65 | 0.65 | 0.65 | 0.83 | `runs/v3-qwen3b_B_base_ollama_20261110T160639195922.json` |
+| v3-llama3b | llama3.2:3b (ollama) | v3 | 0.37 (7/19 đo được; R12 treo) | 0.58 | 0.37 | 0.17 | `runs/v3-llama3b_B_base_ollama_20261110T163852778155.json` |
+| v4-local-qwen3b | qwen2.5:3b (ollama) | prompt v3 + `tools_local.yaml` | 0.70 | 0.70 | 0.70 | 1.00 | `runs/v4-local-qwen3b_B_base_ollama_20261110T164101897585.json` |
+| v4-local-llama3b | llama3.2:3b (ollama) | prompt v3 + `tools_local.yaml` | **0.65** | 0.65 | 0.65 | 0.83 | `runs/v4-local-llama3b_B_base_ollama_20261110T164244131650.json` |
+| v5-local-qwen3b | qwen2.5:3b (ollama) | `system_prompt_local.md` (few-shot) + `tools_local.yaml` | 0.70 | 0.70 | 0.70 | 1.00 | `runs/v5-local-qwen3b_B_base_ollama_20261110T164426692671.json` |
+| v5-local-llama3b | llama3.2:3b (ollama) | `system_prompt_local.md` (few-shot) + `tools_local.yaml` | 0.50 | 0.55 | 0.50 | 0.67 | `runs/v5-local-llama3b_B_base_ollama_20261110T164605090190.json` |
+| v4-local-cloud | gpt-4o-mini (OpenAI) | v4-local | 0.90 | 0.95 | 0.90 | 0.83 | `runs/v4-local-cloud_B_base_openai_20261110T163002247385.json` |
+| v5-local-cloud | gpt-4o-mini (OpenAI) | v5-local | 0.90 | 0.95 | 0.90 | 0.83 | `runs/v5-local-cloud_B_base_openai_20261110T163140114567.json` |
+
+Hai vòng tối ưu, mỗi vòng một giả thuyết:
+
+- **v4-local:** chỉ đổi `description` của tool (giữ nguyên tên, tham số, enum), mỗi mô tả ngắn theo khuôn USE / DO NOT USE / ví dụ args. Giả thuyết: model 3B chọn tool theo mô tả tool nhiều hơn theo prompt văn xuôi dài.
+- **v5-local:** v4-local + 6 dòng few-shot "dạng yêu cầu → hành động" (URL → `fetch`, thiếu URL/handle → `clarify(text)`, Telegram → `clarify(yes_no)`, toán/code → không gọi tool).
+
+Lỗi đặc thù của model nhỏ (đếm từ run JSON; số dạng qwen / llama; cloud v3 không mắc lỗi nào):
+
+| Failure Pattern | Count (v3 → v4-local → v5-local) | Example Case | Fix Tried | Helped? |
+|---|---|---|---|---|
+| wrong tool (không có tool bịa tên) | qwen 1→0→0; llama 4→1→3 | R05 llama: `social_search("Elon Musk")` thay vì `timeline(elonmusk)` | mô tả USE / DO NOT USE (v4) | **Có** với llama; few-shot làm tệ lại |
+| arg sai kiểu/enum (JSON vẫn parse được, `_invalid_json_arguments` = 0) | số dạng chuỗi: llama 4→0→0; enum sai: cả 2 model | llama v3 `limit: "10"`; qwen `lookup(topic="math")` ngoài enum; llama sinh text vỡ dấu `"ĝuyờnưng tin náy lùp Telegram"` | ghi "as an integer", liệt kê enum trong mô tả | Một phần: hết số dạng chuỗi, enum sai vẫn còn |
+| không gọi tool / sinh text không dừng | qwen 1→1→1; llama 1 treo →0→0 | R11 qwen hỏi URL bằng text; R12 llama v3 sinh text tới timeout (~30 phút) | ví dụ few-shot | Không |
+| bỏ qua `clarify` | qwen 2→2→2; llama 2→3→3 | R10: qwen v3 `timeline("your_twitter_screen_name")`, v4-local `timeline("elonmusk")` (chép đúng ví dụ trong mô tả), v5-local `timeline("twitter")`; R12: cả 2 model gọi `send(confirmed=false/null)` thay vì hỏi | mô tả clarify + few-shot | **Không**. `send` tự chặn khi chưa `confirmed=true` nên không có tin nào bị gửi |
+| gọi tool khi không cần | qwen 2→2→2; llama 2→3→3 | R08 toán: `lookup(query="x^2", topic="math")`; R14 code: llama gọi `deduplicate`, qwen gọi `clarify` | few-shot "toán/code → không gọi tool" | Không |
+
+- **Cái gì giúp model nhỏ gọi tool đúng hơn nhất? Bằng chứng?** Viết lại mô tả tool ngắn theo khuôn USE / DO NOT USE / ví dụ: llama 7/19 → **13/20** (multiturn 0.17 → 0.83), qwen 13 → 14/20. Few-shot trong prompt không giúp: qwen giữ 14, llama tụt 13 → 10 (prompt dài hơn, lại chọn sai tool ở R05/M01/M03: `social_search`, `fetch`, `clarify` thay vì `timeline`). Ví dụ args là con dao hai lưỡi: model 3B chép giá trị ví dụ vào args khi thiếu thông tin (handle `elonmusk` ở R10). Một lần thử phụ trên v3 cũ (trước khi nhóm làm lại v3, commit `727cf51`) thay ví dụ bằng placeholder `<...>` còn tệ hơn: qwen 13 → 9/20, vì placeholder không phải JSON hợp lệ nên model không gọi được tool. Cùng lần thử đó cũng ra xu hướng như trên (mô tả ngắn: llama 8 → 12; few-shot: qwen +1, llama −1).
+- **Bản prompt tối ưu cho local chạy trên model cloud thì sao?** Tụt từ 20/20 xuống **18/20** ở cả v4-local và v5-local: R12 hỏi bằng `clarify(text)` thay vì `yes_no` (mô tả ngắn mất chi tiết "yes_no cả khi chưa có nội dung"), M06 vẫn gọi thêm `social_search` dù user đã bảo bỏ Twitter. Chưa tìm được một bản dùng tốt cho cả hai: cloud cần mô tả đầy đủ ranh giới, model 3B cần mô tả ngắn.
+- **Khi nào nhóm sẽ chọn model local thay vì cloud?** Chỉ cho tra cứu đơn giản có đủ thông tin (tin web, tweet theo handle rõ ràng) khi dữ liệu không được rời máy hoặc phải chạy offline. Không dùng local cho luồng cần hỏi lại hay gửi Telegram: không bản local nào gọi `clarify` đúng ở R10/R11/R12. Tốc độ: mỗi model chạy 20 case trong khoảng 2–3 phút, nhưng chỉ một case sinh text không dừng (llama v3 ở R12) là kéo lần chạy lên 32 phút, vì client chờ timeout rồi thử lại.

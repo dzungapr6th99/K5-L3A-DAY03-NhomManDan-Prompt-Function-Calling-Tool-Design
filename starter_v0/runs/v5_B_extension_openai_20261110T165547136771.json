@@ -1,0 +1,299 @@
+{
+  "run_id": "v5_B_extension_openai_20261110T165547136771",
+  "version": "v5",
+  "artifact_version": "v5+p12885e0c0bf8+t9c8833e2d8b9",
+  "prompt_hash": "12885e0c0bf887823732cb40f468ee7bdca2061b27594548d5f9ca8aacd3fc53",
+  "tools_hash": "9c8833e2d8b995ae11202c19fa1b05a73cef18b71129289666933ddba75708a2",
+  "phase": "B",
+  "suite": "extension",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "artifacts/versions/v5/system_prompt.md",
+  "tools": "artifacts/versions/v5/tools.yaml",
+  "eval_cases": "artifacts/versions/v5/eval_date.json",
+  "dataset_id": "day03_date_extension",
+  "dataset_role": "group",
+  "description": "Calendar routing for the new date tool; validate dates in offline unit tests with a frozen clock.",
+  "generated_at": "2026-11-10T16:55:47",
+  "summary": {
+    "total_cases": 3,
+    "measured_cases": 3,
+    "provider_error_cases": 0,
+    "passed_cases": 3,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": null,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "D01_today_vietnam",
+      "phase": "B",
+      "suite": "extension",
+      "case_suite": "extension",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Route explicit calendar question to date instead of guessing from training data."
+      },
+      "input": "Hôm nay là ngày nào, thứ mấy theo giờ Việt Nam?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "date",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "date",
+            "args": {}
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "date",
+          "args": {},
+          "result": {
+            "tool": "date",
+            "now": "2026-11-10T16:55+07:00",
+            "today": "Thứ Ba / Tuesday 2026-11-10",
+            "last_week": [
+              "Thứ Hai / Monday 2026-11-02",
+              "Thứ Ba / Tuesday 2026-11-03",
+              "Thứ Tư / Wednesday 2026-11-04",
+              "Thứ Năm / Thursday 2026-11-05",
+              "Thứ Sáu / Friday 2026-11-06",
+              "Thứ Bảy / Saturday 2026-11-07",
+              "Chủ Nhật / Sunday 2026-11-08"
+            ],
+            "this_week": [
+              "Thứ Hai / Monday 2026-11-09",
+              "Thứ Ba / Tuesday 2026-11-10",
+              "Thứ Tư / Wednesday 2026-11-11",
+              "Thứ Năm / Thursday 2026-11-12",
+              "Thứ Sáu / Friday 2026-11-13",
+              "Thứ Bảy / Saturday 2026-11-14",
+              "Chủ Nhật / Sunday 2026-11-15"
+            ],
+            "next_week": [
+              "Thứ Hai / Monday 2026-11-16",
+              "Thứ Ba / Tuesday 2026-11-17",
+              "Thứ Tư / Wednesday 2026-11-18",
+              "Thứ Năm / Thursday 2026-11-19",
+              "Thứ Sáu / Friday 2026-11-20",
+              "Thứ Bảy / Saturday 2026-11-21",
+              "Chủ Nhật / Sunday 2026-11-22"
+            ],
+            "offset_days": 0,
+            "date": "2026-11-10",
+            "weekday": "Thứ Ba / Tuesday",
+            "week_of_date": [
+              "Thứ Hai / Monday 2026-11-09",
+              "Thứ Ba / Tuesday 2026-11-10",
+              "Thứ Tư / Wednesday 2026-11-11",
+              "Thứ Năm / Thursday 2026-11-12",
+              "Thứ Sáu / Friday 2026-11-13",
+              "Thứ Bảy / Saturday 2026-11-14",
+              "Chủ Nhật / Sunday 2026-11-15"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "D02_yesterday_offset",
+      "phase": "B",
+      "suite": "extension",
+      "case_suite": "extension",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Translate yesterday into offset_days=-1."
+      },
+      "input": "Cho tôi ngày và thứ của hôm qua theo giờ Việt Nam.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "date",
+            "args": {
+              "offset_days": -1
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "date",
+            "args": {
+              "offset_days": -1
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "date",
+          "args": {
+            "offset_days": -1
+          },
+          "result": {
+            "tool": "date",
+            "now": "2026-11-10T16:55+07:00",
+            "today": "Thứ Ba / Tuesday 2026-11-10",
+            "last_week": [
+              "Thứ Hai / Monday 2026-11-02",
+              "Thứ Ba / Tuesday 2026-11-03",
+              "Thứ Tư / Wednesday 2026-11-04",
+              "Thứ Năm / Thursday 2026-11-05",
+              "Thứ Sáu / Friday 2026-11-06",
+              "Thứ Bảy / Saturday 2026-11-07",
+              "Chủ Nhật / Sunday 2026-11-08"
+            ],
+            "this_week": [
+              "Thứ Hai / Monday 2026-11-09",
+              "Thứ Ba / Tuesday 2026-11-10",
+              "Thứ Tư / Wednesday 2026-11-11",
+              "Thứ Năm / Thursday 2026-11-12",
+              "Thứ Sáu / Friday 2026-11-13",
+              "Thứ Bảy / Saturday 2026-11-14",
+              "Chủ Nhật / Sunday 2026-11-15"
+            ],
+            "next_week": [
+              "Thứ Hai / Monday 2026-11-16",
+              "Thứ Ba / Tuesday 2026-11-17",
+              "Thứ Tư / Wednesday 2026-11-18",
+              "Thứ Năm / Thursday 2026-11-19",
+              "Thứ Sáu / Friday 2026-11-20",
+              "Thứ Bảy / Saturday 2026-11-21",
+              "Chủ Nhật / Sunday 2026-11-22"
+            ],
+            "offset_days": -1,
+            "date": "2026-11-09",
+            "weekday": "Thứ Hai / Monday",
+            "week_of_date": [
+              "Thứ Hai / Monday 2026-11-09",
+              "Thứ Ba / Tuesday 2026-11-10",
+              "Thứ Tư / Wednesday 2026-11-11",
+              "Thứ Năm / Thursday 2026-11-12",
+              "Thứ Sáu / Friday 2026-11-13",
+              "Thứ Bảy / Saturday 2026-11-14",
+              "Chủ Nhật / Sunday 2026-11-15"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "D03_two_weeks_ago",
+      "phase": "B",
+      "suite": "extension",
+      "case_suite": "extension",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "English calendar request uses the same date tool and a negative offset."
+      },
+      "input": "What date was exactly two weeks ago in Vietnam?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "date",
+            "args": {
+              "offset_days": -14
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "date",
+            "args": {
+              "offset_days": -14
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "date",
+          "args": {
+            "offset_days": -14
+          },
+          "result": {
+            "tool": "date",
+            "now": "2026-11-10T16:55+07:00",
+            "today": "Thứ Ba / Tuesday 2026-11-10",
+            "last_week": [
+              "Thứ Hai / Monday 2026-11-02",
+              "Thứ Ba / Tuesday 2026-11-03",
+              "Thứ Tư / Wednesday 2026-11-04",
+              "Thứ Năm / Thursday 2026-11-05",
+              "Thứ Sáu / Friday 2026-11-06",
+              "Thứ Bảy / Saturday 2026-11-07",
+              "Chủ Nhật / Sunday 2026-11-08"
+            ],
+            "this_week": [
+              "Thứ Hai / Monday 2026-11-09",
+              "Thứ Ba / Tuesday 2026-11-10",
+              "Thứ Tư / Wednesday 2026-11-11",
+              "Thứ Năm / Thursday 2026-11-12",
+              "Thứ Sáu / Friday 2026-11-13",
+              "Thứ Bảy / Saturday 2026-11-14",
+              "Chủ Nhật / Sunday 2026-11-15"
+            ],
+            "next_week": [
+              "Thứ Hai / Monday 2026-11-16",
+              "Thứ Ba / Tuesday 2026-11-17",
+              "Thứ Tư / Wednesday 2026-11-18",
+              "Thứ Năm / Thursday 2026-11-19",
+              "Thứ Sáu / Friday 2026-11-20",
+              "Thứ Bảy / Saturday 2026-11-21",
+              "Chủ Nhật / Sunday 2026-11-22"
+            ],
+            "offset_days": -14,
+            "date": "2026-10-27",
+            "weekday": "Thứ Ba / Tuesday",
+            "week_of_date": [
+              "Thứ Hai / Monday 2026-10-26",
+              "Thứ Ba / Tuesday 2026-10-27",
+              "Thứ Tư / Wednesday 2026-10-28",
+              "Thứ Năm / Thursday 2026-10-29",
+              "Thứ Sáu / Friday 2026-10-30",
+              "Thứ Bảy / Saturday 2026-10-31",
+              "Chủ Nhật / Sunday 2026-11-01"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
